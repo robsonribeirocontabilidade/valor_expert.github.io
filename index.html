@@ -683,4 +683,1000 @@
         .solucao-feature:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 32px rgba(26,115,232,0.08);
-            border-color: var(--prima
+            border-color: var(--primary-light);
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 8px 20px rgba(26,115,232,0.25);
+        }
+
+        .solucao-feature h5 {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+            color: var(--gray-900);
+        }
+
+        .solucao-feature p {
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Diferencial */
+        .diferencial-section {
+            background: linear-gradient(135deg, #0a1929 0%, #0d47a1 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diferencial-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 30% 40%, rgba(100,181,246,0.15) 0%, transparent 50%);
+        }
+
+        .diferencial-content { position: relative; z-index: 2; }
+
+        .diferencial-section .section-title { color: white; }
+        .diferencial-section .section-subtitle { color: rgba(255,255,255,0.8); }
+        .diferencial-section .section-label { color: #64b5f6; }
+
+        .diferencial-feature {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 1.75rem;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .diferencial-feature:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-4px);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .diferencial-feature .feature-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #64b5f6, #bbdefb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.75rem;
+        }
+
+        .diferencial-feature h5 {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .diferencial-feature p {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Benefícios */
+        .beneficio-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            padding: 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .beneficio-item:hover { background: var(--primary-light); }
+
+        .beneficio-check {
+            width: 26px;
+            height: 26px;
+            flex-shrink: 0;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            margin-top: 2px;
+        }
+
+        .beneficio-item h6 {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+            color: var(--gray-900);
+        }
+
+        .beneficio-item p {
+            color: var(--gray-700);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        /* Público */
+        .publico-section { background: var(--gray-100); }
+
+        .publico-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            height: 100%;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .publico-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: var(--primary-light);
+        }
+
+        .publico-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary-light), #d4e4fc);
+            color: var(--primary);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1.25rem;
+        }
+
+        .publico-card h5 {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .publico-card p {
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        /* CTA Final */
+        .cta-final {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-final::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .cta-final-content { position: relative; z-index: 2; }
+
+        .cta-final h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .cta-final p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 2rem;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-cta-primary {
+            background: white;
+            color: var(--primary-dark);
+            padding: 1rem 2.25rem;
+            border-radius: 12px;
+            font-weight: 700;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1rem;
+        }
+
+        .btn-cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+            color: var(--primary-dark);
+        }
+
+        .btn-cta-secondary {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1rem 2.25rem;
+            border-radius: 12px;
+            font-weight: 600;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1rem;
+        }
+
+        .btn-cta-secondary:hover {
+            background: rgba(255,255,255,0.25);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: rgba(255,255,255,0.7);
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-brand {
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+
+        .footer a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover { color: white; }
+
+        /* Floating WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            animation: floatBounce 3s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            color: white;
+            box-shadow: 0 12px 32px rgba(37, 211, 102, 0.6);
+        }
+
+        @keyframes floatBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Responsivo */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 2.25rem; }
+            .hero { padding: 8rem 0 4rem; }
+            .section-title { font-size: 1.875rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.85rem; }
+            .hero p.subtitle { font-size: 1rem; }
+            .hero-cta { flex-direction: column; }
+            .hero-cta a { width: 100%; justify-content: center; }
+            .hero-stats { gap: 1.5rem; }
+            .hero-stat-item .number { font-size: 1.5rem; }
+            .cta-final h2 { font-size: 1.6rem; }
+            .emenda-tabs { grid-template-columns: 1fr; }
+            .simulador { padding: 1.5rem; }
+            .whatsapp-float { width: 54px; height: 54px; font-size: 1.5rem; }
+        }
+
+        /* Animações de scroll */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar-custom" id="navbar">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <a href="#" class="brand-logo">
+                <div class="brand-icon"><i class="fas fa-route"></i></div>
+                <span class="brand-text">Emendas Rastreáveis</span>
+            </a>
+            <div class="d-none d-md-flex align-items-center gap-4">
+                <a href="#solucao" class="text-decoration-none text-dark small fw-semibold">Solução</a>
+                <a href="#diferencial" class="text-decoration-none text-dark small fw-semibold">Diferencial</a>
+                <a href="#beneficios" class="text-decoration-none text-dark small fw-semibold">Benefícios</a>
+                <a href="https://wa.me/5513996520177?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20Emendas%20Rastre%C3%A1veis" 
+                   target="_blank" rel="noopener" class="btn btn-primary-custom btn-sm">
+                    Falar com Especialista
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ==================== HERO + SIMULADOR ==================== -->
+<section class="hero">
+    <div class="container hero-content">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="hero-badge">
+                    <span class="pulse-dot"></span>
+                    <span>Transparência que o cidadão vê</span>
+                </div>
+                <h1>
+                    Rastreie cada emenda impositiva<br>
+                    <span class="highlight">do papel à obra concluída</span>
+                </h1>
+                <p class="subtitle">
+                    Do protocolo na Câmara à execução na Prefeitura, cada movimentação
+                    fica registrada com prazos, responsáveis e status em tempo real.
+                    <strong style="color: white;">Experimente ao lado →</strong>
+                </p>
+                <div class="hero-cta">
+                    <a href="https://wa.me/5513996520177?text=Ol%C3%A1%2C%20quero%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20Emendas%20Rastre%C3%A1veis" 
+                       target="_blank" rel="noopener" class="btn-hero-primary">
+                        <i class="fas fa-calendar-check"></i>
+                        Agendar Demonstração
+                    </a>
+                    <a href="#solucao" class="btn-hero-secondary">
+                        <i class="fas fa-play-circle"></i>
+                        Como funciona
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat-item">
+                        <span class="number">100%</span>
+                        <span class="label">Rastreável</span>
+                    </div>
+                    <div class="hero-stat-item">
+                        <span class="number">0</span>
+                        <span class="label">Papel perdido</span>
+                    </div>
+                    <div class="hero-stat-item">
+                        <span class="number">24/7</span>
+                        <span class="label">Disponível</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULADOR INTERATIVO -->
+            <div class="col-lg-6">
+                <div class="simulador">
+                    <div class="simulador-header">
+                        <div>
+                            <div class="simulador-title">Simulador Interativo</div>
+                            <div class="simulador-subtitle">Clique em uma emenda para ver o rastreamento</div>
+                        </div>
+                        <span class="simulador-badge-live">
+                            <span class="dot"></span> AO VIVO
+                        </span>
+                    </div>
+
+                    <!-- Tabs de emendas -->
+                    <div class="emenda-tabs" id="emendaTabs">
+                        <!-- preenchido via JS -->
+                    </div>
+
+                    <!-- Painel de status -->
+                    <div class="status-panel" id="statusPanel">
+                        <div class="status-atual">
+                            <div class="status-icon" id="statusIcon"></div>
+                            <div class="status-info">
+                                <div class="label">Status Atual</div>
+                                <div class="value" id="statusValue">—</div>
+                            </div>
+                        </div>
+                        <div class="status-prazo">
+                            <div class="label">Prazo</div>
+                            <div class="value" id="statusPrazo">—</div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline -->
+                    <div class="timeline-sim" id="timelineSim">
+                        <!-- preenchido via JS -->
+                    </div>
+
+                    <!-- Barra de progresso -->
+                    <div class="progress-bar-container">
+                        <div class="progress-labels">
+                            <span>Progresso da Emenda</span>
+                            <span id="progressPercent">0%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Hint -->
+                    <div class="sim-hint">
+                        <i class="fas fa-hand-pointer"></i>
+                        <span>Clique nas emendas acima para alternar o rastreamento</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== PROBLEMA ==================== -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-5 fade-in-up">
+            <span class="section-label">O problema</span>
+            <h2 class="section-title">A emenda sai do papel, mas ninguém sabe onde está</h2>
+            <p class="section-subtitle">
+                Planilhas, e-mails, ofícios físicos. Quando o cidadão pergunta
+                "e a emenda que o vereador mandou pra minha rua?", ninguém sabe responder.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4 fade-in-up">
+                <div class="problema-card">
+                    <div class="problema-icon"><i class="fas fa-file-excel"></i></div>
+                    <h5>Planilhas e papéis</h5>
+                    <p>Controle manual, sujeito a erro. Informação fragmentada entre setores e sem histórico confiável.</p>
+                </div>
+            </div>
+            <div class="col-md-4 fade-in-up">
+                <div class="problema-card">
+                    <div class="problema-icon"><i class="fas fa-question-circle"></i></div>
+                    <h5>Sem visibilidade</h5>
+                    <p>Vereador, Prefeitura e cidadão não sabem em que etapa a emenda está, nem quem é o responsável.</p>
+                </div>
+            </div>
+            <div class="col-md-4 fade-in-up">
+                <div class="problema-card">
+                    <div class="problema-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h5>Risco com o TCESP</h5>
+                    <p>Ausência de rastreabilidade gera questionamentos do Tribunal de Contas e dificulta a prestação de contas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SOLUÇÃO ==================== -->
+<section class="section" id="solucao" style="background: linear-gradient(180deg, #f7fafc 0%, #ffffff 100%);">
+    <div class="container">
+        <div class="text-center mb-5 fade-in-up">
+            <span class="section-label">A solução</span>
+            <h2 class="section-title">Um sistema que rastreia a emenda como uma encomenda</h2>
+            <p class="section-subtitle">
+                Cada emenda tem um código único. Cada movimentação gera um evento.
+                Cada etapa tem prazo, responsável e status. Tudo auditável.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 fade-in-up">
+                <div class="solucao-feature">
+                    <div class="feature-icon"><i class="fas fa-qrcode"></i></div>
+                    <div>
+                        <h5>Código único de rastreamento</h5>
+                        <p>Cada emenda recebe um código público. O cidadão consulta pelo site ou QR Code.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 fade-in-up">
+                <div class="solucao-feature">
+                    <div class="feature-icon"><i class="fas fa-stream"></i></div>
+                    <div>
+                        <h5>Timeline completa</h5>
+                        <p>Histórico cronológico de cada etapa, com data, hora, responsável e observações.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 fade-in-up">
+                <div class="solucao-feature">
+                    <div class="feature-icon"><i class="fas fa-bell"></i></div>
+                    <div>
+                        <h5>Alertas automáticos</h5>
+                        <p>Prazos vencendo, impedimentos, documentos pendentes. Ninguém mais esquece nada.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 fade-in-up">
+                <div class="solucao-feature">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div>
+                        <h5>Conformidade TCESP</h5>
+                        <p>Relatórios automáticos no formato do Tribunal de Contas. Auditoria tranquila.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 fade-in-up">
+                <div class="solucao-feature">
+                    <div class="feature-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <div>
+                        <h5>Tramitação Câmara ↔ Prefeitura</h5>
+                        <p>Envio oficial, devolução, aprovação e execução — com responsabilidade clara em cada passo.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 fade-in-up">
+                <div class="solucao-feature">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <div>
+                        <h5>Portal público de transparência</h5>
+                        <p>Qualquer cidadão consulta. Vereador acompanha. Prefeitura executa. Todos com a mesma informação.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== DIFERENCIAL ==================== -->
+<section class="section diferencial-section" id="diferencial">
+    <div class="container diferencial-content">
+        <div class="text-center mb-5 fade-in-up">
+            <span class="section-label">Por que somos diferentes</span>
+            <h2 class="section-title">Não é um sistema de gestão.<br>É um sistema de rastreabilidade.</h2>
+            <p class="section-subtitle">
+                Enquanto outros sistemas focam em cadastro, o nosso foca em
+                <strong style="color: white;">rastreamento</strong> — porque é isso que o cidadão, o gestor e o TCESP precisam.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4 fade-in-up">
+                <div class="diferencial-feature">
+                    <div class="feature-number">01</div>
+                    <h5>Rastreamento visual</h5>
+                    <p>Uma linha do tempo clara, idêntica ao rastreamento de encomendas. Fácil de entender para qualquer pessoa.</p>
+                </div>
+            </div>
+            <div class="col-md-4 fade-in-up">
+                <div class="diferencial-feature">
+                    <div class="feature-number">02</div>
+                    <h5>Multi-tenant</h5>
+                    <p>Cada município tem seu próprio espaço, com portal público exclusivo e domínio personalizado.</p>
+                </div>
+            </div>
+            <div class="col-md-4 fade-in-up">
+                <div class="diferencial-feature">
+                    <div class="feature-number">03</div>
+                    <h5>Integração Câmara ↔ Prefeitura</h5>
+                    <p>A emenda nasce na Câmara, tramita para a Prefeitura e volta quando necessário. Histórico unificado.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== BENEFÍCIOS ==================== -->
+<section class="section" id="beneficios">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-4 mb-lg-0 fade-in-up">
+                <span class="section-label">Benefícios</span>
+                <h2 class="section-title">O que muda na prática</h2>
+                <p class="text-muted">
+                    Um sistema que resolve o problema de ponta a ponta, para todos os atores envolvidos.
+                </p>
+            </div>
+            <div class="col-lg-7">
+                <div class="row g-3">
+                    <div class="col-sm-6 fade-in-up">
+                        <div class="beneficio-item">
+                            <div class="beneficio-check"><i class="fas fa-check"></i></div>
+                            <div>
+                                <h6>Para o Vereador</h6>
+                                <p>Acompanha em tempo real o andamento de cada emenda que indicou.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 fade-in-up">
+                        <div class="beneficio-item">
+                            <div class="beneficio-check"><i class="fas fa-check"></i></div>
+                            <div>
+                                <h6>Para a Prefeitura</h6>
+                                <p>Recebe, analisa e executa com prazos e responsáveis definidos.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 fade-in-up">
+                        <div class="beneficio-item">
+                            <div class="beneficio-check"><i class="fas fa-check"></i></div>
+                            <div>
+                                <h6>Para o Cidadão</h6>
+                                <p>Consulta pelo celular se a emenda da sua rua já foi executada.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 fade-in-up">
+                        <div class="beneficio-item">
+                            <div class="beneficio-check"><i class="fas fa-check"></i></div>
+                            <div>
+                                <h6>Para o TCESP</h6>
+                                <p>Relatórios prontos, rastreáveis e conformes com as exigências.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 fade-in-up">
+                        <div class="beneficio-item">
+                            <div class="beneficio-check"><i class="fas fa-check"></i></div>
+                            <div>
+                                <h6>Menos retrabalho</h6>
+                                <p>Fim dos e-mails perdidos, planilhas desatualizadas e ofícios extraviados.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 fade-in-up">
+                        <div class="beneficio-item">
+                            <div class="beneficio-check"><i class="fas fa-check"></i></div>
+                            <div>
+                                <h6>Mais transparência</h6>
+                                <p>Portal público que mostra cada centavo e cada etapa, sem esforço.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== PÚBLICO-ALVO ==================== -->
+<section class="section publico-section">
+    <div class="container">
+        <div class="text-center mb-5 fade-in-up">
+            <span class="section-label">Para quem é</span>
+            <h2 class="section-title">Feito para quem lida com emendas impositivas</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-3 fade-in-up">
+                <div class="publico-card">
+                    <div class="publico-icon"><i class="fas fa-landmark"></i></div>
+                    <h5>Câmaras Municipais</h5>
+                    <p>Protocolar, tramitar e acompanhar cada emenda dos vereadores.</p>
+                </div>
+            </div>
+            <div class="col-md-3 fade-in-up">
+                <div class="publico-card">
+                    <div class="publico-icon"><i class="fas fa-city"></i></div>
+                    <h5>Prefeituras</h5>
+                    <p>Receber, analisar, executar e prestar contas com rastreabilidade total.</p>
+                </div>
+            </div>
+            <div class="col-md-3 fade-in-up">
+                <div class="publico-card">
+                    <div class="publico-icon"><i class="fas fa-users"></i></div>
+                    <h5>Controladorias</h5>
+                    <p>Auditar cada movimentação, com dados confiáveis e relatórios prontos.</p>
+                </div>
+            </div>
+            <div class="col-md-3 fade-in-up">
+                <div class="publico-card">
+                    <div class="publico-icon"><i class="fas fa-user-tie"></i></div>
+                    <h5>Vereadores</h5>
+                    <p>Acompanhar o andamento das emendas sem precisar ligar para ninguém.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CTA FINAL ==================== -->
+<section class="cta-final" id="contato">
+    <div class="container cta-final-content">
+        <h2>Pronto para rastrear cada emenda do seu município?</h2>
+        <p>
+            Agende uma demonstração gratuita e veja como transformar a gestão
+            de emendas impositivas em transparência real.
+        </p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="mailto:robsonribeirocontabilidade@gmail.com?subject=Quero%20conhecer%20o%20Emendas%20Rastre%C3%A1veis&body=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20sistema." 
+               class="btn-cta-primary">
+                <i class="fas fa-envelope"></i>
+                Falar com Especialista
+            </a>
+            <a href="https://wa.me/5513996520177?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20o%20Emendas%20Rastre%C3%A1veis" 
+               target="_blank" rel="noopener" class="btn-cta-secondary">
+                <i class="fab fa-whatsapp"></i>
+                WhatsApp
+            </a>
+        </div>
+        <p class="mt-4 small" style="opacity: 0.7;">
+            <i class="fas fa-shield-alt me-1"></i>
+            Seus dados estão seguros. Sem compromisso.
+        </p>
+    </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="footer-brand">
+                    <div class="brand-icon" style="width: 32px; height: 32px; font-size: 0.9rem;">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    Emendas Rastreáveis
+                </div>
+                <p>Rastreabilidade completa de emendas impositivas municipais. Da Câmara à Prefeitura, do papel à obra concluída.</p>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="text-white fw-bold mb-3">Contato</h6>
+                <p>
+                    <i class="fas fa-envelope me-2"></i>
+                    <a href="mailto:robsonribeirocontabilidade@gmail.com">robsonribeirocontabilidade@gmail.com</a>
+                </p>
+                <p>
+                    <i class="fab fa-whatsapp me-2"></i>
+                    <a href="https://wa.me/5513996520177" target="_blank" rel="noopener">(13) 99652-0177</a>
+                </p>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="text-white fw-bold mb-3">Links</h6>
+                <p><a href="#solucao">Solução</a></p>
+                <p><a href="#beneficios">Benefícios</a></p>
+                <p><a href="#contato">Contato</a></p>
+            </div>
+        </div>
+        <hr style="border-color: rgba(255,255,255,0.1);">
+        <div class="text-center small">
+            © 2026 Emendas Rastreáveis. Todos os direitos reservados.
+        </div>
+    </div>
+</footer>
+
+<!-- WhatsApp Flutuante -->
+<a href="https://wa.me/5513996520177?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20o%20Emendas%20Rastre%C3%A1veis" 
+   class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- ==================== SCRIPT DO SIMULADOR ==================== -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // ==================== DADOS DE EXEMPLO ====================
+    const emendas = [
+        {
+            id: 1,
+            numero: 'Nº 042/2026',
+            titulo: 'Reforma da UBS Central',
+            valor: 'R$ 250.000,00',
+            autor: 'Vereador João Silva',
+            status: 'Em análise na Controladoria',
+            statusIcon: 'fa-search',
+            statusColor: '#1a73e8',
+            statusBg: 'linear-gradient(135deg, #1a73e8, #0d47a1)',
+            prazo: '07/02/2026',
+            progresso: 60,
+            etapas: [
+                { tipo: 'completed', icon: 'fa-check', titulo: 'Emenda protocolada na Câmara', data: '15/01/2026 09:32', responsavel: 'Vereador João Silva' },
+                { tipo: 'completed', icon: 'fa-check', titulo: 'Aprovada em Plenária', data: '22/01/2026 14:15', responsavel: 'Câmara Municipal' },
+                { tipo: 'completed', icon: 'fa-check', titulo: 'Enviada à Prefeitura', data: '25/01/2026 10:00', responsavel: 'Transferência oficial' },
+                { tipo: 'current', icon: 'fa-spinner', titulo: 'Em análise na Controladoria', data: 'Desde 28/01/2026', responsavel: 'Prazo: 07/02/2026' },
+                { tipo: 'pending', icon: 'fa-circle', titulo: 'Execução e prestação de contas', data: 'Aguardando', responsavel: '' }
+            ]
+        },
+        {
+            id: 2,
+            numero: 'Nº 087/2026',
+            titulo: 'Pavimentação da Rua das Flores',
+            valor: 'R$ 180.000,00',
+            autor: 'Vereadora Maria Santos',
+            status: 'Concluída',
+            statusIcon: 'fa-flag-checkered',
+            statusColor: '#ffffff',
+            statusBg: 'linear-gradient(135deg, #00c853, #00897b)',
+            prazo: 'Concluído em 12/03/2026',
+            progresso: 100,
+            etapas: [
+                { tipo: 'completed', icon: 'fa-check', titulo: 'Emenda protocolada na Câmara', data: '10/01/2026 11:20', responsavel: 'Vereadora Maria Santos' },
+                { tipo: 'completed', icon: 'fa-check', titulo: 'Aprovada em Plenária', data: '18/01/2026 15:45', responsavel: 'Câmara Municipal' },
+                { tipo: 'completed', icon: 'fa-check', titulo: 'Enviada à Prefeitura', data: '20/01/2026 09:00', responsavel: 'Transferência oficial' },
+                { tipo: 'completed', icon: 'fa-check', titulo: 'Aprovada pela Prefeitura', data: '25/01/2026 16:30', responsavel: 'Secretaria de Obras' },
+                { tipo: 'completed', icon: 'fa-check', titulo: 'Execução concluída', data: '12/03/2026 17:00', responsavel: 'Obra entregue' },
+                { tipo: 'completed', icon: 'fa-check', titulo: 'Prestação de contas aprovada', data: '15/03/2026 10:00', responsavel: 'Controladoria' }
+            ]
+        },
+        {
+            id: 3,
+            numero: 'Nº 115/2026',
+            titulo: 'Compra de equipamentos para escola',
+            valor: 'R$ 95.000,00',
+            autor: 'Vereador Carlos Lima',
+            status: 'Devolvida para ajustes',
+            statusIcon: 'fa-undo',
+            statusColor: '#ffffff',
+            statusBg: 'linear-gradient(135deg, #ffab00, #e65100)',
+            prazo: 'Vence em 20/04/2026',
+            progresso: 35,
+            etapas: [
+                { tipo: 'completed', icon: 'fa-check', titulo: 'Emenda protocolada na Câmara', data: '05/02/2026 08:45', responsavel: 'Vereador Carlos Lima' },
+                { tipo: 'completed', icon: 'fa-check', titulo: 'Aprovada em Plenária', data: '12/02/2026 14:00', responsavel: 'Câmara Municipal' },
+                { tipo: 'completed', icon: 'fa-check', titulo: 'Enviada à Prefeitura', data: '15/02/2026 10:30', responsavel: 'Transferência oficial' },
+                { tipo: 'current', icon: 'fa-undo', titulo: 'Devolvida pela Prefeitura', data: '18/02/2026 16:00', responsavel: 'Motivo: documento faltante' },
+                { tipo: 'pending', icon: 'fa-circle', titulo: 'Reenvio após ajustes', data: 'Aguardando', responsavel: '' }
+            ]
+        }
+    ];
+
+    // ==================== RENDER ====================
+    const tabsContainer = document.getElementById('emendaTabs');
+    const timelineContainer = document.getElementById('timelineSim');
+    const statusPanel = document.getElementById('statusPanel');
+    const statusIcon = document.getElementById('statusIcon');
+    const statusValue = document.getElementById('statusValue');
+    const statusPrazo = document.getElementById('statusPrazo');
+    const progressFill = document.getElementById('progressFill');
+    const progressPercent = document.getElementById('progressPercent');
+
+    let currentEmenda = 0;
+
+    function renderTabs() {
+        tabsContainer.innerHTML = '';
+        emendas.forEach((e, i) => {
+            const tab = document.createElement('div');
+            tab.className = 'emenda-tab' + (i === currentEmenda ? ' active' : '');
+            tab.innerHTML = `
+                <div class="numero">${e.numero}</div>
+                <div class="titulo">${e.titulo}</div>
+                <div class="valor">${e.valor}</div>
+            `;
+            tab.addEventListener('click', () => selectEmenda(i));
+            tabsContainer.appendChild(tab);
+        });
+    }
+
+    function renderTimeline(emenda) {
+        timelineContainer.innerHTML = '';
+        emenda.etapas.forEach((etapa, i) => {
+            const item = document.createElement('div');
+            item.className = 'tl-item ' + etapa.tipo;
+            item.style.animationDelay = (i * 0.08) + 's';
+            item.innerHTML = `
+                <div class="tl-marker ${etapa.tipo}">
+                    <i class="fas ${etapa.icon}"></i>
+                </div>
+                <div class="tl-content">
+                    <div class="tl-title">${etapa.titulo}</div>
+                    <div class="tl-meta">
+                        <span><i class="far fa-clock"></i>${etapa.data}</span>
+                        ${etapa.responsavel ? `<span><i class="far fa-user"></i>${etapa.responsavel}</span>` : ''}
+                    </div>
+                </div>
+            `;
+            timelineContainer.appendChild(item);
+        });
+    }
+
+    function updateStatus(emenda) {
+        statusIcon.style.background = emenda.statusBg;
+        statusIcon.innerHTML = `<i class="fas ${emenda.statusIcon}"></i>`;
+        statusValue.textContent = emenda.status;
+        statusPrazo.textContent = emenda.prazo;
+
+        statusPanel.classList.remove('atualizada');
+        void statusPanel.offsetWidth; // force reflow
+        statusPanel.classList.add('atualizada');
+    }
+
+    function updateProgress(emenda) {
+        progressFill.style.width = '0%';
+        progressPercent.textContent = '0%';
+        setTimeout(() => {
+            progressFill.style.width = emenda.progresso + '%';
+            progressPercent.textContent = emenda.progresso + '%';
+        }, 100);
+    }
+
+    function selectEmenda(index) {
+        currentEmenda = index;
+        const emenda = emendas[index];
+        renderTabs();
+        renderTimeline(emenda);
+        updateStatus(emenda);
+        updateProgress(emenda);
+    }
+
+    // ==================== INTERAÇÕES ====================
+    // Navbar scroll
+    window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#' || href === '') return;
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Fade in on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+    // Auto-rotação do simulador (a cada 6s)
+    let autoRotate = setInterval(() => {
+        if (!document.hidden) {
+            selectEmenda((currentEmenda + 1) % emendas.length);
+        }
+    }, 6000);
+
+    // Pausar auto-rotação quando o usuário interagir
+    tabsContainer.addEventListener('click', () => {
+        clearInterval(autoRotate);
+    });
+
+    // ==================== INICIALIZAÇÃO ====================
+    selectEmenda(0);
+</script>
+
+</body>
+</html>
