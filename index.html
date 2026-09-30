@@ -3,8 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sistema de rastreabilidade de emendas impositivas municipais. Transparência total da Câmara à Prefeitura, do papel à obra concluída.">
-    <title>Emendas Rastreáveis — Do papel à obra concluída</title>
+
+    <!-- ========== SEO PRINCIPAL ========== -->
+    <title>Emenda Impositiva: Sistema de Rastreabilidade Municipal | Emendas Rastreáveis</title>
+    <meta name="description" content="Sistema de rastreamento de emenda impositiva municipal. Transparência total da Câmara à Prefeitura: do protocolo à obra concluída. Conformidade TCESP. Agende uma demonstração.">
+    <meta name="keywords" content="emenda impositiva, emenda parlamentar impositiva, emenda impositiva municipal, rastreabilidade de emendas, transparência municipal, TCESP, emendas impositivas, gestão de emendas">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta name="author" content="Emendas Rastreáveis">
+    <link rel="canonical" href="https://emendasrastreaveis.com.br/">
+
+    <!-- ========== OPEN GRAPH (Facebook / WhatsApp / LinkedIn) ========== -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Emendas Rastreáveis">
+    <meta property="og:title" content="Emenda Impositiva: Rastreie do papel à obra concluída">
+    <meta property="og:description" content="Sistema de rastreabilidade de emendas impositivas municipais. Transparência total da Câmara à Prefeitura, conformidade TCESP e portal público para o cidadão.">
+    <meta property="og:url" content="https://emendasrastreaveis.com.br/">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:image" content="https://emendasrastreaveis.com.br/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Interface do sistema Emendas Rastreáveis mostrando timeline de emenda impositiva">
+
+    <!-- ========== TWITTER CARD ========== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Emenda Impositiva: Sistema de Rastreabilidade Municipal">
+    <meta name="twitter:description" content="Rastreie cada emenda impositiva do protocolo à obra concluída. Conformidade TCESP e transparência pública.">
+    <meta name="twitter:image" content="https://emendasrastreaveis.com.br/og-image.jpg">
+
+    <!-- ========== SCHEMA.ORG - DADOS ESTRUTURADOS ========== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Emendas Rastreáveis",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "Sistema de rastreabilidade de emendas impositivas municipais. Da Câmara à Prefeitura, do papel à obra concluída. Transparência total e conformidade com o TCESP.",
+      "url": "https://emendasrastreaveis.com.br/",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL",
+        "description": "Demonstração gratuita"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "Emendas Rastreáveis",
+        "email": "robsonribeirocontabilidade@gmail.com",
+        "telephone": "+55-13-99652-0177",
+        "url": "https://emendasrastreaveis.com.br/"
+      },
+      "featureList": [
+        "Rastreamento de emendas impositivas",
+        "Timeline completa de tramitação",
+        "Alertas automáticos de prazos",
+        "Conformidade TCESP",
+        "Portal público de transparência",
+        "Integração Câmara ↔ Prefeitura"
+      ],
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Câmaras Municipais, Prefeituras, Controladorias, Vereadores"
+      }
+    }
+    </script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -714,6 +776,48 @@
             line-height: 1.5;
         }
 
+        /* ==================== VÍDEO INSTITUCIONAL ==================== */
+        .video-section {
+            background: linear-gradient(180deg, #ffffff 0%, #f7fafc 100%);
+        }
+
+        .video-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(13, 71, 161, 0.25);
+            background: #0a1929;
+            aspect-ratio: 16 / 9;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-light), #d4e4fc);
+            color: var(--primary-dark);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+        }
+
+        .video-badge i { color: var(--danger); }
+
         /* Diferencial */
         .diferencial-section {
             background: linear-gradient(135deg, #0a1929 0%, #0d47a1 100%);
@@ -1011,6 +1115,10 @@
             .emenda-tabs { grid-template-columns: 1fr; }
             .simulador { padding: 1.5rem; }
             .whatsapp-float { width: 54px; height: 54px; font-size: 1.5rem; }
+            .video-wrapper {
+                border-radius: 14px;
+                box-shadow: 0 15px 40px rgba(13, 71, 161, 0.2);
+            }
         }
 
         /* Animações de scroll */
@@ -1029,15 +1137,16 @@
 <body>
 
 <!-- ==================== NAVBAR ==================== -->
-<nav class="navbar-custom" id="navbar">
+<nav class="navbar-custom" id="navbar" aria-label="Navegação principal">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center w-100">
-            <a href="#" class="brand-logo">
-                <div class="brand-icon"><i class="fas fa-route"></i></div>
+            <a href="#" class="brand-logo" aria-label="Emendas Rastreáveis - Página inicial">
+                <div class="brand-icon"><i class="fas fa-route" aria-hidden="true"></i></div>
                 <span class="brand-text">Emendas Rastreáveis</span>
             </a>
             <div class="d-none d-md-flex align-items-center gap-4">
                 <a href="#solucao" class="text-decoration-none text-dark small fw-semibold">Solução</a>
+                <a href="#video" class="text-decoration-none text-dark small fw-semibold">Vídeo</a>
                 <a href="#diferencial" class="text-decoration-none text-dark small fw-semibold">Diferencial</a>
                 <a href="#beneficios" class="text-decoration-none text-dark small fw-semibold">Benefícios</a>
                 <a href="https://wa.me/5513996520177?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20Emendas%20Rastre%C3%A1veis" 
@@ -1059,22 +1168,22 @@
                     <span>Transparência que o cidadão vê</span>
                 </div>
                 <h1>
-                    Rastreie cada emenda impositiva<br>
-                    <span class="highlight">do papel à obra concluída</span>
+                    Rastreie cada <span class="highlight">emenda impositiva</span><br>
+                    do papel à obra concluída
                 </h1>
                 <p class="subtitle">
                     Do protocolo na Câmara à execução na Prefeitura, cada movimentação
-                    fica registrada com prazos, responsáveis e status em tempo real.
+                    da <strong>emenda impositiva municipal</strong> fica registrada com prazos, responsáveis e status em tempo real.
                     <strong style="color: white;">Experimente ao lado →</strong>
                 </p>
                 <div class="hero-cta">
                     <a href="https://wa.me/5513996520177?text=Ol%C3%A1%2C%20quero%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20Emendas%20Rastre%C3%A1veis" 
                        target="_blank" rel="noopener" class="btn-hero-primary">
-                        <i class="fas fa-calendar-check"></i>
+                        <i class="fas fa-calendar-check" aria-hidden="true"></i>
                         Agendar Demonstração
                     </a>
                     <a href="#solucao" class="btn-hero-secondary">
-                        <i class="fas fa-play-circle"></i>
+                        <i class="fas fa-play-circle" aria-hidden="true"></i>
                         Como funciona
                     </a>
                 </div>
@@ -1145,7 +1254,7 @@
 
                     <!-- Hint -->
                     <div class="sim-hint">
-                        <i class="fas fa-hand-pointer"></i>
+                        <i class="fas fa-hand-pointer" aria-hidden="true"></i>
                         <span>Clique nas emendas acima para alternar o rastreamento</span>
                     </div>
                 </div>
@@ -1159,31 +1268,31 @@
     <div class="container">
         <div class="text-center mb-5 fade-in-up">
             <span class="section-label">O problema</span>
-            <h2 class="section-title">A emenda sai do papel, mas ninguém sabe onde está</h2>
+            <h2 class="section-title">A emenda impositiva sai do papel, mas ninguém sabe onde está</h2>
             <p class="section-subtitle">
                 Planilhas, e-mails, ofícios físicos. Quando o cidadão pergunta
-                "e a emenda que o vereador mandou pra minha rua?", ninguém sabe responder.
+                "e a emenda impositiva que o vereador mandou pra minha rua?", ninguém sabe responder.
             </p>
         </div>
 
         <div class="row g-4">
             <div class="col-md-4 fade-in-up">
                 <div class="problema-card">
-                    <div class="problema-icon"><i class="fas fa-file-excel"></i></div>
+                    <div class="problema-icon"><i class="fas fa-file-excel" aria-hidden="true"></i></div>
                     <h5>Planilhas e papéis</h5>
                     <p>Controle manual, sujeito a erro. Informação fragmentada entre setores e sem histórico confiável.</p>
                 </div>
             </div>
             <div class="col-md-4 fade-in-up">
                 <div class="problema-card">
-                    <div class="problema-icon"><i class="fas fa-question-circle"></i></div>
+                    <div class="problema-icon"><i class="fas fa-question-circle" aria-hidden="true"></i></div>
                     <h5>Sem visibilidade</h5>
                     <p>Vereador, Prefeitura e cidadão não sabem em que etapa a emenda está, nem quem é o responsável.</p>
                 </div>
             </div>
             <div class="col-md-4 fade-in-up">
                 <div class="problema-card">
-                    <div class="problema-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="problema-icon"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i></div>
                     <h5>Risco com o TCESP</h5>
                     <p>Ausência de rastreabilidade gera questionamentos do Tribunal de Contas e dificulta a prestação de contas.</p>
                 </div>
@@ -1197,7 +1306,7 @@
     <div class="container">
         <div class="text-center mb-5 fade-in-up">
             <span class="section-label">A solução</span>
-            <h2 class="section-title">Um sistema que rastreia a emenda como uma encomenda</h2>
+            <h2 class="section-title">Um sistema que rastreia a emenda impositiva como uma encomenda</h2>
             <p class="section-subtitle">
                 Cada emenda tem um código único. Cada movimentação gera um evento.
                 Cada etapa tem prazo, responsável e status. Tudo auditável.
@@ -1207,25 +1316,25 @@
         <div class="row g-4">
             <div class="col-md-6 fade-in-up">
                 <div class="solucao-feature">
-                    <div class="feature-icon"><i class="fas fa-qrcode"></i></div>
+                    <div class="feature-icon"><i class="fas fa-qrcode" aria-hidden="true"></i></div>
                     <div>
                         <h5>Código único de rastreamento</h5>
-                        <p>Cada emenda recebe um código público. O cidadão consulta pelo site.</p>
+                        <p>Cada emenda impositiva recebe um código público. O cidadão consulta pelo site.</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 fade-in-up">
                 <div class="solucao-feature">
-                    <div class="feature-icon"><i class="fas fa-stream"></i></div>
+                    <div class="feature-icon"><i class="fas fa-stream" aria-hidden="true"></i></div>
                     <div>
                         <h5>Timeline completa</h5>
-                        <p>Histórico cronológico de cada etapa, com data, hora, responsável e observações.</p>
+                        <p>Histórico cronológico de cada etapa da emenda, com data, hora, responsável e observações.</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 fade-in-up">
                 <div class="solucao-feature">
-                    <div class="feature-icon"><i class="fas fa-bell"></i></div>
+                    <div class="feature-icon"><i class="fas fa-bell" aria-hidden="true"></i></div>
                     <div>
                         <h5>Alertas automáticos</h5>
                         <p>Prazos vencendo, impedimentos, documentos pendentes. Ninguém mais esquece nada.</p>
@@ -1234,7 +1343,7 @@
             </div>
             <div class="col-md-6 fade-in-up">
                 <div class="solucao-feature">
-                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="feature-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
                     <div>
                         <h5>Conformidade TCESP</h5>
                         <p>Relatórios automáticos no formato do Tribunal de Contas. Auditoria tranquila.</p>
@@ -1243,7 +1352,7 @@
             </div>
             <div class="col-md-6 fade-in-up">
                 <div class="solucao-feature">
-                    <div class="feature-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <div class="feature-icon"><i class="fas fa-exchange-alt" aria-hidden="true"></i></div>
                     <div>
                         <h5>Tramitação Câmara ↔ Prefeitura</h5>
                         <p>Envio oficial, devolução, aprovação e execução — com responsabilidade clara em cada passo.</p>
@@ -1252,13 +1361,40 @@
             </div>
             <div class="col-md-6 fade-in-up">
                 <div class="solucao-feature">
-                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="feature-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></div>
                     <div>
                         <h5>Portal público de transparência</h5>
                         <p>Qualquer cidadão consulta. Vereador acompanha. Prefeitura executa. Todos com a mesma informação.</p>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== VÍDEO INSTITUCIONAL ==================== -->
+<section class="section video-section" id="video">
+    <div class="container">
+        <div class="text-center mb-5 fade-in-up">
+            <div class="video-badge">
+                <i class="fas fa-play-circle" aria-hidden="true"></i>
+                Vídeo Institucional
+            </div>
+            <h2 class="section-title">Veja o Emendas Rastreáveis em ação</h2>
+            <p class="section-subtitle">
+                Em poucos minutos, entenda como transformamos a gestão de emendas
+                impositivas em um processo transparente, rastreável e auditável.
+            </p>
+        </div>
+
+        <div class="video-wrapper fade-in-up">
+	    <iframe
+	        src="https://www.youtube-nocookie.com/embed/TU1VyqJIu4A"
+	        referrerpolicy="strict-origin-when-cross-origin"
+	        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+	        allowfullscreen
+	        loading="lazy">
+	    </iframe>
         </div>
     </div>
 </section>
@@ -1309,14 +1445,14 @@
                 <span class="section-label">Benefícios</span>
                 <h2 class="section-title">O que muda na prática</h2>
                 <p class="text-muted">
-                    Um sistema que resolve o problema de ponta a ponta, para todos os atores envolvidos.
+                    Um sistema que resolve o problema de ponta a ponta, para todos os atores envolvidos na <strong>emenda impositiva municipal</strong>.
                 </p>
             </div>
             <div class="col-lg-7">
                 <div class="row g-3">
                     <div class="col-sm-6 fade-in-up">
                         <div class="beneficio-item">
-                            <div class="beneficio-check"><i class="fas fa-check"></i></div>
+                            <div class="beneficio-check"><i class="fas fa-check" aria-hidden="true"></i></div>
                             <div>
                                 <h6>Para o Vereador</h6>
                                 <p>Acompanha em tempo real o andamento de cada emenda que indicou.</p>
@@ -1325,7 +1461,7 @@
                     </div>
                     <div class="col-sm-6 fade-in-up">
                         <div class="beneficio-item">
-                            <div class="beneficio-check"><i class="fas fa-check"></i></div>
+                            <div class="beneficio-check"><i class="fas fa-check" aria-hidden="true"></i></div>
                             <div>
                                 <h6>Para a Prefeitura</h6>
                                 <p>Recebe, analisa e executa com prazos e responsáveis definidos.</p>
@@ -1334,7 +1470,7 @@
                     </div>
                     <div class="col-sm-6 fade-in-up">
                         <div class="beneficio-item">
-                            <div class="beneficio-check"><i class="fas fa-check"></i></div>
+                            <div class="beneficio-check"><i class="fas fa-check" aria-hidden="true"></i></div>
                             <div>
                                 <h6>Para o Cidadão</h6>
                                 <p>Consulta pelo celular se a emenda da sua rua já foi executada.</p>
@@ -1343,7 +1479,7 @@
                     </div>
                     <div class="col-sm-6 fade-in-up">
                         <div class="beneficio-item">
-                            <div class="beneficio-check"><i class="fas fa-check"></i></div>
+                            <div class="beneficio-check"><i class="fas fa-check" aria-hidden="true"></i></div>
                             <div>
                                 <h6>Para o TCESP</h6>
                                 <p>Relatórios prontos, rastreáveis e conformes com as exigências.</p>
@@ -1352,7 +1488,7 @@
                     </div>
                     <div class="col-sm-6 fade-in-up">
                         <div class="beneficio-item">
-                            <div class="beneficio-check"><i class="fas fa-check"></i></div>
+                            <div class="beneficio-check"><i class="fas fa-check" aria-hidden="true"></i></div>
                             <div>
                                 <h6>Menos retrabalho</h6>
                                 <p>Fim dos e-mails perdidos, planilhas desatualizadas e ofícios extraviados.</p>
@@ -1361,7 +1497,7 @@
                     </div>
                     <div class="col-sm-6 fade-in-up">
                         <div class="beneficio-item">
-                            <div class="beneficio-check"><i class="fas fa-check"></i></div>
+                            <div class="beneficio-check"><i class="fas fa-check" aria-hidden="true"></i></div>
                             <div>
                                 <h6>Mais transparência</h6>
                                 <p>Portal público que mostra cada centavo e cada etapa, sem esforço.</p>
@@ -1379,34 +1515,34 @@
     <div class="container">
         <div class="text-center mb-5 fade-in-up">
             <span class="section-label">Para quem é</span>
-            <h2 class="section-title">Feito para quem lida com emendas impositivas</h2>
+            <h2 class="section-title">Feito para quem lida com emenda impositiva</h2>
         </div>
 
         <div class="row g-4">
             <div class="col-md-3 fade-in-up">
                 <div class="publico-card">
-                    <div class="publico-icon"><i class="fas fa-landmark"></i></div>
+                    <div class="publico-icon"><i class="fas fa-landmark" aria-hidden="true"></i></div>
                     <h5>Câmaras Municipais</h5>
                     <p>Protocolar, tramitar e acompanhar cada emenda dos vereadores.</p>
                 </div>
             </div>
             <div class="col-md-3 fade-in-up">
                 <div class="publico-card">
-                    <div class="publico-icon"><i class="fas fa-city"></i></div>
+                    <div class="publico-icon"><i class="fas fa-city" aria-hidden="true"></i></div>
                     <h5>Prefeituras</h5>
                     <p>Receber, analisar, executar e prestar contas com rastreabilidade total.</p>
                 </div>
             </div>
             <div class="col-md-3 fade-in-up">
                 <div class="publico-card">
-                    <div class="publico-icon"><i class="fas fa-users"></i></div>
+                    <div class="publico-icon"><i class="fas fa-users" aria-hidden="true"></i></div>
                     <h5>Controladorias</h5>
                     <p>Auditar cada movimentação, com dados confiáveis e relatórios prontos.</p>
                 </div>
             </div>
             <div class="col-md-3 fade-in-up">
                 <div class="publico-card">
-                    <div class="publico-icon"><i class="fas fa-user-tie"></i></div>
+                    <div class="publico-icon"><i class="fas fa-user-tie" aria-hidden="true"></i></div>
                     <h5>Vereadores</h5>
                     <p>Acompanhar o andamento das emendas sem precisar ligar para ninguém.</p>
                 </div>
@@ -1426,17 +1562,17 @@
         <div class="d-flex justify-content-center gap-3 flex-wrap">
             <a href="mailto:robsonribeirocontabilidade@gmail.com?subject=Quero%20conhecer%20o%20Emendas%20Rastre%C3%A1veis&body=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20sistema." 
                class="btn-cta-primary">
-                <i class="fas fa-envelope"></i>
+                <i class="fas fa-envelope" aria-hidden="true"></i>
                 Falar com Especialista
             </a>
             <a href="https://wa.me/5513996520177?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20o%20Emendas%20Rastre%C3%A1veis" 
                target="_blank" rel="noopener" class="btn-cta-secondary">
-                <i class="fab fa-whatsapp"></i>
+                <i class="fab fa-whatsapp" aria-hidden="true"></i>
                 WhatsApp
             </a>
         </div>
         <p class="mt-4 small" style="opacity: 0.7;">
-            <i class="fas fa-shield-alt me-1"></i>
+            <i class="fas fa-shield-alt me-1" aria-hidden="true"></i>
             Seus dados estão seguros. Sem compromisso.
         </p>
     </div>
@@ -1449,7 +1585,7 @@
             <div class="col-md-6 mb-4">
                 <div class="footer-brand">
                     <div class="brand-icon" style="width: 32px; height: 32px; font-size: 0.9rem;">
-                        <i class="fas fa-route"></i>
+                        <i class="fas fa-route" aria-hidden="true"></i>
                     </div>
                     Emendas Rastreáveis
                 </div>
@@ -1458,17 +1594,18 @@
             <div class="col-md-3 mb-4">
                 <h6 class="text-white fw-bold mb-3">Contato</h6>
                 <p>
-                    <i class="fas fa-envelope me-2"></i>
+                    <i class="fas fa-envelope me-2" aria-hidden="true"></i>
                     <a href="mailto:robsonribeirocontabilidade@gmail.com">robsonribeirocontabilidade@gmail.com</a>
                 </p>
                 <p>
-                    <i class="fab fa-whatsapp me-2"></i>
+                    <i class="fab fa-whatsapp me-2" aria-hidden="true"></i>
                     <a href="https://wa.me/5513996520177" target="_blank" rel="noopener">(13) 99652-0177</a>
                 </p>
             </div>
             <div class="col-md-3 mb-4">
                 <h6 class="text-white fw-bold mb-3">Links</h6>
                 <p><a href="#solucao">Solução</a></p>
+                <p><a href="#video">Vídeo</a></p>
                 <p><a href="#beneficios">Benefícios</a></p>
                 <p><a href="#contato">Contato</a></p>
             </div>
@@ -1482,8 +1619,8 @@
 
 <!-- WhatsApp Flutuante -->
 <a href="https://wa.me/5513996520177?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20o%20Emendas%20Rastre%C3%A1veis" 
-   class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
-    <i class="fab fa-whatsapp"></i>
+   class="whatsapp-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <i class="fab fa-whatsapp" aria-hidden="true"></i>
 </a>
 
 <!-- ==================== SCRIPT DO SIMULADOR ==================== -->
@@ -1571,12 +1708,20 @@
         emendas.forEach((e, i) => {
             const tab = document.createElement('div');
             tab.className = 'emenda-tab' + (i === currentEmenda ? ' active' : '');
+            tab.setAttribute('role', 'button');
+            tab.setAttribute('tabindex', '0');
             tab.innerHTML = `
                 <div class="numero">${e.numero}</div>
                 <div class="titulo">${e.titulo}</div>
                 <div class="valor">${e.valor}</div>
             `;
             tab.addEventListener('click', () => selectEmenda(i));
+            tab.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    selectEmenda(i);
+                }
+            });
             tabsContainer.appendChild(tab);
         });
     }
@@ -1589,13 +1734,13 @@
             item.style.animationDelay = (i * 0.08) + 's';
             item.innerHTML = `
                 <div class="tl-marker ${etapa.tipo}">
-                    <i class="fas ${etapa.icon}"></i>
+                    <i class="fas ${etapa.icon}" aria-hidden="true"></i>
                 </div>
                 <div class="tl-content">
                     <div class="tl-title">${etapa.titulo}</div>
                     <div class="tl-meta">
-                        <span><i class="far fa-clock"></i>${etapa.data}</span>
-                        ${etapa.responsavel ? `<span><i class="far fa-user"></i>${etapa.responsavel}</span>` : ''}
+                        <span><i class="far fa-clock" aria-hidden="true"></i>${etapa.data}</span>
+                        ${etapa.responsavel ? `<span><i class="far fa-user" aria-hidden="true"></i>${etapa.responsavel}</span>` : ''}
                     </div>
                 </div>
             `;
@@ -1605,7 +1750,7 @@
 
     function updateStatus(emenda) {
         statusIcon.style.background = emenda.statusBg;
-        statusIcon.innerHTML = `<i class="fas ${emenda.statusIcon}"></i>`;
+        statusIcon.innerHTML = `<i class="fas ${emenda.statusIcon}" aria-hidden="true"></i>`;
         statusValue.textContent = emenda.status;
         statusPrazo.textContent = emenda.prazo;
 
