@@ -1108,22 +1108,46 @@
         }
 
         .tribunal-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.15);
             color: rgba(255,255,255,0.85);
-            padding: 0.4rem 0.9rem;
+            padding: 0.45rem 0.95rem;
             border-radius: 50px;
             font-size: 0.72rem;
             font-weight: 600;
             transition: all 0.3s ease;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         .tribunal-tag:hover {
-            background: rgba(255,255,255,0.18);
-            border-color: rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(100,181,246,0.6);
+            color: white;
             transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(100,181,246,0.25);
         }
 
+        .tribunal-tag i {
+            font-size: 0.65rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .tribunal-tag:hover i {
+            opacity: 1;
+        }
+        a.tribunal-tag {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        a.tribunal-tag:hover {
+            color: white;
+        }
         /* FAQ */
         .faq-accordion { max-width: 860px; margin: 0 auto; }
 
@@ -1976,34 +2000,100 @@
                 Tribunais de Contas estaduais brasileiros. Isso o torna aplicável a municípios
                 de qualquer estado da federação.
             </p>
-            <div class="tribunais-lista">
-                <span class="tribunal-tag">TCESP (SP)</span>
-                <span class="tribunal-tag">TCE-RJ</span>
-                <span class="tribunal-tag">TCE-MG</span>
-                <span class="tribunal-tag">TCE-RS</span>
-                <span class="tribunal-tag">TCE-PR</span>
-                <span class="tribunal-tag">TCE-BA</span>
-                <span class="tribunal-tag">TCE-PE</span>
-                <span class="tribunal-tag">TCE-CE</span>
-                <span class="tribunal-tag">TCE-GO</span>
-                <span class="tribunal-tag">TCE-MT</span>
-                <span class="tribunal-tag">TCE-MS</span>
-                <span class="tribunal-tag">TCE-ES</span>
-                <span class="tribunal-tag">TCE-SC</span>
-                <span class="tribunal-tag">TCE-PB</span>
-                <span class="tribunal-tag">TCE-RN</span>
-                <span class="tribunal-tag">TCE-PI</span>
-                <span class="tribunal-tag">TCE-AL</span>
-                <span class="tribunal-tag">TCE-SE</span>
-                <span class="tribunal-tag">TCE-TO</span>
-                <span class="tribunal-tag">TCE-RO</span>
-                <span class="tribunal-tag">TCE-AC</span>
-                <span class="tribunal-tag">TCE-AP</span>
-                <span class="tribunal-tag">TCE-AM</span>
-                <span class="tribunal-tag">TCE-PA</span>
-                <span class="tribunal-tag">TCE-MA</span>
-                <span class="tribunal-tag">TCM (Capitais)</span>
-            </div>
+                <div class="tribunais-lista">
+                    <!-- ========== TRIBUNAIS DE CONTAS ESTADUAIS ========== -->
+                    <a href="https://www.tce.sp.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado de São Paulo">
+                        TCESP (SP) <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tcerj.tc.br/portalnovo/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Rio de Janeiro">
+                        TCE-RJ <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tce.mg.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado de Minas Gerais">
+                        TCE-MG <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://tcers.tc.br/fiscalizado/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Rio Grande do Sul">
+                        TCE-RS <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tce.pr.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Paraná">
+                        TCE-PR <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tce.ba.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado da Bahia">
+                        TCE-BA <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://tcepe.tc.br/internet/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado de Pernambuco">
+                        TCE-PE <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tce.ce.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Ceará">
+                        TCE-CE <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://portal.tce.go.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado de Goiás">
+                        TCE-GO <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tce.mt.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado de Mato Grosso">
+                        TCE-MT <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tce.ms.gov.br/home" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado de Mato Grosso do Sul">
+                        TCE-MS <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tcees.tc.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Espírito Santo">
+                        TCE-ES <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tcesc.tc.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado de Santa Catarina">
+                        TCE-SC <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://tce.pb.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado da Paraíba">
+                        TCE-PB <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tce.rn.gov.br/#gsc.tab=0" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Rio Grande do Norte">
+                        TCE-RN <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tcepi.tc.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Piauí">
+                        TCE-PI <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tceal.tc.br/#gsc.tab=0" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado de Alagoas">
+                        TCE-AL <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tce.se.gov.br/SitePages/home.aspx" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado de Sergipe">
+                        TCE-SE <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tceto.tc.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Tocantins">
+                        TCE-TO <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://tcero.tc.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado de Rondônia">
+                        TCE-RO <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="http://sistemas.tce.ac.gov.br/portaldogestor/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Acre">
+                        TCE-AC <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tceam.tc.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Amazonas">
+                        TCE-AM <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tcepa.tc.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Pará">
+                        TCE-PA <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tcema.tc.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Maranhão">
+                        TCE-MA <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+
+                    <!-- ========== TRIBUNAIS DE CONTAS DOS MUNICÍPIOS (TCMs) ========== -->
+                    <a href="https://www.tcm.ba.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas dos Municípios do Estado da Bahia">
+                        TCM-BA <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tcm.pa.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas dos Municípios do Estado do Pará">
+                        TCM-PA <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.tcmrio.tc.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Município do Rio de Janeiro">
+                        TCM-RJ <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://portal.tcm.sp.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Município de São Paulo">
+                        TCM-SP <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+
+                    <!-- ========== TRIBUNAL DE CONTAS DO DISTRITO FEDERAL ========== -->
+                    <a href="https://www.tc.df.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Distrito Federal">
+                        TCDF <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </a>
+                </div>
         </div>
     </div>
 </section>
@@ -2114,31 +2204,11 @@
 
             <div class="faq-item fade-in-up">
                 <div class="faq-question" role="button" tabindex="0">
-                    <span>Como o sistema ajuda no combate ao nepotismo?</span>
-                    <span class="faq-toggle"><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
-                </div>
-                <div class="faq-answer">
-                    <p>O sistema exige declaração expressa de inexistência de nepotismo antes de qualquer repasse a entidades do Terceiro Setor, e bloqueia indicações de beneficiários que tenham, em seus quadros dirigentes, cônjuge, companheiro ou parente até o terceiro grau do parlamentar autor ou de seus assessores. A vedação segue a Súmula Vinculante nº 13 do STF, a Lei de Improbidade Administrativa e a decisão da ADPF 854 de 15 de janeiro de 2026.</p>
-                </div>
-            </div>
-
-            <div class="faq-item fade-in-up">
-                <div class="faq-question" role="button" tabindex="0">
                     <span>O que acontece se a emenda não for executada no ano?</span>
                     <span class="faq-toggle"><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
                 </div>
                 <div class="faq-answer">
-                    <p>Depende do estágio. Se a despesa foi empenhada mas não paga até 31 de dezembro, ela se converte em <strong>restos a pagar</strong>, garantindo execução no ano seguinte (com atenção ao limite constitucional). Se a despesa <strong>não foi empenhada</strong>, o crédito perde vigência e a impositividade se extingue — não é juridicamente possível transferir a emenda para o próximo exercício. Havendo interesse público, o Executivo pode aproveitar os atos do certame e empenhar de forma discricionária, à conta de dotação ordinária do novo orçamento.</p>
-                </div>
-            </div>
-
-            <div class="faq-item fade-in-up">
-                <div class="faq-question" role="button" tabindex="0">
-                    <span>O sistema integra com o Sistema Audesp e outros sistemas dos TCs?</span>
-                    <span class="faq-toggle"><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
-                </div>
-                <div class="faq-answer">
-                    <p>O sistema gera os dados no formato exigido pelos Tribunais de Contas, com individualização contábil por emenda (Fonte de Recursos e Códigos de Aplicação fixo e variável), prontos para envio ao Audesp (TCESP) e sistemas equivalentes de outros Tribunais. Cada emenda é registrada com seu cadastro individualizado, evitando rejeição de balancetes e inconsistências na fiscalização. A exportação para Excel/CSV facilita a integração com sistemas contábeis municipais.</p>
+                    <p>Depende do estágio. Se a despesa foi empenhada mas não paga até 31 de dezembro, ela se converte em <strong>restos a pagar</strong>, garantindo execução no ano seguinte (com atenção ao limite constitucional). Se a despesa <strong>não foi empenhada</strong>, o crédito perde vigência e a impositividade se extingue — não é juridicamente possível transferir a emenda para o próximo exercício. Havendo interesse público, o Executivo pode aproveitar os atos do certame e empenhar de forma discricionária, à conta de dotação ordinária do novo orçamento. Na plataforma, a emenda não finalizada no exercício permanece ativa nos exercícios seguintes até sua total finalização.</p>
                 </div>
             </div>
 
@@ -2148,7 +2218,7 @@
                     <span class="faq-toggle"><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
                 </div>
                 <div class="faq-answer">
-                    <p>Sim. O sistema contempla tanto as emendas individuais com finalidade definida (executadas diretamente pelo Município) quanto as transferências especiais recebidas pelo Município de deputados estaduais e federais e senadores. Para as transferências especiais, o sistema aplica as regras específicas: mínimo de 70% em despesas de capital, vedação de uso em pessoal e serviço da dívida, e obrigatoriedade de Plano de Trabalho e relatório de gestão.</p>
+                    <p>O sistema foi pensado especialmente para as Emendas Impositivas realizadas entre câmaras e prefeituras, focando nessa integração. Entretanto, o preenchimento pode ser feito unilateralmente (prefeitura), informando e monitorando qualquer tipo de emenda.</p>
                 </div>
             </div>
 
