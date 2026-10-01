@@ -6,7 +6,7 @@
     <meta name="google-site-verification" content="zro5cKh65nk25K2kGDq839EpQcyb-Wl-EKDD__HIMF0" />
 
     <!-- ========== SEO PRINCIPAL ========== -->
-    <title>Emenda Impositiva: Sistema de Rastreabilidade Municipal | Emendas Rastreáveis</title>
+    <title>Emenda Impositiva: Sistema de Rastreabilidade Municipal | Valor Expert</title>
     <meta name="description" content="Sistema de rastreamento de emenda impositiva municipal. Transparência total da Câmara à Prefeitura: do protocolo à obra concluída. Conformidade com Tribunais de Contas. Agende uma demonstração.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <meta name="author" content="Valor Expert">
@@ -18,7 +18,7 @@
 
     <!-- ========== OPEN GRAPH ========== -->
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Emendas Rastreáveis">
+    <meta property="og:site_name" content="Valor Expert — Emendas Rastreáveis">
     <meta property="og:title" content="Emenda Impositiva: Rastreie do papel à obra concluída">
     <meta property="og:description" content="Sistema de rastreabilidade de emendas impositivas municipais. Transparência total da Câmara à Prefeitura, conformidade com Tribunais de Contas e portal público para o cidadão.">
     <meta property="og:url" content="https://robsonribeirocontabilidade.github.io/valor_expert.github.io/">
@@ -255,14 +255,17 @@
         }
 
         .brand-logo {
-            font-weight: 800;
-            font-size: 1.3rem;
             color: var(--gray-900);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 0.65rem;
+            gap: 0.7rem;
             letter-spacing: -0.02em;
+            transition: opacity 0.3s ease;
+        }
+
+        .brand-logo:hover {
+            opacity: 0.85;
         }
 
         .brand-icon {
@@ -291,11 +294,29 @@
             box-shadow: 0 6px 18px rgba(26, 115, 232, 0.28);
         }
 
+        .brand-text-wrapper {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.05;
+        }
+
         .brand-text {
+            font-size: 1.15rem;
+            font-weight: 800;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-subtext {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
         }
 
         .nav-link-custom {
@@ -1465,6 +1486,13 @@
             .simulador { padding: 1.4rem; }
             .whatsapp-float { width: 52px; height: 52px; font-size: 1.45rem; }
             .video-wrapper { border-radius: 14px; }
+            .brand-text { font-size: 1rem; }
+            .brand-subtext { font-size: 0.6rem; }
+            .brand-icon { width: 36px; height: 36px; }
+        }
+
+        @media (max-width: 400px) {
+            .brand-subtext { display: none; }
         }
 
         /* Fade in */
@@ -1483,11 +1511,14 @@
 <nav class="navbar-custom" id="navbar" aria-label="Navegação principal">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center w-100">
-            <a href="#" class="brand-logo" aria-label="Emendas Rastreáveis - Página inicial">
+            <a href="#" class="brand-logo" aria-label="Valor Expert - Sistema Emendas Rastreáveis">
                 <div class="brand-icon">
-                    <img src="logo-valor-expert.png" alt="Logo Valor Expert - Sistema Emendas Rastreáveis">
+                    <img src="logo-valor-expert.png" alt="Logo Valor Expert">
                 </div>
-                <span class="brand-text">Emendas Rastreáveis</span>
+                <div class="brand-text-wrapper">
+                    <span class="brand-text">Valor Expert</span>
+                    <span class="brand-subtext">Emendas Rastreáveis</span>
+                </div>
             </a>
             <div class="d-none d-lg-flex align-items-center gap-4">
                 <a href="#o-que-e" class="nav-link-custom">O que é</a>
@@ -2062,7 +2093,6 @@
                 de qualquer estado da federação.
             </p>
             <div class="tribunais-lista">
-                <!-- ========== TRIBUNAIS DE CONTAS ESTADUAIS ========== -->
                 <a href="https://www.tce.sp.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado de São Paulo">TCESP (SP) <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
                 <a href="https://www.tcerj.tc.br/portalnovo/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Rio de Janeiro">TCE-RJ <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
                 <a href="https://www.tce.mg.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado de Minas Gerais">TCE-MG <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
@@ -2087,14 +2117,10 @@
                 <a href="https://www.tceam.tc.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Amazonas">TCE-AM <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
                 <a href="https://www.tcepa.tc.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Pará">TCE-PA <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
                 <a href="https://www.tcema.tc.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Estado do Maranhão">TCE-MA <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
-
-                <!-- ========== TRIBUNAIS DE CONTAS DOS MUNICÍPIOS ========== -->
                 <a href="https://www.tcm.ba.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas dos Municípios do Estado da Bahia">TCM-BA <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
                 <a href="https://www.tcm.pa.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas dos Municípios do Estado do Pará">TCM-PA <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
                 <a href="https://www.tcmrio.tc.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Município do Rio de Janeiro">TCM-RJ <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
                 <a href="https://portal.tcm.sp.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Município de São Paulo">TCM-SP <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
-
-                <!-- ========== TRIBUNAL DE CONTAS DO DISTRITO FEDERAL ========== -->
                 <a href="https://www.tc.df.gov.br/" target="_blank" rel="noopener" class="tribunal-tag" title="Tribunal de Contas do Distrito Federal">TCDF <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
             </div>
         </div>
@@ -2317,11 +2343,11 @@
                         <img src="logo-valor-expert.png" alt="Logo Valor Expert">
                     </div>
                     <div>
-                        <div>Emendas Rastreáveis</div>
-                        <div class="brand-sub">por Valor Expert</div>
+                        <div>Valor Expert</div>
+                        <div class="brand-sub">Emendas Rastreáveis</div>
                     </div>
                 </div>
-                <p>Rastreabilidade completa de emendas impositivas municipais. Da Câmara à Prefeitura, do papel à obra concluída. <strong style="color: white;">Uma solução Valor Expert.</strong></p>
+                <p>Rastreabilidade completa de emendas impositivas municipais. Da Câmara à Prefeitura, do papel à obra concluída.</p>
             </div>
             <div class="col-md-3 mb-4">
                 <h6 class="text-white fw-bold mb-3">Contato</h6>
