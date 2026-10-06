@@ -9,44 +9,4 @@
         <priority>1.0</priority>
     </url>
 
-    <!-- Seção: Solução -->
-    <url>
-        <loc>https://robsonribeirocontabilidade.github.io/valor_expert.github.io/#solucao</loc>
-        <lastmod>2026-09-30</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Seção: Vídeo Institucional -->
-    <url>
-        <loc>https://robsonribeirocontabilidade.github.io/valor_expert.github.io/#video</loc>
-        <lastmod>2026-09-30</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <!-- Seção: Diferencial -->
-    <url>
-        <loc>https://robsonribeirocontabilidade.github.io/valor_expert.github.io/#diferencial</loc>
-        <lastmod>2026-09-30</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <!-- Seção: Benefícios -->
-    <url>
-        <loc>https://robsonribeirocontabilidade.github.io/valor_expert.github.io/#beneficios</loc>
-        <lastmod>2026-09-30</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <!-- Seção: Contato -->
-    <url>
-        <loc>https://robsonribeirocontabilidade.github.io/valor_expert.github.io/#contato</loc>
-        <lastmod>2026-09-30</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-
 </urlset>
