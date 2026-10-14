@@ -364,6 +364,34 @@
             color: white;
         }
 
+        /* ==================== BOTÃO ACESSO SISTEMA ==================== */
+        .btn-acesso-sistema {
+            background: linear-gradient(135deg, #0d47a1, #1a73e8);
+            border: none;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(13, 71, 161, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 0.5rem;
+        }
+
+        .btn-acesso-sistema:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(13, 71, 161, 0.5);
+            color: white;
+        }
+
+        .btn-acesso-sistema i {
+            font-size: 0.85rem;
+        }
+
         /* ==================== HERO ==================== */
         .hero {
             background: linear-gradient(135deg, #0a1929 0%, #0d47a1 55%, #1a73e8 100%);
@@ -484,6 +512,28 @@
         .btn-hero-secondary:hover {
             background: rgba(255,255,255,0.1);
             border-color: rgba(255,255,255,0.5);
+            color: white;
+        }
+
+        .btn-hero-acesso {
+            background: linear-gradient(135deg, #00c853, #00897b);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0, 200, 83, 0.35);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-hero-acesso:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0, 200, 83, 0.5);
             color: white;
         }
 
@@ -1396,6 +1446,28 @@
             transform: translateY(-3px);
         }
 
+        .btn-cta-acesso {
+            background: linear-gradient(135deg, #00c853, #00897b);
+            color: white;
+            padding: 1rem 2.25rem;
+            border-radius: 12px;
+            font-weight: 700;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0, 200, 83, 0.35);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.98rem;
+        }
+
+        .btn-cta-acesso:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0, 200, 83, 0.5);
+            color: white;
+        }
+
         /* Footer */
         .footer {
             background: var(--dark);
@@ -1434,6 +1506,29 @@
         }
 
         .footer a:hover { color: white; }
+
+        .footer-acesso {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.6rem 1.25rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .footer-acesso:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(100,181,246,0.5);
+            color: white;
+            transform: translateY(-2px);
+        }
 
         /* WhatsApp */
         .whatsapp-float {
@@ -1489,6 +1584,8 @@
             .brand-text { font-size: 1rem; }
             .brand-subtext { font-size: 0.6rem; }
             .brand-icon { width: 36px; height: 36px; }
+            .btn-acesso-sistema { padding: 0.5rem 1rem; font-size: 0.8rem; }
+            .btn-acesso-sistema span { display: none; }
         }
 
         @media (max-width: 400px) {
@@ -1526,6 +1623,11 @@
                 <a href="#video" class="nav-link-custom">Vídeo</a>
                 <a href="#conformidade" class="nav-link-custom">Conformidade</a>
                 <a href="#faq" class="nav-link-custom">Dúvidas</a>
+                <a href="https://emendas-system.squareweb.app/login/?next=/tenant/" 
+                   target="_blank" rel="noopener" class="btn-acesso-sistema">
+                    <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+                    <span>Acessar Sistema</span>
+                </a>
                 <a href="https://wa.me/5513996520177?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20Emendas%20Rastre%C3%A1veis" 
                    target="_blank" rel="noopener" class="btn-primary-custom">
                     Falar com Especialista
@@ -1554,6 +1656,7 @@
                     <strong style="color: white;">Experimente ao lado →</strong>
                 </p>
                 <div class="hero-cta">
+
                     <a href="https://wa.me/5513996520177?text=Ol%C3%A1%2C%20quero%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20Emendas%20Rastre%C3%A1veis" 
                        target="_blank" rel="noopener" class="btn-hero-primary">
                         <i class="fas fa-calendar-check" aria-hidden="true"></i>
@@ -1733,6 +1836,16 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- CTA Acesso Sistema na seção Solução -->
+        <div class="text-center mt-5 fade-in-up">
+            <a href="https://emendas-system.squareweb.app/login/?next=/tenant/" 
+               target="_blank" rel="noopener" class="btn-hero-acesso" style="background: linear-gradient(135deg, #0d47a1, #1a73e8); box-shadow: 0 8px 24px rgba(13, 71, 161, 0.35);">
+                <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+                Acessar o Sistema de Emendas
+            </a>
+            <p class="small text-muted mt-3 mb-0">Já é cliente? Faça login para gerenciar suas emendas impositivas.</p>
         </div>
     </div>
 </section>
@@ -2315,16 +2428,13 @@
             de emendas impositivas em transparência real.
         </p>
         <div class="d-flex justify-content-center gap-3 flex-wrap">
+
             <a href="mailto:robsonribeirocontabilidade@gmail.com?subject=Quero%20conhecer%20o%20Emendas%20Rastre%C3%A1veis&body=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20sistema." 
                class="btn-cta-primary">
                 <i class="fas fa-envelope" aria-hidden="true"></i>
                 Falar com Especialista
             </a>
-            <a href="https://wa.me/5513996520177?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20o%20Emendas%20Rastre%C3%A1veis" 
-               target="_blank" rel="noopener" class="btn-cta-secondary">
-                <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                WhatsApp
-            </a>
+
         </div>
         <p class="mt-4 small" style="opacity: 0.7;">
             <i class="fas fa-shield-alt me-1" aria-hidden="true"></i>
@@ -2348,6 +2458,11 @@
                     </div>
                 </div>
                 <p>Rastreabilidade completa de emendas impositivas municipais. Da Câmara à Prefeitura, do papel à obra concluída.</p>
+                <a href="https://emendas-system.squareweb.app/login/?next=/tenant/" 
+                   target="_blank" rel="noopener" class="footer-acesso">
+                    <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+                    Acessar o Sistema
+                </a>
             </div>
             <div class="col-md-3 mb-4">
                 <h6 class="text-white fw-bold mb-3">Contato</h6>
