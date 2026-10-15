@@ -1,0 +1,2426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — Sistema de Emendas Impositivas</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+:root { --primary-color:#1a73e8; --secondary-color:#0d47a1; }
+body { background:#f0f2f5; font-family:'Segoe UI',system-ui,-apple-system,sans-serif; padding-bottom:60px; }
+
+.demo-banner { background:linear-gradient(90deg,#b8901f,#d4af37,#b8901f);
+    color:#fff; text-align:center; padding:8px 12px;
+    font-size:.85rem; font-weight:600; letter-spacing:.04em;
+    position:sticky; top:0; z-index:1050; }
+.demo-banner i { margin-right:6px; }
+
+.navbar { background:linear-gradient(135deg,var(--primary-color),var(--secondary-color)) !important;
+          box-shadow:0 2px 15px rgba(0,0,0,.15); padding:6px 0; }
+.navbar-brand { color:#fff !important; font-weight:700; font-size:.95rem; cursor:pointer; }
+.navbar .nav-link { color:rgba(255,255,255,.9) !important; font-size:.8rem; padding:4px 10px;
+                    border-radius:6px; cursor:pointer; }
+.navbar .nav-link:hover, .navbar .nav-link.active { background:rgba(255,255,255,.15); color:#fff !important; }
+
+.stat-card-link { text-decoration:none; color:inherit; display:block; transition:transform .15s; }
+.stat-card-link:hover { transform:translateY(-3px); color:inherit; }
+.stat-card { cursor:pointer; position:relative; height:100%; border:none; border-radius:12px;
+             box-shadow:0 2px 12px rgba(0,0,0,.06); }
+.stat-card-link:hover .stat-card { box-shadow:0 6px 20px rgba(0,0,0,.12); }
+.stat-value { font-size:1.6rem; font-weight:700; margin:0; }
+.stat-card .card-arrow { position:absolute; top:12px; right:14px; opacity:.25; font-size:.9rem;
+                          transition:opacity .15s; }
+.stat-card-link:hover .card-arrow { opacity:.7; }
+
+.linha-emenda { cursor:pointer; transition:background-color .12s; }
+.linha-emenda:hover { background-color:rgba(26,115,232,.06); }
+.tabela-emendas thead th { font-size:.75rem; text-transform:uppercase; letter-spacing:.04em;
+                            color:#6c757d; font-weight:600; background:#f8f9fa;
+                            border-bottom:2px solid #e9ecef; padding:10px 14px; }
+.tabela-emendas tbody td { padding:12px 14px; vertical-align:middle; font-size:.88rem; }
+.coluna-setor-atual .setor-nome { display:inline-flex; align-items:center; gap:6px; padding:3px 10px;
+    border-radius:20px; background:#f1f4f8; border:1px solid #e0e4ea; font-weight:500;
+    color:#495057; font-size:.78rem; }
+.linha-emenda.minha-emenda { background:linear-gradient(90deg,#fff8e1 0%,#fffdf5 60%,#fff 100%);
+                              border-left:3px solid #f0b429; }
+.badge-minha-emenda { display:inline-flex; align-items:center; gap:4px; background:#f0b429;
+    color:#3d2e00; font-size:.62rem; font-weight:700; padding:2px 8px; border-radius:20px;
+    text-transform:uppercase; letter-spacing:.04em; margin-left:6px; vertical-align:middle; }
+
+.detail-section { background:#f8f9fa; border-radius:8px; padding:20px; margin-bottom:20px;
+                  border-left:4px solid var(--primary-color); }
+.detail-section h6 { color:var(--primary-color); font-weight:600; margin-bottom:15px; }
+.detail-label { font-weight:600; color:#495057; font-size:.9rem; }
+.detail-value { color:#212529; font-weight:500; }
+.responsavel-card { background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
+                    border-left:4px solid #43a047; border-radius:8px; padding:12px 20px; margin-bottom:15px; }
+.responsavel-card .label { font-size:.85rem; color:#2e7d32; font-weight:600; }
+.responsavel-card .badge-responsavel { font-size:1rem; padding:6px 16px; }
+
+.nav-tabs .nav-link { color:#495057; font-weight:500; cursor:pointer; border:none;
+                      border-bottom:3px solid transparent; }
+.nav-tabs .nav-link.active { color:var(--primary-color); font-weight:600;
+                             border-bottom:3px solid var(--primary-color); background:transparent; }
+.nav-tabs .nav-link i { margin-right:6px; }
+
+.form-section { background:#f8f9fa; border-radius:8px; padding:20px; margin-bottom:20px;
+                border-left:4px solid var(--primary-color); }
+.form-section h6 { color:var(--primary-color); font-weight:600; margin-bottom:15px; }
+.help-text { font-size:.82rem; color:#6c757d; margin-top:5px; }
+.required-field::after { content:" *"; color:#dc3545; font-weight:bold; }
+.valor-monetario-input { font-weight:600; color:#28a745; }
+.form-label { font-size:.85rem; font-weight:600; color:#495057; }
+.form-control, .form-select { border-radius:8px; }
+.unidade-preview { display:inline-flex; align-items:center; gap:6px; padding:4px 10px;
+    border-radius:20px; background:#e9ecef; color:#495057; font-size:.8rem;
+    font-weight:600; margin-top:6px; }
+
+.progress-custom { height:10px; border-radius:50px; background:#e9ecef; }
+.progress-custom .progress-bar { border-radius:50px; }
+
+#demoToast { position:fixed; bottom:30px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:#1a2b4a; color:#fff; padding:14px 24px; border-radius:10px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25); font-size:.92rem; font-weight:500;
+    opacity:0; transition:all .3s ease; z-index:9999; max-width:90vw;
+    text-align:center; pointer-events:none; }
+#demoToast.show { transform:translateX(-50%) translateY(0); opacity:1; }
+#demoToast i { color:#f0b429; margin-right:8px; }
+
+.resultado-card { border-left:4px solid #28a745;
+    background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
+    border-radius:10px; padding:20px; margin-bottom:24px; }
+.resultado-card h5 { color:#1b5e20; margin-bottom:12px; }
+.resultado-card .linha { display:flex; justify-content:space-between; padding:4px 0;
+    font-size:.92rem; border-bottom:1px dashed rgba(0,0,0,.08); }
+.resultado-card .linha:last-child { border-bottom:none; }
+.resultado-card .linha strong { color:#1b5e20; }
+
+.timeline-item { display:flex; margin-bottom:16px; padding-bottom:16px;
+    border-bottom:1px solid #e9ecef; }
+.timeline-item:last-child { border-bottom:none; padding-bottom:0; }
+.timeline-icon { width:42px; height:42px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; flex-shrink:0; margin-right:14px; }
+
+.orcamento-tabela th { background:#f8f9fa; font-weight:600; color:#495057;
+                       font-size:.85rem; width:30%; }
+
+.empty-state { text-align:center; padding:40px 20px; color:#6c757d; }
+.empty-state .empty-icon { font-size:3rem; opacity:.35; margin-bottom:12px; display:block; }
+
+.banner-finalizada {
+    background:linear-gradient(135deg,#1b8f3a 0%,#2ecc71 50%,#27ae60 100%);
+    color:#fff; border-radius:16px; padding:36px 20px; text-align:center;
+    margin-bottom:24px; box-shadow:0 8px 24px rgba(27,143,58,.25);
+}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">
+    <i class="fas fa-flask"></i>
+    MODO DEMONSTRAÇÃO — nenhum dado é salvo no sistema real
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" onclick="irPara('dashboard');return false;">
+            <i class="fas fa-landmark me-2"></i>Município Demo
+        </a>
+        <ul class="navbar-nav ms-auto flex-row gap-2">
+            <li class="nav-item">
+                <a class="nav-link" id="nav-dashboard" onclick="irPara('dashboard');return false;">
+                    <i class="fas fa-home"></i> Início
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-lista" onclick="irPara('lista');return false;">
+                    <i class="fas fa-file-alt"></i> Emendas
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="demoMsg('Módulo de Relatórios disponível apenas na versão completa.');return false;">
+                    <i class="fas fa-chart-bar"></i> Relatórios
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="demoMsg('Ação indisponível na demonstração.');return false;">
+                    <i class="fas fa-user"></i> demo
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main class="container py-3">
+
+    <!-- ============ TELA: DASHBOARD ============ -->
+    <div id="tela-dashboard">
+        <div class="row mb-2">
+            <div class="col-12">
+                <h4 class="mb-1">
+                    <i class="fas fa-chart-pie me-2 text-primary"></i>
+                    Dashboard <small class="text-muted">— Município Demo/SP</small>
+                </h4>
+            </div>
+        </div>
+        <hr class="mt-1 mb-4">
+
+        <div class="mb-4 p-3 rounded"
+             style="background:linear-gradient(135deg,#fff8e1,#fff3cd);
+                    border-left:4px solid #f0b429; color:#5a4118; font-size:.88rem;">
+            <i class="fas fa-info-circle me-2" style="color:#b8901f;"></i>
+            Você tem <strong>2 emendas</strong> aguardando movimentação no seu setor
+            <strong>(Controladoria)</strong>.
+            <a href="#" onclick="irPara('lista');return false;"
+               style="color:#7a5a24;font-weight:600;text-decoration:underline;
+                      text-underline-offset:2px;margin-left:6px;">
+                Ver emendas <i class="fas fa-arrow-right ms-1"></i>
+            </a>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <a class="stat-card-link" onclick="irPara('lista');return false;">
+                    <div class="card stat-card p-3" style="border-left:4px solid var(--primary-color);">
+                        <i class="fas fa-arrow-right card-arrow"></i>
+                        <small class="text-muted">Total de Emendas</small>
+                        <h3 class="stat-value" id="kpi-total">0</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a class="stat-card-link" onclick="irPara('lista');return false;">
+                    <div class="card stat-card p-3" style="border-left:4px solid #28a745;">
+                        <i class="fas fa-arrow-right card-arrow"></i>
+                        <small class="text-muted">Concluídas</small>
+                        <h3 class="stat-value text-success" id="kpi-concluidas">0</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a class="stat-card-link" onclick="irPara('lista');return false;">
+                    <div class="card stat-card p-3" style="border-left:4px solid #ffc107;">
+                        <i class="fas fa-arrow-right card-arrow"></i>
+                        <small class="text-muted">Em Execução</small>
+                        <h3 class="stat-value text-warning" id="kpi-execucao">0</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a class="stat-card-link" onclick="irPara('lista');return false;">
+                    <div class="card stat-card p-3" style="border-left:4px solid #dc3545;">
+                        <i class="fas fa-arrow-right card-arrow"></i>
+                        <small class="text-muted">Impedidas</small>
+                        <h3 class="stat-value text-danger" id="kpi-impedidas">0</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-0" style="border-radius:12px;
+                     box-shadow:0 2px 12px rgba(0,0,0,.06);">
+                    <div class="card-header bg-transparent d-flex justify-content-between
+                                align-items-center" style="border-bottom:2px solid #f0f2f5;">
+                        <h6 class="mb-0">
+                            <i class="fas fa-clock me-2 text-primary"></i>Emendas Recentes
+                        </h6>
+                        <a class="btn btn-sm btn-outline-primary"
+                           onclick="irPara('lista');return false;">
+                            Ver lista completa <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0 align-middle tabela-emendas">
+                            <thead>
+                                <tr>
+                                    <th style="width:12%;">Nº/Ano</th>
+                                    <th style="width:18%;">Autor</th>
+                                    <th style="width:34%;">Objeto</th>
+                                    <th style="width:12%;" class="text-end">Valor</th>
+                                    <th style="width:12%;">Setor Atual</th>
+                                    <th style="width:12%;" class="text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-recentes"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TELA: LISTA ============ -->
+    <div id="tela-lista" style="display:none;">
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <div>
+                <h4 class="mb-1">
+                    <i class="fas fa-calendar-alt me-2 text-primary"></i>
+                    Emendas 2026
+                    <span class="badge bg-primary ms-2" id="badge-total">0 emendas</span>
+                </h4>
+                <small class="text-muted">
+                    <i class="fas fa-check-circle me-1"></i>
+                    <span id="badge-concluidas">0</span> concluídas
+                    &nbsp;|&nbsp;
+                    <i class="fas fa-play-circle me-1"></i>
+                    <span id="badge-ativas">0</span> ativas
+                </small>
+            </div>
+            <div>
+                <button class="btn btn-primary" onclick="irPara('cadastro');return false;">
+                    <i class="fas fa-plus me-1"></i> Nova Emenda
+                </button>
+            </div>
+        </div>
+
+        <div class="card mb-4 border-0" style="border-radius:12px;
+             box-shadow:0 2px 12px rgba(0,0,0,.06);">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" id="filtro-status" onchange="renderLista()">
+                            <option value="">Todos os status</option>
+                            <option value="PROPOSTA">Proposta</option>
+                            <option value="APROVADA">Aprovada</option>
+                            <option value="EM_EXECUCAO">Em Execução</option>
+                            <option value="CONCLUIDA">Concluída</option>
+                            <option value="IMPEDIMENTO_TEMPORARIO">Impedimento Temporário</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Buscar</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="filtro-busca"
+                                   placeholder="Nº, autor, objeto..." oninput="renderLista()">
+                            <button class="btn btn-outline-secondary"
+                                    onclick="document.getElementById('filtro-busca').value='';renderLista();">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0" style="border-radius:12px;
+             box-shadow:0 2px 12px rgba(0,0,0,.06);">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle tabela-emendas">
+                    <thead>
+                        <tr>
+                            <th style="width:10%;">Nº/Ano</th>
+                            <th style="width:18%;">Autor</th>
+                            <th style="width:30%;">Objeto</th>
+                            <th style="width:12%;" class="text-end">Valor</th>
+                            <th style="width:12%;">Progresso</th>
+                            <th style="width:18%;" class="text-center">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-lista"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TELA: DETALHE ============ -->
+    <div id="tela-detalhe" style="display:none;">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#" onclick="irPara('dashboard');return false;">
+                        <i class="fas fa-home"></i> Início
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#" onclick="irPara('lista');return false;">Emendas</a>
+                </li>
+                <li class="breadcrumb-item active" id="breadcrumb-detalhe">Emenda</li>
+            </ol>
+        </nav>
+
+        <div id="det-banner"></div>
+
+        <div class="card mb-4 border-0" style="border-radius:12px;
+             box-shadow:0 2px 12px rgba(0,0,0,.06);">
+            <div class="card-body p-4">
+                <div class="row align-items-center">
+                    <div class="col-md-7">
+                        <h4 class="mb-1" id="det-titulo"></h4>
+                        <p class="text-muted mb-0" id="det-autor"></p>
+                        <div class="mt-2" id="det-badges"></div>
+                    </div>
+                    <div class="col-md-5 text-md-end">
+                        <small class="text-muted d-block" id="det-criacao"></small>
+                        <small class="text-muted d-block" id="det-versao"></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="responsavel-card">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <span class="label"><i class="fas fa-user-check me-2"></i>RESPONSÁVEL ATUAL:</span>
+                </div>
+                <div class="col-md-5">
+                    <span class="badge bg-success badge-responsavel" id="det-responsavel"></span>
+                    <span class="badge bg-secondary ms-2" id="det-setor"></span>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <small class="text-muted" id="det-desde"></small>
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs" id="tabs-detalhe">
+            <li class="nav-item">
+                <a class="nav-link active" onclick="trocarAba('dados',this);return false;">
+                    <i class="fas fa-info-circle"></i> Dados
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="trocarAba('historico',this);return false;">
+                    <i class="fas fa-history"></i> Histórico
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="trocarAba('responsaveis',this);return false;">
+                    <i class="fas fa-users"></i> Responsáveis
+                    <span class="badge bg-secondary ms-1" id="badge-qtd-responsaveis">0</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="trocarAba('documentos',this);return false;">
+                    <i class="fas fa-file"></i> Documentos
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="trocarAba('rastreamento',this);return false;">
+                    <i class="fas fa-route"></i> Rastreamento
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="trocarAba('tramitacao',this);return false;">
+                    <i class="fas fa-exchange-alt"></i> Tramitação
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="trocarAba('orcamento',this);return false;">
+                    <i class="fas fa-coins"></i> Orçamento
+                    <span class="badge bg-success ms-1" id="badge-tem-orcamento"
+                          style="display:none;"><i class="fas fa-check"></i></span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-4">
+
+            <!-- ABA: DADOS -->
+            <div class="tab-pane active" id="aba-dados">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="detail-section">
+                            <h6><i class="fas fa-info-circle me-2"></i>Informações Gerais</h6>
+                            <div class="row g-3" id="det-info-gerais"></div>
+                        </div>
+                        <div class="detail-section" id="det-beneficiario-wrapper">
+                            <h6><i class="fas fa-building me-2"></i>Beneficiário</h6>
+                            <div class="row g-3" id="det-beneficiario"></div>
+                        </div>
+                        <div class="detail-section" id="det-impedimento-wrapper"
+                             style="border-left-color:#dc3545;display:none;">
+                            <h6><i class="fas fa-exclamation-triangle text-danger me-2"></i>Impedimentos</h6>
+                            <div class="alert alert-danger mb-0" id="det-impedimento"></div>
+                        </div>
+                        <div class="detail-section" id="det-plano-wrapper"
+                             style="border-left-color:#17a2b8;display:none;">
+                            <h6><i class="fas fa-tasks me-2"></i>Plano de Trabalho</h6>
+                            <div class="detail-value" id="det-plano"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card info-card mb-3 border-0" id="det-parcerias-card"
+                             style="box-shadow:0 2px 12px rgba(0,0,0,.06);display:none;">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6 class="card-title mb-0">
+                                        <i class="fas fa-handshake me-2"></i>Parcerias com OSC
+                                    </h6>
+                                    <span class="badge bg-primary" id="det-qtd-parcerias">0</span>
+                                </div>
+                                <div class="mb-3 p-3 rounded"
+                                     style="background:#f0f7ff;border-left:3px solid #0d6efd;">
+                                    <div class="row small g-2">
+                                        <div class="col-6">
+                                            <div class="text-muted">Valor Total</div>
+                                            <strong id="det-parc-total">R$ 0,00</strong>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="text-muted">Repassado</div>
+                                            <strong class="text-primary" id="det-parc-repassado">R$ 0,00</strong>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="text-muted">Executado</div>
+                                            <strong class="text-success" id="det-parc-executado">R$ 0,00</strong>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="text-muted">Saldo a Executar</div>
+                                            <strong class="text-warning" id="det-parc-saldo">R$ 0,00</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="det-parcerias-lista"></div>
+                            </div>
+                        </div>
+
+                        <div class="card info-card mb-3 border-0"
+                             style="box-shadow:0 2px 12px rgba(0,0,0,.06);">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6 class="card-title mb-0">
+                                        <i class="fas fa-chart-bar me-2"></i>Progresso da Execução
+                                    </h6>
+                                    <button class="btn btn-sm btn-outline-info"
+                                            title="Informar execução"
+                                            onclick="demoMsg('📊 Em produção, este botão abriria o formulário de execução.');">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <small>Percentual Físico</small>
+                                        <small><strong id="det-pct-fisico">0%</strong></small>
+                                    </div>
+                                    <div class="progress progress-custom">
+                                        <div class="progress-bar" id="det-pf-bar"
+                                             style="width:0%;background:var(--primary-color);"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <small>Percentual Financeiro</small>
+                                        <small><strong id="det-pct-fin">0%</strong></small>
+                                    </div>
+                                    <div class="progress progress-custom">
+                                        <div class="progress-bar bg-success" id="det-pfin-bar"
+                                             style="width:0%;"></div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row small text-muted">
+                                    <div class="col-6">
+                                        <i class="fas fa-calendar-plus me-1"></i>
+                                        <span id="det-data-criacao"></span>
+                                    </div>
+                                    <div class="col-6">
+                                        <i class="fas fa-edit me-1"></i>
+                                        <span id="det-data-atualizacao"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card info-card border-0"
+                             style="box-shadow:0 2px 12px rgba(0,0,0,.06);">
+                            <div class="card-body">
+                                <h6 class="card-title"><i class="fas fa-tasks me-2"></i>Ações</h6>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-success"
+                                            onclick="demoMsg('✅ Movimentação simulada! Em produção a emenda avançaria para o próximo setor.');">
+                                        <i class="fas fa-arrow-right me-2"></i>Enviar para próximo setor
+                                    </button>
+                                    <button class="btn btn-outline-primary"
+                                            onclick="demoMsg('✏️ Em produção, este botão abriria o formulário de edição.');">
+                                        <i class="fas fa-edit me-2"></i> Editar Emenda
+                                    </button>
+                                    <button class="btn btn-outline-info"
+                                            onclick="demoMsg('📊 Em produção, este botão abriria o formulário de execução.');">
+                                        <i class="fas fa-chart-line me-2"></i> Informar Execução
+                                    </button>
+                                    <button class="btn btn-outline-danger"
+                                            onclick="demoMsg('🗑️ Em produção, este botão pediria confirmação e excluiria a emenda.');">
+                                        <i class="fas fa-trash me-2"></i> Excluir Emenda
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA: HISTÓRICO -->
+            <div class="tab-pane" id="aba-historico" style="display:none;">
+                <div class="card border-0" style="border-radius:12px;
+                     box-shadow:0 2px 12px rgba(0,0,0,.06);">
+                    <div class="card-body">
+                        <h6 class="mb-3">
+                            <i class="fas fa-history me-2"></i>Histórico da Emenda
+                        </h6>
+                        <div id="det-historico-timeline"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA: RESPONSÁVEIS -->
+            <div class="tab-pane" id="aba-responsaveis" style="display:none;">
+                <div class="card border-0" style="border-radius:12px;
+                     box-shadow:0 2px 12px rgba(0,0,0,.06);">
+                    <div class="card-body">
+                        <h6 class="mb-3">
+                            <i class="fas fa-users me-2"></i>Histórico de Responsáveis
+                        </h6>
+                        <div class="list-group" id="det-responsaveis-lista"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA: DOCUMENTOS -->
+            <div class="tab-pane" id="aba-documentos" style="display:none;">
+                <div class="card border-0 mb-4" style="border-radius:12px;
+                     box-shadow:0 2px 12px rgba(0,0,0,.06);">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="mb-0">
+                                <i class="fas fa-paperclip me-2"></i>Anexos da Emenda
+                            </h6>
+                            <span class="badge bg-secondary">
+                                <i class="fas fa-building me-1"></i>
+                                Setor atual: <span id="det-setor-anexos">—</span>
+                            </span>
+                        </div>
+
+                        <div class="alert alert-warning" id="det-docs-pendentes">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Documentos obrigatórios pendentes:</strong>
+                            <ul class="mb-0 mt-1" id="det-docs-pendentes-lista"></ul>
+                        </div>
+
+                        <form class="mb-4 p-3 border rounded bg-light"
+                              onsubmit="event.preventDefault();demoMsg('📤 Em produção, o arquivo seria enviado e vinculado à emenda.');">
+                            <p class="small text-muted mb-3">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Anexe aqui os documentos produzidos pelo seu setor.
+                            </p>
+                            <div class="row g-2">
+                                <div class="col-md-4">
+                                    <label class="form-label">Título *</label>
+                                    <input type="text" class="form-control" required
+                                           placeholder="Ex.: Plano de Trabalho revisado">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Tipo de Documento</label>
+                                    <select class="form-select">
+                                        <option value="">— Não classificado —</option>
+                                        <option>Plano de Trabalho</option>
+                                        <option>Comprovante</option>
+                                        <option>Relatório de Gestão</option>
+                                        <option>Documento</option>
+                                        <option>Outro</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="form-label">Arquivo *</label>
+                                    <input type="file" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Descrição</label>
+                                    <textarea class="form-control" rows="2"
+                                              placeholder="Observações sobre este documento (opcional)"></textarea>
+                                </div>
+                                <div class="col-12 text-end">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-upload me-1"></i> Enviar Anexo
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Setor</th>
+                                        <th>Tipo de Documento</th>
+                                        <th>Título</th>
+                                        <th>Enviado por</th>
+                                        <th>Data</th>
+                                        <th class="text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-anexos"></tbody>
+                            </table>
+                        </div>
+
+                        <p class="small text-muted mb-0 mt-3">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Arquivos de imagem e PDF abrem diretamente no navegador.
+                            Os demais formatos são baixados.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card border-0" id="det-parcerias-docs-card" style="border-radius:12px;
+                     box-shadow:0 2px 12px rgba(0,0,0,.06);display:none;">
+                    <div class="card-body">
+                        <h6 class="mb-3">
+                            <i class="fas fa-handshake me-2 text-primary"></i>
+                            Parcerias e Termos de Colaboração
+                        </h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>OSC</th>
+                                        <th>CNPJ</th>
+                                        <th>Tipo</th>
+                                        <th>Processo</th>
+                                        <th class="text-end">Valor</th>
+                                        <th class="text-end">Repassado</th>
+                                        <th class="text-end">Executado</th>
+                                        <th class="text-center">Termos</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-parcerias"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA: RASTREAMENTO -->
+            <div class="tab-pane" id="aba-rastreamento" style="display:none;">
+                <div class="card border-0" style="border-radius:12px;
+                     box-shadow:0 2px 12px rgba(0,0,0,.06);">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h6 class="mb-0">
+                                <i class="fas fa-route me-2 text-primary"></i>
+                                Rastreamento
+                            </h6>
+                            <button class="btn btn-sm btn-outline-primary"
+                                    onclick="demoMsg('🔍 Em produção, este botão abriria o rastreamento completo.');">
+                                <i class="fas fa-expand-arrows-alt me-1"></i>
+                                Ver Rastreamento Completo
+                            </button>
+                        </div>
+
+                        <div class="alert alert-info py-2 mb-4">
+                            <small>
+                                <i class="fas fa-info-circle me-1"></i>
+                                Últimas movimentações desta emenda, agrupadas por órgão.
+                            </small>
+                        </div>
+
+                        <div id="det-rastreamento-grupos"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA: TRAMITAÇÃO -->
+            <div class="tab-pane" id="aba-tramitacao" style="display:none;">
+                <div class="card border-0" style="border-radius:12px;
+                     box-shadow:0 2px 12px rgba(0,0,0,.06);">
+                    <div class="card-body">
+                        <h6 class="mb-3">
+                            <i class="fas fa-exchange-alt me-2 text-primary"></i>
+                            Tramitação Câmara ↔ Prefeitura
+                        </h6>
+
+                        <div id="det-tramitacao-status"></div>
+                        <div class="row" id="det-tramitacao-acoes"></div>
+
+                        <hr>
+                        <div class="row small text-muted">
+                            <div class="col-md-4">
+                                <strong>Status:</strong>
+                                <span class="badge" id="det-tram-status-badge">—</span>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Versão:</strong> <span id="det-tram-versao">1</span>
+                            </div>
+                            <div class="col-md-4 text-md-end" id="det-tram-bloqueio"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA: ORÇAMENTO -->
+            <div class="tab-pane" id="aba-orcamento" style="display:none;">
+
+                <div id="orcamento-com-dados" style="display:none;">
+                    <div class="card mb-4 border-0" style="border-radius:12px;
+                         box-shadow:0 2px 12px rgba(0,0,0,.06);">
+                        <div class="card-header bg-transparent d-flex justify-content-between
+                                    align-items-center" style="border-bottom:2px solid #f0f2f5;">
+                            <h6 class="mb-0">
+                                <i class="fas fa-coins me-2 text-primary"></i>
+                                Codificação Orçamentária
+                            </h6>
+                            <div>
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check-circle me-1"></i> Balanceado
+                                </span>
+                                <button class="btn btn-sm btn-outline-primary ms-2"
+                                        onclick="demoMsg('✏️ Em produção, este botão abriria o formulário de orçamento.');">
+                                    <i class="fas fa-edit me-1"></i> Editar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="mb-3" id="det-orcamento-credito"></div>
+
+                            <h6 class="text-success border-bottom pb-2">
+                                <i class="fas fa-plus-circle me-1"></i>
+                                Crédito Aumentado (+)
+                            </h6>
+                            <table class="table table-sm table-bordered orcamento-tabela">
+                                <tbody id="det-orcamento-tabela"></tbody>
+                            </table>
+
+                            <h6 class="text-muted mt-4">Naturezas da Despesa (Itens):</h6>
+                            <table class="table table-sm table-striped">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Tipo</th>
+                                        <th>Natureza</th>
+                                        <th>Descrição do Bem/Serviço</th>
+                                        <th class="text-end">Qtd.</th>
+                                        <th>Un.</th>
+                                        <th class="text-end">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-orcamento"></tbody>
+                                <tfoot class="table-light">
+                                    <tr>
+                                        <th colspan="6" class="text-end">Total Aumentado (+):</th>
+                                        <th class="text-end text-success" id="orcamento-total-aumentado">R$ 0,00</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="6" class="text-end">Total Reduzido (−):</th>
+                                        <th class="text-end text-danger" id="orcamento-total-reduzido">R$ 0,00</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                            <h6 class="text-danger border-bottom pb-2 mt-4">
+                                <i class="fas fa-minus-circle me-1"></i>
+                                Crédito Reduzido (−)
+                            </h6>
+                            <table class="table table-sm table-bordered orcamento-tabela">
+                                <tbody id="det-orcamento-reduzido"></tbody>
+                            </table>
+
+                            <div class="alert alert-light border mt-3" id="det-orcamento-obs-wrapper">
+                                <strong><i class="fas fa-comment me-1"></i>Observações:</strong>
+                                <p class="mb-0 mt-1" id="det-orcamento-obs">—</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="orcamento-vazio" class="card border-0" style="border-radius:12px;
+                     box-shadow:0 2px 12px rgba(0,0,0,.06);">
+                    <div class="card-body text-center py-5">
+                        <i class="fas fa-coins fa-3x text-muted mb-3"></i>
+                        <h5>Nenhum dado orçamentário cadastrado</h5>
+                        <p class="text-muted">
+                            Esta emenda ainda não possui a codificação orçamentária.
+                        </p>
+                        <button class="btn btn-primary"
+                                onclick="demoMsg('➕ Em produção, este botão abriria o formulário de cadastro de orçamento.');">
+                            <i class="fas fa-plus me-2"></i> Cadastrar Dados Orçamentários
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TELA: CADASTRO ============ -->
+    <div id="tela-cadastro" style="display:none;">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#" onclick="irPara('dashboard');return false;">
+                        <i class="fas fa-home"></i> Início
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#" onclick="irPara('lista');return false;">Emendas</a>
+                </li>
+                <li class="breadcrumb-item active">Nova Emenda</li>
+            </ol>
+        </nav>
+
+        <div id="resultadoCard" class="resultado-card" style="display:none;">
+            <h5><i class="fas fa-check-circle me-2"></i>Emenda simulada com sucesso!</h5>
+            <p class="mb-3 text-muted small">
+                Isto é apenas uma demonstração. Na versão completa, a emenda seria
+                gravada no banco e apareceria na listagem.
+            </p>
+            <div id="resultadoLinhas"></div>
+            <button class="btn btn-sm btn-outline-success mt-3"
+                    onclick="resetarForm();return false;">
+                <i class="fas fa-plus me-1"></i> Cadastrar outra emenda
+            </button>
+        </div>
+
+        <div class="card border-0" style="border-radius:12px;
+             box-shadow:0 2px 12px rgba(0,0,0,.06);" id="card-cadastro">
+            <div class="card-header bg-transparent d-flex justify-content-between
+                        align-items-center" style="border-bottom:2px solid #f0f2f5;">
+                <h5 class="mb-0">
+                    <i class="fas fa-plus-circle me-2"></i>Nova Emenda Parlamentar
+                </h5>
+            </div>
+            <div class="card-body">
+                <form id="emendaForm" onsubmit="return simularSalvar(event);">
+
+                    <div class="form-section">
+                        <h6><i class="fas fa-tag me-2"></i>Identificação da Emenda</h6>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="form-label required-field">Número da Emenda</label>
+                                <input type="number" name="numero" class="form-control" value="8" required>
+                                <div class="help-text">
+                                    <i class="fas fa-info-circle"></i>
+                                    Próximo número disponível: <strong>8</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label required-field">Ano</label>
+                                <input type="number" name="ano" class="form-control" value="2026" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label required-field">Nome do Autor (Vereador)</label>
+                                <input type="text" name="autor_nome" class="form-control"
+                                       placeholder="Ex.: João da Silva" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h6><i class="fas fa-file-alt me-2"></i>Dados da Emenda</h6>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label required-field">Tipo de Emenda</label>
+                                <select name="tipo" class="form-select">
+                                    <option value="INDIVIDUAL">Individual</option>
+                                    <option value="BANCADA">Bancada</option>
+                                    <option value="COMISSAO">Comissão</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required-field">Modalidade</label>
+                                <select name="modalidade" class="form-select">
+                                    <option value="FINALIDADE_DEFINIDA">Finalidade Definida</option>
+                                    <option value="TRANSFERENCIA_ESPECIAL">Transferência Especial (PIX)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">&nbsp;</label>
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox"
+                                           name="e_saude" id="e_saude">
+                                    <label class="form-check-label" for="e_saude">
+                                        <strong>Área de Saúde</strong>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Unidade Padrão da Meta</label>
+                                <input type="text" name="unidade_meta" id="id_unidade_meta"
+                                       class="form-control" list="listaUnidadesEmenda"
+                                       value="unidades" maxlength="20">
+                                <datalist id="listaUnidadesEmenda">
+                                    <option value="unidades"><option value="km"><option value="m">
+                                    <option value="m²"><option value="m³"><option value="kg">
+                                    <option value="toneladas"><option value="litros"><option value="cestas">
+                                    <option value="atendimentos"><option value="famílias">
+                                    <option value="beneficiários"><option value="horas">
+                                </datalist>
+                                <div class="unidade-preview">
+                                    <i class="fas fa-ruler"></i>
+                                    <span id="unidadePreviewTexto">unidades</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <label class="form-label required-field">Objeto</label>
+                                <textarea name="objeto" class="form-control" rows="3" required></textarea>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <label class="form-label">Descrição Detalhada</label>
+                                <textarea name="descricao_detalhada" class="form-control" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h6><i class="fas fa-hand-holding-usd me-2"></i>Valores e Beneficiário</h6>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label required-field">Valor Total</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="text" name="valor_total" id="id_valor_total"
+                                           class="form-control valor-monetario-input"
+                                           placeholder="0,00" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Nome do Beneficiário</label>
+                                <input type="text" name="beneficiario_nome" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">CNPJ do Beneficiário</label>
+                                <input type="text" name="beneficiario_cnpj" class="form-control"
+                                       placeholder="00.000.000/0000-00">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h6><i class="fas fa-code-branch me-2"></i>Classificação Orçamentária</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Conta Bancária</label>
+                                <input type="text" name="conta_bancaria" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Data Prevista de Conclusão</label>
+                                <input type="date" name="data_prevista_conclusao" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h6><i class="fas fa-tasks me-2"></i>Plano de Trabalho</h6>
+                        <textarea name="plano_trabalho" class="form-control" rows="4"></textarea>
+                    </div>
+
+                    <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div>
+                            <button type="button" class="btn btn-secondary"
+                                    onclick="irPara('lista');">
+                                <i class="fas fa-arrow-left me-1"></i> Cancelar
+                            </button>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary"
+                                    style="padding:10px 40px;font-weight:600;">
+                                <i class="fas fa-save me-2"></i> Criar Emenda
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<div id="demoToast">
+    <i class="fas fa-flask"></i>
+    <span id="demoToastMsg">Ação indisponível na demonstração.</span>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ============================================================
+// TOAST E HELPERS
+// ============================================================
+let toastTimer = null;
+function demoMsg(msg) {
+    const t = document.getElementById('demoToast');
+    document.getElementById('demoToastMsg').textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+}
+function fmtBRL(v) {
+    return (v || 0).toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
+}
+function escapeHtml(s) {
+    const d = document.createElement('div');
+    d.textContent = s == null ? '' : String(s);
+    return d.innerHTML;
+}
+
+// ============================================================
+// BASE DE DADOS — 6 EMENDAS COMPLETAS
+// ============================================================
+const EMENDAS = [
+    // ---------- EMENDA 1 — Em Execução (Prefeitura) ----------
+    {
+        id: 1, numero: 1, ano: 2026,
+        autor: 'João da Silva',
+        tipo: 'Individual', modalidade: 'Finalidade Definida', saude: false,
+        objeto: 'Reforma e ampliação da UBS Central do Município',
+        valor: 150000.00, valorPago: 45000.00,
+        status: 'EM_EXECUCAO', statusLabel: 'Em Execução', statusBadge: 'warning',
+        pctFisico: 35, pctFinanceiro: 30,
+        setorAtual: 'Controladoria', orgaoAtual: 'Prefeitura',
+        responsavel: 'Maria Santos', minhaEmenda: false,
+        dataCriacao: '2026-01-15', dataAtualizacao: '2026-03-20',
+        descricaoDetalhada: 'A emenda destina-se à reforma completa da Unidade Básica de Saúde Central, incluindo substituição do telhado, pintura geral, troca de pisos, reforma dos banheiros e aquisição de mobiliário novo.',
+        plano: 'Reforma da UBS Central com previsão de 6 meses de execução, incluindo cronograma físico-financeiro detalhado e plano de contingência para eventuais atrasos de material.',
+        benefNome: 'Secretaria Municipal de Saúde',
+        benefCnpj: '12.345.678/0001-90',
+        temOrcamento: true,
+        creditoNovo: false, creditoSuplementado: true,
+        orcamentoObs: 'Crédito suplementado conforme LOA 2026, art. 5º.',
+        historico: [
+            {data:'15/01/2026 09:32', acao:'Criação', descricao:'Emenda protocolada na Câmara por João da Silva', icone:'fa-plus', cor:'#28a745'},
+            {data:'22/01/2026 14:15', acao:'Análise', descricao:'Aprovada em plenária — parecer favorável da Comissão de Finanças', icone:'fa-search', cor:'#0dcaf0'},
+            {data:'25/01/2026 10:00', acao:'Remessa', descricao:'Enviada oficialmente à Prefeitura', icone:'fa-arrow-right', cor:'#0d6efd'},
+            {data:'28/01/2026 08:45', acao:'Recebimento', descricao:'Recebida pela Controladoria para análise técnica', icone:'fa-inbox', cor:'#0dcaf0'},
+            {data:'05/02/2026 11:20', acao:'Documento', descricao:'Anexado: Planilha Orçamentária revisada', icone:'fa-paperclip', cor:'#6c757d'},
+            {data:'01/03/2026 16:20', acao:'Aprovação', descricao:'Aprovada pela Prefeitura — parecer favorável', icone:'fa-check', cor:'#28a745'},
+            {data:'20/03/2026 11:00', acao:'Execução', descricao:'Execução de Março/2026 informada — 35% físico', icone:'fa-play', cor:'#0d6efd'},
+        ],
+        responsaveis: [
+            {usuario:'Pedro Costa', setor:'Análise Técnica (Câmara)', acao:'assumiu', data:'15/01/2026 09:32'},
+            {usuario:'Carlos Souza', setor:'Análise Contábil (Câmara)', acao:'recebeu', data:'22/01/2026 14:15'},
+            {usuario:'Maria Santos', setor:'Controladoria (Prefeitura)', acao:'assumiu', data:'28/01/2026 08:45'},
+            {usuario:'Maria Santos', setor:'Controladoria (Prefeitura)', acao:'aprovou', data:'01/03/2026 16:20'},
+        ],
+        anexos: [
+            {setor:'Análise Técnica', tipo:'Plano de Trabalho', titulo:'Plano de Trabalho Aprovado', usuario:'Pedro Costa', data:'18/01/2026', arquivo:'plano_trabalho.pdf'},
+            {setor:'Análise Contábil', tipo:'Documento', titulo:'Planilha Orçamentária', usuario:'Carlos Souza', data:'25/01/2026', arquivo:'planilha.xlsx'},
+            {setor:'Controladoria', tipo:'Comprovante', titulo:'Empenho 2026NE000123', usuario:'Maria Santos', data:'05/03/2026', arquivo:'empenho.pdf'},
+            {setor:'Controladoria', tipo:'Comprovante', titulo:'Registro fotográfico — 1ª medição', usuario:'Maria Santos', data:'20/03/2026', arquivo:'fotos.zip'},
+        ],
+        docsPendentes: ['Prestação de Contas Parcial', 'Laudo de Vistoria Final'],
+        parcerias: [
+            {osc:'Instituto Vida Nova', cnpj:'12.345.678/0001-99', tipo:'Termo de Colaboração',
+             processo:'PROC-2026/0045', valor:50000, repassado:20000, executado:15000,
+             dataAssinatura:'15/02/2026', termos:['termo_parceria.pdf','plano_trabalho_osc.pdf']},
+        ],
+        rastreamento: [
+            {orgao:'Câmara Municipal de Demo', tipo:'LEGISLATIVO', eventos:[
+                {data:'15/01/2026 09:32', acao:'Criação', setor:'Análise Técnica',
+                 icone:'fa-plus', cor:'#28a745', descricao:'Emenda criada por João da Silva'},
+                {data:'22/01/2026 14:15', acao:'Análise', setor:'Análise Contábil',
+                 icone:'fa-search', cor:'#0dcaf0', descricao:'Aprovada em plenária'},
+                {data:'25/01/2026 10:00', acao:'Remessa', setor:'Análise Contábil',
+                 icone:'fa-arrow-right', cor:'#0d6efd', descricao:'Enviada para a Prefeitura'},
+            ]},
+            {orgao:'Prefeitura Municipal de Demo', tipo:'EXECUTIVO', eventos:[
+                {data:'28/01/2026 08:45', acao:'Recebimento', setor:'Controladoria',
+                 icone:'fa-inbox', cor:'#0dcaf0', descricao:'Recebida para análise técnica'},
+                {data:'01/03/2026 16:20', acao:'Aprovação', setor:'Controladoria',
+                 icone:'fa-check', cor:'#28a745', descricao:'Aprovada pela Prefeitura'},
+                {data:'20/03/2026 11:00', acao:'Execução', setor:'Controladoria',
+                 icone:'fa-play', cor:'#0d6efd', descricao:'Execução de Março/2026 informada', atual:true},
+            ]},
+        ],
+        itensOrcamento: [
+            {codigo:'4.4.90.51', nome:'Obras e Instalações', descricao:'Reforma do telhado e alvenaria', qtd:'1', un:'vb', valor:80000.00},
+            {codigo:'4.4.90.52', nome:'Equipamentos e Material Permanente', descricao:'Mobiliário novo', qtd:'1', un:'vb', valor:70000.00},
+        ],
+    },
+
+    // ---------- EMENDA 2 — Aprovada — "Meu setor" ----------
+    {
+        id: 2, numero: 2, ano: 2026,
+        autor: 'Ana Oliveira',
+        tipo: 'Individual', modalidade: 'Transferência Especial (PIX)', saude: true,
+        objeto: 'Aquisição de equipamentos para o Hospital Municipal',
+        valor: 280000.00, valorPago: 0,
+        status: 'APROVADA', statusLabel: 'Aprovada', statusBadge: 'success',
+        pctFisico: 0, pctFinanceiro: 0,
+        setorAtual: 'Controladoria', orgaoAtual: 'Prefeitura',
+        responsavel: 'Maria Santos', minhaEmenda: true,
+        dataCriacao: '2026-02-03', dataAtualizacao: '2026-03-18',
+        descricaoDetalhada: 'Aquisição de equipamentos médicos e hospitalares, incluindo monitores multiparâmetros, respiradores pulmonares e aparelhos de ultrassom.',
+        plano: 'Aquisição de equipamentos conforme processo licitatório a ser deflagrado. Pregão eletrônico previsto para abril/2026.',
+        benefNome: 'Hospital Municipal São José',
+        benefCnpj: '98.765.432/0001-10',
+        temOrcamento: true,
+        creditoNovo: true, creditoSuplementado: false,
+        orcamentoObs: 'Crédito novo, conforme LOA 2026, art. 12.',
+        historico: [
+            {data:'03/02/2026 10:00', acao:'Criação', descricao:'Emenda criada por Ana Oliveira', icone:'fa-plus', cor:'#28a745'},
+            {data:'10/02/2026 11:00', acao:'Documento', descricao:'Anexado: Plano de Trabalho Hospital', icone:'fa-paperclip', cor:'#6c757d'},
+            {data:'15/02/2026 11:00', acao:'Remessa', descricao:'Enviada para a Prefeitura', icone:'fa-arrow-right', cor:'#0d6efd'},
+            {data:'15/03/2026 14:00', acao:'Análise', descricao:'Parecer técnico favorável da Controladoria', icone:'fa-search', cor:'#0dcaf0'},
+            {data:'18/03/2026 15:30', acao:'Aprovação', descricao:'Aprovada pela Prefeitura — parecer favorável', icone:'fa-check', cor:'#28a745'},
+        ],
+        responsaveis: [
+            {usuario:'Pedro Costa', setor:'Análise Técnica (Câmara)', acao:'assumiu', data:'03/02/2026 10:00'},
+            {usuario:'Maria Santos', setor:'Controladoria (Prefeitura)', acao:'assumiu', data:'15/02/2026 11:00'},
+            {usuario:'Maria Santos', setor:'Controladoria (Prefeitura)', acao:'aprovou', data:'18/03/2026 15:30'},
+        ],
+        anexos: [
+            {setor:'Análise Técnica', tipo:'Plano de Trabalho', titulo:'Plano de Trabalho Hospital', usuario:'Ana Oliveira', data:'10/02/2026', arquivo:'plano_hospital.pdf'},
+            {setor:'Controladoria', tipo:'Documento', titulo:'Parecer Técnico Favorável', usuario:'Maria Santos', data:'15/03/2026', arquivo:'parecer.pdf'},
+            {setor:'Controladoria', tipo:'Documento', titulo:'Justificativa de Aquisição', usuario:'Maria Santos', data:'15/03/2026', arquivo:'justificativa.pdf'},
+        ],
+        docsPendentes: ['Comprovante de Conta Específica', 'Termo de Consentimento TCESP'],
+        parcerias: [],
+        rastreamento: [
+            {orgao:'Câmara Municipal de Demo', tipo:'LEGISLATIVO', eventos:[
+                {data:'03/02/2026 10:00', acao:'Criação', setor:'Análise Técnica',
+                 icone:'fa-plus', cor:'#28a745', descricao:'Emenda criada por Ana Oliveira'},
+                {data:'15/02/2026 11:00', acao:'Remessa', setor:'Análise Técnica',
+                 icone:'fa-arrow-right', cor:'#0d6efd', descricao:'Enviada para a Prefeitura'},
+            ]},
+            {orgao:'Prefeitura Municipal de Demo', tipo:'EXECUTIVO', eventos:[
+                {data:'15/03/2026 14:00', acao:'Análise', setor:'Controladoria',
+                 icone:'fa-search', cor:'#0dcaf0', descricao:'Parecer técnico favorável'},
+                {data:'18/03/2026 15:30', acao:'Aprovação', setor:'Controladoria',
+                 icone:'fa-check', cor:'#28a745', descricao:'Aprovada pela Prefeitura', atual:true},
+            ]},
+        ],
+        itensOrcamento: [
+            {codigo:'4.4.90.52', nome:'Equipamentos e Material Permanente', descricao:'Monitores multiparâmetros', qtd:'5', un:'un', valor:150000.00},
+            {codigo:'4.4.90.52', nome:'Equipamentos e Material Permanente', descricao:'Respiradores pulmonares', qtd:'2', un:'un', valor:130000.00},
+        ],
+    },
+
+    // ---------- EMENDA 3 — Proposta — SEM orçamento ----------
+    {
+        id: 3, numero: 3, ano: 2026,
+        autor: 'Carlos Pereira',
+        tipo: 'Bancada', modalidade: 'Finalidade Definida', saude: false,
+        objeto: 'Construção de quadra poliesportiva no Bairro Jardim das Flores',
+        valor: 220000.00, valorPago: 0,
+        status: 'PROPOSTA', statusLabel: 'Proposta', statusBadge: 'secondary',
+        pctFisico: 0, pctFinanceiro: 0,
+        setorAtual: 'Análise Técnica', orgaoAtual: 'Câmara',
+        responsavel: 'Pedro Costa', minhaEmenda: false,
+        dataCriacao: '2026-02-20', dataAtualizacao: '2026-02-20',
+        descricaoDetalhada: 'Construção de quadra poliesportiva coberta no Bairro Jardim das Flores, com vestiários, arquibancada, iluminação e paisagismo.',
+        plano: 'Plano de trabalho em elaboração pela Câmara Municipal. Previsão de conclusão em 15 dias.',
+        benefNome: 'Secretaria de Esportes',
+        benefCnpj: '11.222.333/0001-44',
+        temOrcamento: false,
+        historico: [
+            {data:'20/02/2026 08:00', acao:'Criação', descricao:'Emenda criada por Carlos Pereira no setor Análise Técnica', icone:'fa-plus', cor:'#28a745'},
+            {data:'20/02/2026 14:30', acao:'Análise', descricao:'Encaminhada para análise da Comissão de Obras', icone:'fa-search', cor:'#0dcaf0'},
+        ],
+        responsaveis: [
+            {usuario:'Pedro Costa', setor:'Análise Técnica (Câmara)', acao:'assumiu', data:'20/02/2026 08:00'},
+        ],
+        anexos: [],
+        docsPendentes: ['Plano de Trabalho', 'Planilha Orçamentária', 'Declaração de Capacidade Técnica', 'Projeto Executivo'],
+        parcerias: [],
+        rastreamento: [
+            {orgao:'Câmara Municipal de Demo', tipo:'LEGISLATIVO', eventos:[
+                {data:'20/02/2026 08:00', acao:'Criação', setor:'Análise Técnica',
+                 icone:'fa-plus', cor:'#28a745', descricao:'Emenda criada por Carlos Pereira'},
+                {data:'20/02/2026 14:30', acao:'Análise', setor:'Análise Técnica',
+                 icone:'fa-search', cor:'#0dcaf0', descricao:'Encaminhada para Comissão de Obras', atual:true},
+            ]},
+        ],
+        itensOrcamento: [],
+    },
+
+    // ---------- EMENDA 4 — Concluída ----------
+    {
+        id: 4, numero: 5, ano: 2026,
+        autor: 'Beatriz Lima',
+        tipo: 'Individual', modalidade: 'Finalidade Definida', saude: true,
+        objeto: 'Programa de vacinação itinerante nas zonas rurais',
+        valor: 95000.00, valorPago: 95000.00,
+        status: 'CONCLUIDA', statusLabel: 'Concluída', statusBadge: 'success',
+        pctFisico: 100, pctFinanceiro: 100,
+        setorAtual: 'Concluída', orgaoAtual: 'Prefeitura',
+        responsavel: 'Maria Santos', minhaEmenda: false,
+        dataCriacao: '2025-12-10', dataAtualizacao: '2026-03-15',
+        dataConclusao: '15/03/2026',
+        descricaoDetalhada: 'Programa itinerante de vacinação em comunidades rurais, com equipe móvel e veículo adaptado, cobrindo 12 localidades.',
+        plano: 'Execução concluída conforme cronograma. Todas as metas físicas e financeiras atingidas.',
+        benefNome: 'Secretaria de Saúde',
+        benefCnpj: '55.666.777/0001-22',
+        temOrcamento: true,
+        creditoNovo: false, creditoSuplementado: true,
+        orcamentoObs: 'Encerrado com saldo zerado.',
+        historico: [
+            {data:'10/12/2025 09:00', acao:'Criação', descricao:'Emenda criada por Beatriz Lima', icone:'fa-plus', cor:'#28a745'},
+            {data:'20/12/2025 10:00', acao:'Documento', descricao:'Anexado: Plano de Trabalho', icone:'fa-paperclip', cor:'#6c757d'},
+            {data:'05/01/2026 10:00', acao:'Remessa', descricao:'Enviada para a Prefeitura', icone:'fa-arrow-right', cor:'#0d6efd'},
+            {data:'15/01/2026 11:00', acao:'Aprovação', descricao:'Aprovada pela Prefeitura', icone:'fa-check', cor:'#28a745'},
+            {data:'20/02/2026 14:00', acao:'Execução', descricao:'Execução de Fevereiro/2026 informada', icone:'fa-play', cor:'#0d6efd'},
+            {data:'15/03/2026 16:00', acao:'Conclusão', descricao:'Emenda finalizada — 100% executada', icone:'fa-flag-checkered', cor:'#28a745'},
+        ],
+        responsaveis: [
+            {usuario:'Pedro Costa', setor:'Análise Técnica (Câmara)', acao:'assumiu', data:'10/12/2025 09:00'},
+            {usuario:'Maria Santos', setor:'Controladoria (Prefeitura)', acao:'assumiu', data:'15/01/2026 11:00'},
+            {usuario:'Maria Santos', setor:'Controladoria (Prefeitura)', acao:'concluiu', data:'15/03/2026 16:00'},
+        ],
+        anexos: [
+            {setor:'Análise Técnica', tipo:'Plano de Trabalho', titulo:'Plano de Trabalho', usuario:'Beatriz Lima', data:'20/12/2025', arquivo:'plano_vacinacao.pdf'},
+            {setor:'Execução', tipo:'Comprovante', titulo:'Comprovante de Conclusão', usuario:'Maria Santos', data:'15/03/2026', arquivo:'conclusao.pdf'},
+            {setor:'Controladoria', tipo:'Relatório de Gestão', titulo:'Relatório Final de Execução', usuario:'Maria Santos', data:'15/03/2026', arquivo:'relatorio_final.pdf'},
+            {setor:'Controladoria', tipo:'Comprovante', titulo:'Notas fiscais consolidadas', usuario:'Maria Santos', data:'15/03/2026', arquivo:'notas_fiscais.zip'},
+        ],
+        docsPendentes: [],
+        parcerias: [],
+        rastreamento: [
+            {orgao:'Câmara Municipal de Demo', tipo:'LEGISLATIVO', eventos:[
+                {data:'10/12/2025 09:00', acao:'Criação', setor:'Análise Técnica',
+                 icone:'fa-plus', cor:'#28a745', descricao:'Emenda criada por Beatriz Lima'},
+                {data:'05/01/2026 10:00', acao:'Remessa', setor:'Análise Técnica',
+                 icone:'fa-arrow-right', cor:'#0d6efd', descricao:'Enviada para a Prefeitura'},
+            ]},
+            {orgao:'Prefeitura Municipal de Demo', tipo:'EXECUTIVO', eventos:[
+                {data:'15/01/2026 11:00', acao:'Aprovação', setor:'Controladoria',
+                 icone:'fa-check', cor:'#28a745', descricao:'Aprovada pela Prefeitura'},
+                {data:'20/02/2026 14:00', acao:'Execução', setor:'Controladoria',
+                 icone:'fa-play', cor:'#0d6efd', descricao:'Execução de Fevereiro/2026'},
+                {data:'15/03/2026 16:00', acao:'Conclusão', setor:'Controladoria',
+                 icone:'fa-flag-checkered', cor:'#28a745', descricao:'Emenda finalizada — 100% executada', atual:true},
+            ]},
+        ],
+        itensOrcamento: [
+            {codigo:'3.3.90.30', nome:'Material de Consumo', descricao:'Combustível e insumos', qtd:'1', un:'vb', valor:95000.00},
+        ],
+    },
+
+    // ---------- EMENDA 5 — Impedimento Temporário ----------
+    {
+        id: 5, numero: 6, ano: 2026,
+        autor: 'Roberto Alves',
+        tipo: 'Comissão', modalidade: 'Finalidade Definida', saude: false,
+        objeto: 'Pavimentação asfáltica da Rua das Acácias',
+        valor: 180000.00, valorPago: 0,
+        status: 'IMPEDIMENTO_TEMPORARIO', statusLabel: 'Impedimento Temporário',
+        statusBadge: 'warning',
+        pctFisico: 10, pctFinanceiro: 0,
+        setorAtual: 'Análise Contábil', orgaoAtual: 'Prefeitura',
+        responsavel: 'Carlos Souza', minhaEmenda: false,
+        dataCriacao: '2026-01-28', dataAtualizacao: '2026-03-10',
+        descricaoDetalhada: 'Pavimentação asfáltica com drenagem da Rua das Acácias, trecho de 1,2 km, incluindo meio-fio e sarjeta.',
+        plano: 'Obra paralisada por falta de documentação ambiental. Aguardando licença do órgão estadual.',
+        benefNome: 'Secretaria de Obras',
+        benefCnpj: '77.888.999/0001-33',
+        temOrcamento: true,
+        creditoNovo: false, creditoSuplementado: true,
+        orcamentoObs: '—',
+        impedimentoMotivo: 'Aguardando licença ambiental do órgão estadual (CETESB)',
+        impedimentoCategoria: 'Ambiental',
+        impedimentoInsuperavel: false,
+        impedimentoPrazo: '30/06/2026',
+        historico: [
+            {data:'28/01/2026 10:00', acao:'Criação', descricao:'Emenda criada por Roberto Alves', icone:'fa-plus', cor:'#28a745'},
+            {data:'01/02/2026 09:00', acao:'Documento', descricao:'Anexado: Projeto Executivo', icone:'fa-paperclip', cor:'#6c757d'},
+            {data:'10/02/2026 14:00', acao:'Remessa', descricao:'Enviada para a Prefeitura', icone:'fa-arrow-right', cor:'#0d6efd'},
+            {data:'15/02/2026 09:00', acao:'Recebimento', descricao:'Recebida pela Prefeitura', icone:'fa-inbox', cor:'#0dcaf0'},
+            {data:'10/03/2026 09:30', acao:'Impedimento', descricao:'Impedimento temporário registrado: aguardando licença ambiental', icone:'fa-exclamation-triangle', cor:'#dc3545'},
+        ],
+        responsaveis: [
+            {usuario:'Carlos Souza', setor:'Análise Contábil (Câmara)', acao:'assumiu', data:'28/01/2026 10:00'},
+            {usuario:'Ana Costa', setor:'Análise Contábil (Prefeitura)', acao:'registrou impedimento', data:'10/03/2026 09:30'},
+        ],
+        anexos: [
+            {setor:'Análise Técnica', tipo:'Documento', titulo:'Projeto Executivo', usuario:'Roberto Alves', data:'01/02/2026', arquivo:'projeto.pdf'},
+            {setor:'Análise Contábil', tipo:'Documento', titulo:'Parecer Ambiental Preliminar', usuario:'Ana Costa', data:'10/03/2026', arquivo:'parecer_ambiental.pdf'},
+        ],
+        docsPendentes: ['Licença Ambiental (CETESB)', 'Comprovante de Conta Específica'],
+        parcerias: [],
+        rastreamento: [
+            {orgao:'Câmara Municipal de Demo', tipo:'LEGISLATIVO', eventos:[
+                {data:'28/01/2026 10:00', acao:'Criação', setor:'Análise Técnica',
+                 icone:'fa-plus', cor:'#28a745', descricao:'Emenda criada por Roberto Alves'},
+                {data:'10/02/2026 14:00', acao:'Remessa', setor:'Análise Técnica',
+                 icone:'fa-arrow-right', cor:'#0d6efd', descricao:'Enviada para a Prefeitura'},
+            ]},
+            {orgao:'Prefeitura Municipal de Demo', tipo:'EXECUTIVO', eventos:[
+                {data:'15/02/2026 09:00', acao:'Recebimento', setor:'Análise Contábil',
+                 icone:'fa-inbox', cor:'#0dcaf0', descricao:'Recebida pela Prefeitura'},
+                {data:'10/03/2026 09:30', acao:'Impedimento', setor:'Análise Contábil',
+                 icone:'fa-exclamation-triangle', cor:'#dc3545',
+                 descricao:'Impedimento temporário: aguardando licença ambiental', atual:true},
+            ]},
+        ],
+        itensOrcamento: [
+            {codigo:'4.4.90.51', nome:'Obras e Instalações', descricao:'Pavimentação asfáltica', qtd:'1', un:'vb', valor:180000.00},
+        ],
+    },
+
+    // ---------- EMENDA 6 — Em Execução — "Meu setor" ----------
+    {
+        id: 6, numero: 7, ano: 2026,
+        autor: 'João da Silva',
+        tipo: 'Individual', modalidade: 'Finalidade Definida', saude: false,
+        objeto: 'Aquisição de cestas básicas para famílias em vulnerabilidade',
+        valor: 60000.00, valorPago: 20000.00,
+        status: 'EM_EXECUCAO', statusLabel: 'Em Execução', statusBadge: 'warning',
+        pctFisico: 40, pctFinanceiro: 33,
+        setorAtual: 'Controladoria', orgaoAtual: 'Prefeitura',
+        responsavel: 'Maria Santos', minhaEmenda: true,
+        dataCriacao: '2026-02-15', dataAtualizacao: '2026-03-22',
+        descricaoDetalhada: 'Aquisição e distribuição de 400 cestas básicas para famílias em situação de vulnerabilidade social, com entrega mensal de 40 cestas.',
+        plano: 'Distribuição mensal de 40 cestas por mês, com relatório mensal de entregas e comprovação via recibo assinado.',
+        benefNome: 'Secretaria de Assistência Social',
+        benefCnpj: '22.333.444/0001-55',
+        temOrcamento: true,
+        creditoNovo: false, creditoSuplementado: true,
+        orcamentoObs: 'Conforme LOA, ação 2.110.',
+        historico: [
+            {data:'15/02/2026 10:00', acao:'Criação', descricao:'Emenda criada por João da Silva', icone:'fa-plus', cor:'#28a745'},
+            {data:'18/02/2026 10:00', acao:'Documento', descricao:'Anexado: Plano de Distribuição', icone:'fa-paperclip', cor:'#6c757d'},
+            {data:'25/02/2026 11:00', acao:'Remessa', descricao:'Enviada para a Prefeitura', icone:'fa-arrow-right', cor:'#0d6efd'},
+            {data:'05/03/2026 15:00', acao:'Aprovação', descricao:'Aprovada pela Prefeitura — parecer favorável', icone:'fa-check', cor:'#28a745'},
+            {data:'22/03/2026 10:00', acao:'Execução', descricao:'Execução de Março/2026 informada — 160 cestas entregues', icone:'fa-play', cor:'#0d6efd'},
+        ],
+        responsaveis: [
+            {usuario:'Pedro Costa', setor:'Análise Técnica (Câmara)', acao:'assumiu', data:'15/02/2026 10:00'},
+            {usuario:'Maria Santos', setor:'Controladoria (Prefeitura)', acao:'assumiu', data:'25/02/2026 11:00'},
+            {usuario:'Maria Santos', setor:'Controladoria (Prefeitura)', acao:'aprovou', data:'05/03/2026 15:00'},
+        ],
+        anexos: [
+            {setor:'Análise Técnica', tipo:'Plano de Trabalho', titulo:'Plano de Distribuição', usuario:'João da Silva', data:'18/02/2026', arquivo:'plano_distribuicao.pdf'},
+            {setor:'Controladoria', tipo:'Comprovante', titulo:'Notas Fiscais de Compra — Lote 1', usuario:'Maria Santos', data:'20/03/2026', arquivo:'notas_lote1.pdf'},
+            {setor:'Controladoria', tipo:'Comprovante', titulo:'Recibos de Entrega — Março/2026', usuario:'Maria Santos', data:'22/03/2026', arquivo:'recibos_mar.pdf'},
+        ],
+        docsPendentes: ['Relatório de Entrega — Março/2026'],
+        parcerias: [
+            {osc:'Associação Mãos Unidas', cnpj:'33.444.555/0001-66', tipo:'Termo de Fomento',
+             processo:'PROC-2026/0112', valor:30000, repassado:20000, executado:8000,
+             dataAssinatura:'01/03/2026', termos:['termo_fomento.pdf','plano_trabalho_osc.pdf']},
+        ],
+        rastreamento: [
+            {orgao:'Câmara Municipal de Demo', tipo:'LEGISLATIVO', eventos:[
+                {data:'15/02/2026 10:00', acao:'Criação', setor:'Análise Técnica',
+                 icone:'fa-plus', cor:'#28a745', descricao:'Emenda criada por João da Silva'},
+                {data:'25/02/2026 11:00', acao:'Remessa', setor:'Análise Técnica',
+                 icone:'fa-arrow-right', cor:'#0d6efd', descricao:'Enviada para a Prefeitura'},
+            ]},
+            {orgao:'Prefeitura Municipal de Demo', tipo:'EXECUTIVO', eventos:[
+                {data:'05/03/2026 15:00', acao:'Aprovação', setor:'Controladoria',
+                 icone:'fa-check', cor:'#28a745', descricao:'Aprovada pela Prefeitura'},
+                {data:'22/03/2026 10:00', acao:'Execução', setor:'Controladoria',
+                 icone:'fa-play', cor:'#0d6efd', descricao:'Execução de Março/2026 informada', atual:true},
+            ]},
+        ],
+        itensOrcamento: [
+            {codigo:'3.3.90.30', nome:'Material de Consumo', descricao:'Cestas básicas (400 unidades)', qtd:'400', un:'un', valor:60000.00},
+        ],
+    },
+];
+
+// ============================================================
+// NAVEGAÇÃO ENTRE TELAS
+// ============================================================
+function irPara(tela, params) {
+    ['dashboard','lista','detalhe','cadastro'].forEach(t => {
+        document.getElementById('tela-' + t).style.display = 'none';
+    });
+    document.querySelectorAll('.navbar .nav-link').forEach(el => el.classList.remove('active'));
+
+    if (tela === 'dashboard') {
+        document.getElementById('tela-dashboard').style.display = '';
+        document.getElementById('nav-dashboard').classList.add('active');
+    } else if (tela === 'lista') {
+        document.getElementById('tela-lista').style.display = '';
+        document.getElementById('nav-lista').classList.add('active');
+        renderLista();
+    } else if (tela === 'detalhe') {
+        document.getElementById('tela-detalhe').style.display = '';
+        document.getElementById('nav-lista').classList.add('active');
+        renderDetalhe(params);
+    } else if (tela === 'cadastro') {
+        document.getElementById('tela-cadastro').style.display = '';
+        resetarForm();
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function renderDashboard() {
+    const total = EMENDAS.length;
+    const concluidas = EMENDAS.filter(e => e.status === 'CONCLUIDA').length;
+    const execucao = EMENDAS.filter(e => e.status === 'EM_EXECUCAO').length;
+    const impedidas = EMENDAS.filter(e => e.status.startsWith('IMPEDIMENTO')).length;
+
+    document.getElementById('kpi-total').textContent = total;
+    document.getElementById('kpi-concluidas').textContent = concluidas;
+    document.getElementById('kpi-execucao').textContent = execucao;
+    document.getElementById('kpi-impedidas').textContent = impedidas;
+
+    const recentes = [...EMENDAS].sort((a,b) => b.id - a.id).slice(0, 6);
+    document.getElementById('tbody-recentes').innerHTML = recentes.map(e => `
+        <tr class="linha-emenda ${e.minhaEmenda ? 'minha-emenda' : ''}"
+            onclick="irPara('detalhe', ${e.id})">
+            <td>
+                <strong>${e.numero}/${e.ano}</strong>
+                ${e.minhaEmenda ? `<span class="badge-minha-emenda"
+                    title="Aguardando movimentação no seu setor">
+                    <i class="fas fa-map-marker-alt"></i> Meu setor</span>` : ''}
+            </td>
+            <td>${escapeHtml(e.autor)}</td>
+            <td>${escapeHtml(e.objeto)}</td>
+            <td class="text-end text-nowrap">${fmtBRL(e.valor)}</td>
+            <td class="coluna-setor-atual">
+                <span class="setor-nome">
+                    <i class="fas fa-map-marker-alt"></i> ${escapeHtml(e.setorAtual)}
+                </span>
+            </td>
+            <td class="text-center">
+                <span class="badge bg-${e.statusBadge}">${e.statusLabel}</span>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// ============================================================
+// LISTA
+// ============================================================
+function renderLista() {
+    const filtroStatus = document.getElementById('filtro-status').value;
+    const busca = (document.getElementById('filtro-busca').value || '').toLowerCase();
+
+    let lista = EMENDAS.slice();
+    if (filtroStatus) lista = lista.filter(e => e.status === filtroStatus);
+    if (busca) {
+        lista = lista.filter(e =>
+            String(e.numero).includes(busca) ||
+            e.autor.toLowerCase().includes(busca) ||
+            e.objeto.toLowerCase().includes(busca)
+        );
+    }
+
+    document.getElementById('badge-total').textContent = `${EMENDAS.length} emendas`;
+    document.getElementById('badge-concluidas').textContent =
+        EMENDAS.filter(e => e.status === 'CONCLUIDA').length;
+    document.getElementById('badge-ativas').textContent =
+        EMENDAS.filter(e => e.status !== 'CONCLUIDA').length;
+
+    const tbody = document.getElementById('tbody-lista');
+    if (lista.length === 0) {
+        tbody.innerHTML = `
+            <tr><td colspan="6">
+                <div class="empty-state">
+                    <i class="fas fa-inbox empty-icon"></i>
+                    <h6>Nenhuma emenda encontrada</h6>
+                    <p class="mb-0">Ajuste os filtros ou crie uma nova emenda.</p>
+                </div>
+            </td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = lista.map(e => `
+        <tr class="linha-emenda ${e.minhaEmenda ? 'minha-emenda' : ''}"
+            onclick="irPara('detalhe', ${e.id})">
+            <td><strong>${e.numero}/${e.ano}</strong></td>
+            <td>${escapeHtml(e.autor)}</td>
+            <td>${escapeHtml(e.objeto)}</td>
+            <td class="text-end text-nowrap">${fmtBRL(e.valor)}</td>
+            <td>
+                <div class="progress" style="height:6px;width:80px;">
+                    <div class="progress-bar bg-${e.pctFisico >= 100 ? 'success' : (e.pctFisico > 0 ? 'primary' : 'secondary')}"
+                         style="width:${e.pctFisico}%"></div>
+                </div>
+                <small class="text-muted">${e.pctFisico}%</small>
+            </td>
+            <td class="text-center">
+                <span class="badge bg-${e.statusBadge}">${e.statusLabel}</span>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// ============================================================
+// DETALHE — RENDERIZA TUDO (com try/catch em cada bloco)
+// ============================================================
+function renderDetalhe(id) {
+    const e = EMENDAS.find(x => x.id === id);
+    if (!e) return;
+
+    // Cabeçalho
+    document.getElementById('breadcrumb-detalhe').textContent = `Emenda ${e.numero}/${e.ano}`;
+    document.getElementById('det-titulo').innerHTML =
+        `<i class="fas fa-file-alt me-2 text-primary"></i>Emenda ${e.numero}/${e.ano}`;
+    document.getElementById('det-autor').innerHTML =
+        `<i class="fas fa-user me-1"></i> Autor: ${escapeHtml(e.autor)}`;
+    document.getElementById('det-badges').innerHTML = `
+        <span class="badge bg-${e.statusBadge} me-1">
+            <i class="fas fa-circle me-1" style="font-size:.6rem;"></i>
+            ${e.statusLabel}
+        </span>
+        <span class="badge bg-${e.status === 'CONCLUIDA' ? 'dark' : 'success'}">
+            <i class="fas fa-${e.status === 'CONCLUIDA' ? 'lock' : 'unlock'} me-1"></i>
+            ${e.status === 'CONCLUIDA' ? 'Finalizada (bloqueada)' : 'Sem bloqueio'}
+        </span>
+    `;
+    document.getElementById('det-criacao').textContent = `Criado em: ${e.dataCriacao}`;
+    document.getElementById('det-versao').textContent = `Versão: 1`;
+
+    // Card responsável
+    document.getElementById('det-responsavel').innerHTML =
+        `<i class="fas fa-user me-1"></i> ${escapeHtml(e.responsavel)}`;
+    document.getElementById('det-setor').innerHTML =
+        `<i class="fas fa-${e.orgaoAtual === 'Câmara' ? 'landmark' : 'city'} me-1"></i> ${escapeHtml(e.setorAtual)}`;
+    document.getElementById('det-desde').textContent = `Desde: ${e.dataAtualizacao}`;
+
+    // Cada bloco isolado — se um falhar, os outros continuam
+    const blocos = [
+        ['renderBannerDetalhe',   () => renderBannerDetalhe(e)],
+        ['renderAbaDados',        () => renderAbaDados(e)],
+        ['renderAbaHistorico',    () => renderAbaHistorico(e)],
+        ['renderAbaResponsaveis', () => renderAbaResponsaveis(e)],
+        ['renderAbaDocumentos',   () => renderAbaDocumentos(e)],
+        ['renderAbaRastreamento', () => renderAbaRastreamento(e)],
+        ['renderAbaTramitacao',   () => renderAbaTramitacao(e)],
+        ['renderAbaOrcamento',    () => renderAbaOrcamento(e)],
+    ];
+
+    blocos.forEach(([nome, fn]) => {
+        try {
+            fn();
+        } catch (err) {
+            console.error(`[DEMO] Erro em ${nome}:`, err);
+        }
+    });
+
+    // Sempre abre a aba Dados
+    trocarAba('dados');
+}
+
+// ============================================================
+// BANNER CONTEXTUAL
+// ============================================================
+function renderBannerDetalhe(e) {
+    const b = document.getElementById('det-banner');
+
+    if (e.status === 'CONCLUIDA') {
+        b.innerHTML = `
+            <div style="background:linear-gradient(135deg,#1b8f3a 0%,#2ecc71 50%,#27ae60 100%);
+                        color:#fff; border-radius:16px; padding:36px 20px; text-align:center;
+                        margin-bottom:24px; box-shadow:0 8px 24px rgba(27,143,58,.25);">
+                <i class="fas fa-trophy" style="font-size:3.5rem;"></i>
+                <h1 style="font-weight:800;letter-spacing:1px;margin:12px 0 8px;
+                           text-shadow:0 2px 8px rgba(0,0,0,.25);">EMENDA FINALIZADA</h1>
+                <p style="font-size:1.1rem;opacity:.95;">
+                    Esta emenda foi executada e finalizada pela Prefeitura.
+                    O processo está encerrado.
+                </p>
+                <div class="d-flex gap-3 flex-wrap justify-content-center mt-3">
+                    <span class="badge bg-white text-success px-3 py-2">
+                        <i class="fas fa-check-circle me-1"></i>
+                        Emenda ${e.numero}/${e.ano}
+                    </span>
+                    <span class="badge bg-white text-success px-3 py-2">
+                        <i class="fas fa-calendar-check me-1"></i>
+                        Finalizada em ${e.dataConclusao || e.dataAtualizacao}
+                    </span>
+                    <span class="badge bg-white text-success px-3 py-2">
+                        <i class="fas fa-hand-holding-usd me-1"></i>
+                        ${fmtBRL(e.valor)}
+                    </span>
+                </div>
+            </div>`;
+    } else if (e.status === 'IMPEDIMENTO_TEMPORARIO') {
+        b.innerHTML = `
+            <div class="alert alert-warning border-warning d-flex align-items-center mb-4"
+                 style="border-left:4px solid #ffc107 !important;">
+                <i class="fas fa-exclamation-triangle fa-2x me-3 text-warning"></i>
+                <div>
+                    <h5 class="mb-1">Emenda com <strong>impedimento temporário</strong></h5>
+                    <p class="mb-0">${escapeHtml(e.impedimentoMotivo || '')}</p>
+                    <small class="text-muted">Categoria: ${escapeHtml(e.impedimentoCategoria || '—')}
+                        &bull; Prazo para saneamento: <strong>${e.impedimentoPrazo || '—'}</strong></small>
+                </div>
+            </div>`;
+    } else if (e.status === 'EM_EXECUCAO') {
+        b.innerHTML = `
+            <div class="alert alert-primary border-primary d-flex align-items-center mb-4"
+                 style="border-left:4px solid #0d6efd !important;">
+                <i class="fas fa-play-circle fa-2x me-3 text-primary"></i>
+                <div>
+                    <h5 class="mb-1">Emenda <strong>em execução</strong></h5>
+                    <p class="mb-0">
+                        A Prefeitura aprovou a emenda. Aguardando execução e finalização
+                        pelo último setor.
+                    </p>
+                </div>
+            </div>`;
+    } else if (e.status === 'APROVADA') {
+        b.innerHTML = `
+            <div class="alert alert-success border-success d-flex align-items-center mb-4"
+                 style="border-left:4px solid #198754 !important;">
+                <i class="fas fa-check-circle fa-2x me-3 text-success"></i>
+                <div>
+                    <h5 class="mb-1">Emenda <strong>aprovada</strong> pela Prefeitura</h5>
+                    <p class="mb-0">
+                        Aguardando início da execução e registro das metas físicas e financeiras.
+                    </p>
+                </div>
+            </div>`;
+    } else {
+        b.innerHTML = '';
+    }
+}
+
+// ============================================================
+// ABA DADOS
+// ============================================================
+function renderAbaDados(e) {
+    document.getElementById('det-info-gerais').innerHTML = `
+        <div class="col-md-6">
+            <div class="detail-label">Número/Ano</div>
+            <div class="detail-value">${e.numero}/${e.ano}</div>
+        </div>
+        <div class="col-md-6">
+            <div class="detail-label">Tipo</div>
+            <div class="detail-value">${e.tipo}</div>
+        </div>
+        <div class="col-md-6">
+            <div class="detail-label">Modalidade</div>
+            <div class="detail-value">${e.modalidade}</div>
+        </div>
+        <div class="col-md-6">
+            <div class="detail-label">Área de Saúde</div>
+            <div class="detail-value">
+                <span class="badge bg-${e.saude ? 'success' : 'secondary'}">
+                    <i class="fas fa-${e.saude ? 'check' : 'times'} me-1"></i>
+                    ${e.saude ? 'Sim' : 'Não'}
+                </span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="detail-label">Valor Total</div>
+            <div class="detail-value" style="font-size:1.3rem;color:#28a745;">
+                ${fmtBRL(e.valor)}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="detail-label">Valor Pago</div>
+            <div class="detail-value">${fmtBRL(e.valorPago)}</div>
+        </div>
+        <div class="col-12">
+            <div class="detail-label">Objeto</div>
+            <div class="detail-value">${escapeHtml(e.objeto)}</div>
+        </div>
+        ${e.descricaoDetalhada ? `
+        <div class="col-12">
+            <div class="detail-label">Descrição Detalhada</div>
+            <div class="detail-value">${escapeHtml(e.descricaoDetalhada)}</div>
+        </div>` : ''}
+    `;
+
+    if (e.benefNome) {
+        document.getElementById('det-beneficiario-wrapper').style.display = '';
+        document.getElementById('det-beneficiario').innerHTML = `
+            <div class="col-md-6">
+                <div class="detail-label">Nome</div>
+                <div class="detail-value">${escapeHtml(e.benefNome)}</div>
+            </div>
+            <div class="col-md-6">
+                <div class="detail-label">CNPJ</div>
+                <div class="detail-value">${escapeHtml(e.benefCnpj)}</div>
+            </div>
+        `;
+    } else {
+        document.getElementById('det-beneficiario-wrapper').style.display = 'none';
+    }
+
+    if (e.impedimentoMotivo) {
+        document.getElementById('det-impedimento-wrapper').style.display = '';
+        document.getElementById('det-impedimento').innerHTML = `
+            <p><strong>Motivo:</strong> ${escapeHtml(e.impedimentoMotivo)}</p>
+            <p><strong>Categoria:</strong> ${escapeHtml(e.impedimentoCategoria || '—')}</p>
+            <p>
+                <strong>Tipo:</strong>
+                <span class="badge bg-${e.impedimentoInsuperavel ? 'danger' : 'warning'}">
+                    ${e.impedimentoInsuperavel ? 'Insuperável' : 'Temporário'}
+                </span>
+            </p>
+            ${e.impedimentoPrazo ? `<p><strong>Prazo para Saneamento:</strong> ${e.impedimentoPrazo}</p>` : ''}
+        `;
+    } else {
+        document.getElementById('det-impedimento-wrapper').style.display = 'none';
+    }
+
+    if (e.plano) {
+        document.getElementById('det-plano-wrapper').style.display = '';
+        document.getElementById('det-plano').textContent = e.plano;
+    } else {
+        document.getElementById('det-plano-wrapper').style.display = 'none';
+    }
+
+    document.getElementById('det-pct-fisico').textContent = `${e.pctFisico}%`;
+    document.getElementById('det-pf-bar').style.width = `${e.pctFisico}%`;
+    document.getElementById('det-pct-fin').textContent = `${e.pctFinanceiro}%`;
+    document.getElementById('det-pfin-bar').style.width = `${e.pctFinanceiro}%`;
+    document.getElementById('det-data-criacao').textContent = e.dataCriacao;
+    document.getElementById('det-data-atualizacao').textContent = e.dataAtualizacao;
+
+    renderParceriasLaterais(e);
+}
+
+// ============================================================
+// PARCERIAS LATERAIS
+// ============================================================
+function renderParceriasLaterais(e) {
+    const parcs = e.parcerias || [];
+    const card = document.getElementById('det-parcerias-card');
+
+    if (parcs.length === 0) {
+        card.style.display = 'none';
+        return;
+    }
+
+    card.style.display = '';
+    document.getElementById('det-qtd-parcerias').textContent = parcs.length;
+
+    const total = parcs.reduce((s,p) => s + p.valor, 0);
+    const repassado = parcs.reduce((s,p) => s + p.repassado, 0);
+    const executado = parcs.reduce((s,p) => s + p.executado, 0);
+
+    document.getElementById('det-parc-total').textContent = fmtBRL(total);
+    document.getElementById('det-parc-repassado').textContent = fmtBRL(repassado);
+    document.getElementById('det-parc-executado').textContent = fmtBRL(executado);
+    document.getElementById('det-parc-saldo').textContent = fmtBRL(repassado - executado);
+
+    document.getElementById('det-parcerias-lista').innerHTML = parcs.map(p => `
+        <div class="border rounded p-2 mb-2 small">
+            <div class="d-flex justify-content-between">
+                <strong>${escapeHtml(p.osc)}</strong>
+                <span class="badge bg-secondary">${escapeHtml(p.tipo)}</span>
+            </div>
+            <div class="text-muted mt-1">
+                <i class="fas fa-file-contract me-1"></i>${escapeHtml(p.processo)}
+                &bull;
+                <i class="fas fa-calendar me-1"></i>${p.dataAssinatura}
+            </div>
+            <div class="mt-1">
+                <strong class="text-success">${fmtBRL(p.valor)}</strong>
+                <span class="text-muted">— ${((p.repassado / p.valor) * 100).toFixed(0)}% repassado</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ============================================================
+// ABA HISTÓRICO
+// ============================================================
+function renderAbaHistorico(e) {
+    const hist = e.historico || [];
+    const el = document.getElementById('det-historico-timeline');
+
+    if (hist.length === 0) {
+        el.innerHTML = `<p class="text-muted text-center py-3">
+            <i class="fas fa-inbox me-2"></i>Nenhum registro no histórico.</p>`;
+        return;
+    }
+
+    el.innerHTML = hist.map((h, i) => `
+        <div class="timeline-item" style="display:flex; margin-bottom:16px; padding-bottom:16px;
+                    ${i === hist.length-1 ? 'border-bottom:none;padding-bottom:0;' : 'border-bottom:1px solid #e9ecef;'}">
+            <div class="timeline-icon" style="background:${h.cor}; width:42px;height:42px;
+                        border-radius:50%;display:flex;align-items:center;justify-content:center;
+                        color:#fff;flex-shrink:0;margin-right:14px;">
+                <i class="fas ${h.icone}"></i>
+            </div>
+            <div class="flex-grow-1">
+                <div class="d-flex justify-content-between flex-wrap">
+                    <strong>${escapeHtml(h.acao)}</strong>
+                    <small class="text-muted">
+                        <i class="fas fa-clock me-1"></i>${h.data}
+                    </small>
+                </div>
+                <p class="mb-0 text-muted small mt-1">${escapeHtml(h.descricao)}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ============================================================
+// ABA RESPONSÁVEIS
+// ============================================================
+function renderAbaResponsaveis(e) {
+    const resp = e.responsaveis || [];
+    const badge = document.getElementById('badge-qtd-responsaveis');
+    if (badge) badge.textContent = resp.length;
+
+    const el = document.getElementById('det-responsaveis-lista');
+    if (resp.length === 0) {
+        el.innerHTML = `<div class="text-center py-3 text-muted">
+            <i class="fas fa-user-slash fa-2x mb-2 d-block"></i>
+            <p class="mb-0">Nenhum responsável registrado.</p></div>`;
+        return;
+    }
+
+    el.innerHTML = resp.map(r => `
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-user-circle me-2 text-primary"></i>
+                <strong>${escapeHtml(r.usuario)}</strong>
+                <span class="badge bg-secondary ms-1">
+                    <i class="fas fa-building me-1"></i>${escapeHtml(r.setor)}
+                </span>
+            </div>
+            <div>
+                <span class="badge bg-info" style="font-size:.65rem;">${escapeHtml(r.acao)}</span>
+                <small class="text-muted ms-2">${r.data}</small>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ============================================================
+// ABA DOCUMENTOS
+// ============================================================
+function renderAbaDocumentos(e) {
+    const setorEl = document.getElementById('det-setor-anexos');
+    if (setorEl) setorEl.textContent = e.setorAtual;
+
+    const pend = e.docsPendentes || [];
+    const alertaPend = document.getElementById('det-docs-pendentes');
+    if (alertaPend) {
+        if (pend.length === 0) {
+            alertaPend.className = 'alert alert-success';
+            alertaPend.innerHTML = `
+                <i class="fas fa-check-circle me-2"></i>
+                <strong>Todos os documentos obrigatórios foram anexados.</strong>`;
+        } else {
+            alertaPend.className = 'alert alert-warning';
+            alertaPend.innerHTML = `
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong>Documentos obrigatórios pendentes:</strong>
+                <ul class="mb-0 mt-1">
+                    ${pend.map(p => `<li>${escapeHtml(p)}</li>`).join('')}
+                </ul>`;
+        }
+    }
+
+    const anexos = e.anexos || [];
+    document.getElementById('tbody-anexos').innerHTML =
+        anexos.length === 0
+            ? `<tr><td colspan="6" class="text-center py-4 text-muted">
+                <i class="fas fa-paperclip fa-2x d-block mb-2"></i>
+                Nenhum anexo enviado ainda.</td></tr>`
+            : anexos.map(a => `
+                <tr>
+                    <td><span class="badge bg-secondary">
+                        <i class="fas fa-building me-1"></i>${escapeHtml(a.setor)}
+                    </span></td>
+                    <td>${escapeHtml(a.tipo)}</td>
+                    <td>
+                        <strong>${escapeHtml(a.titulo)}</strong>
+                        <br><small class="text-muted">
+                            <i class="fas fa-file me-1"></i>${escapeHtml(a.arquivo)}
+                        </small>
+                    </td>
+                    <td>${escapeHtml(a.usuario)}</td>
+                    <td>${a.data}</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-outline-primary me-1"
+                                onclick="demoMsg('📄 Em produção, este botão abriria o arquivo ${escapeHtml(a.arquivo)}.');"
+                                title="Visualizar">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary"
+                                onclick="demoMsg('⬇️ Em produção, este botão faria o download.');"
+                                title="Baixar">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+
+    const parcs = e.parcerias || [];
+    const cardParc = document.getElementById('det-parcerias-docs-card');
+    if (cardParc) {
+        cardParc.style.display = parcs.length > 0 ? '' : 'none';
+        document.getElementById('tbody-parcerias').innerHTML = parcs.map(p => `
+            <tr>
+                <td><strong>${escapeHtml(p.osc)}</strong></td>
+                <td>${escapeHtml(p.cnpj)}</td>
+                <td><span class="badge bg-info">${escapeHtml(p.tipo)}</span></td>
+                <td>${escapeHtml(p.processo)}</td>
+                <td class="text-end">${fmtBRL(p.valor)}</td>
+                <td class="text-end text-primary">${fmtBRL(p.repassado)}</td>
+                <td class="text-end text-success">${fmtBRL(p.executado)}</td>
+                <td class="text-center">
+                    <button class="btn btn-sm btn-outline-primary me-1"
+                            onclick="demoMsg('📄 Em produção, este botão abriria o termo de parceria.');">
+                        <i class="fas fa-file-contract"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-info"
+                            onclick="demoMsg('📋 Em produção, este botão abriria o plano de trabalho.');">
+                        <i class="fas fa-tasks"></i>
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+    }
+}
+
+// ============================================================
+// ABA RASTREAMENTO
+// ============================================================
+function renderAbaRastreamento(e) {
+    const grupos = e.rastreamento || [];
+    const el = document.getElementById('det-rastreamento-grupos');
+
+    if (grupos.length === 0) {
+        el.innerHTML = `<p class="text-muted text-center py-3">
+            <i class="fas fa-route me-2"></i>Nenhuma movimentação registrada.</p>`;
+        return;
+    }
+
+    el.innerHTML = grupos.map(g => `
+        <div class="mb-4">
+            <div class="mb-3 pb-2" style="border-bottom:2px solid #e9ecef;">
+                <strong>
+                    <i class="fas fa-${g.tipo === 'LEGISLATIVO' ? 'landmark' : 'city'} me-2 text-primary"></i>
+                    ${escapeHtml(g.orgao)}
+                </strong>
+                <span class="text-muted small ms-2">(${g.tipo})</span>
+            </div>
+            ${g.eventos.map(ev => `
+                <div class="timeline-item" style="display:flex; margin-bottom:16px; padding-bottom:16px;
+                            border-bottom:1px solid #e9ecef;">
+                    <div class="timeline-icon" style="background:${ev.cor}; width:42px;height:42px;
+                                border-radius:50%;display:flex;align-items:center;justify-content:center;
+                                color:#fff;flex-shrink:0;margin-right:14px;">
+                        <i class="fas ${ev.icone}"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between flex-wrap">
+                            <strong>${escapeHtml(ev.acao)}</strong>
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>${ev.data}
+                            </small>
+                        </div>
+                        <p class="mb-1 text-muted small mt-1">${escapeHtml(ev.descricao)}</p>
+                        <span class="badge bg-light text-dark">
+                            <i class="fas fa-map-marker-alt me-1"></i>${escapeHtml(ev.setor)}
+                        </span>
+                        ${ev.atual ? `<span class="badge bg-success ms-1">ATUAL</span>` : ''}
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `).join('');
+}
+
+// ============================================================
+// ABA TRAMITAÇÃO
+// ============================================================
+function renderAbaTramitacao(e) {
+    const boxStatus = document.getElementById('det-tramitacao-status');
+    const boxAcoes = document.getElementById('det-tramitacao-acoes');
+
+    let statusHTML = '';
+    if (e.status === 'PROPOSTA') {
+        statusHTML = `
+            <div class="alert alert-secondary">
+                <i class="fas fa-file me-2"></i>
+                <strong>Emenda em rascunho na Câmara.</strong>
+                <br>
+                <small class="text-muted">Aguardando o envio oficial para a Prefeitura.</small>
+            </div>`;
+    } else if (e.status === 'APROVADA') {
+        statusHTML = `
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong>Emenda aprovada pela Prefeitura.</strong>
+                <br>
+                <small class="text-muted">
+                    Aprovada em ${e.dataAtualizacao}. Aguardando início da execução.
+                </small>
+            </div>`;
+    } else if (e.status === 'EM_EXECUCAO') {
+        statusHTML = `
+            <div class="alert alert-primary">
+                <i class="fas fa-play-circle me-2"></i>
+                <strong>Emenda em execução pela Prefeitura.</strong>
+                <br>
+                <small class="text-muted">
+                    Execução em andamento. Última atualização: ${e.dataAtualizacao}.
+                </small>
+            </div>`;
+    } else if (e.status === 'IMPEDIMENTO_TEMPORARIO') {
+        statusHTML = `
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong>Emenda com impedimento temporário.</strong>
+                <br>
+                <small class="text-muted">${escapeHtml(e.impedimentoMotivo || '')}</small>
+                <br>
+                <small><strong>Prazo para saneamento:</strong> ${e.impedimentoPrazo || '—'}</small>
+            </div>`;
+    } else if (e.status === 'CONCLUIDA') {
+        statusHTML = `
+            <div class="alert alert-success"
+                 style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
+                        border-left:4px solid #28a745;">
+                <h5 class="mb-2"><i class="fas fa-trophy text-success me-2"></i>Emenda Finalizada</h5>
+                <p class="mb-2">O processo está encerrado. A emenda foi executada com sucesso.</p>
+                <small class="text-muted">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Apenas anexos (prestação de contas) podem ser adicionados.
+                </small>
+            </div>`;
+    }
+    boxStatus.innerHTML = statusHTML;
+
+    let acoesHTML = '';
+    if (e.status === 'PROPOSTA') {
+        acoesHTML = `
+            <div class="col-md-6 mb-3">
+                <div class="card h-100" style="border-left:4px solid #0dcaf0;">
+                    <div class="card-header bg-info text-white">
+                        <i class="fas fa-search"></i> Enviar para Análise Prévia
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted small">A Prefeitura poderá devolver com sugestões antes da conclusão.</p>
+                        <button class="btn btn-info w-100"
+                                onclick="demoMsg('📤 Em produção, o envio informal para análise prévia seria registrado.');">
+                            <i class="fas fa-search me-2"></i>Enviar Informalmente
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card h-100" style="border-left:4px solid #198754;">
+                    <div class="card-header bg-success text-white">
+                        <i class="fas fa-paper-plane"></i> Concluir e Enviar Oficialmente
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted small">A Câmara conclui a emenda e envia oficialmente à Prefeitura.</p>
+                        <button class="btn btn-success w-100"
+                                onclick="demoMsg('✅ Em produção, a emenda seria concluída e enviada oficialmente.');">
+                            <i class="fas fa-paper-plane me-2"></i>Concluir e Enviar
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+    } else if (e.status === 'APROVADA' || e.status === 'EM_EXECUCAO') {
+        acoesHTML = `
+            <div class="col-md-4 mb-3">
+                <div class="card h-100" style="border-left:4px solid #0d6efd;">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fas fa-chart-line"></i> Informar Execução
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-primary w-100"
+                                onclick="demoMsg('📊 Em produção, este botão abriria o formulário de execução.');">
+                            <i class="fas fa-chart-line me-2"></i>Informar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100" style="border-left:4px solid #198754;">
+                    <div class="card-header bg-success text-white">
+                        <i class="fas fa-arrow-right"></i> Avançar Setor
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-success w-100"
+                                onclick="demoMsg('➡️ Em produção, este botão avançaria a emenda para o próximo setor.');">
+                            <i class="fas fa-arrow-right me-2"></i>Avançar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100" style="border-left:4px solid #6c757d;">
+                    <div class="card-header bg-secondary text-white">
+                        <i class="fas fa-lock"></i> Bloquear
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-secondary w-100"
+                                onclick="demoMsg('🔒 Em produção, este botão pediria justificativa e aplicaria bloqueio.');">
+                            <i class="fas fa-lock me-2"></i>Aplicar Bloqueio
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+    } else if (e.status === 'IMPEDIMENTO_TEMPORARIO') {
+        acoesHTML = `
+            <div class="col-md-6 mb-3">
+                <div class="card h-100" style="border-left:4px solid #198754;">
+                    <div class="card-header bg-success text-white">
+                        <i class="fas fa-check"></i> Sanear Impedimento
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted small">Registrar resolução do impedimento e retomar o fluxo.</p>
+                        <button class="btn btn-success w-100"
+                                onclick="demoMsg('✅ Em produção, o saneamento seria registrado e a emenda retomaria o fluxo.');">
+                            <i class="fas fa-check me-2"></i>Registrar Saneamento
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card h-100" style="border-left:4px solid #dc3545;">
+                    <div class="card-header bg-danger text-white">
+                        <i class="fas fa-exclamation-triangle"></i> Tornar Insuperável
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted small">Registrar que o impedimento não pode ser resolvido.</p>
+                        <button class="btn btn-danger w-100"
+                                onclick="demoMsg('⚠️ Em produção, este botão encerraria a emenda como impedimento insuperável.');">
+                            <i class="fas fa-exclamation-triangle me-2"></i>Marcar Insuperável
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+    } else if (e.status === 'CONCLUIDA') {
+        acoesHTML = `
+            <div class="col-md-6 mb-3">
+                <div class="card h-100" style="border-left:4px solid #0d6efd;">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fas fa-paperclip"></i> Anexar Prestação de Contas
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-primary w-100"
+                                onclick="demoMsg('📎 Em produção, este botão abriria o formulário de upload.');">
+                            <i class="fas fa-paperclip me-2"></i>Anexar
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+    }
+    boxAcoes.innerHTML = acoesHTML;
+
+    document.getElementById('det-tram-status-badge').className = 'badge bg-' + e.statusBadge;
+    document.getElementById('det-tram-status-badge').textContent = e.statusLabel;
+    document.getElementById('det-tram-versao').textContent = '1';
+
+    const bloq = document.getElementById('det-tram-bloqueio');
+    if (e.status === 'CONCLUIDA') {
+        bloq.innerHTML = `<span class="text-danger">
+            <i class="fas fa-lock me-1"></i>Bloqueada para ambos os órgãos</span>`;
+    } else {
+        bloq.innerHTML = `<span class="text-success">
+            <i class="fas fa-unlock me-1"></i>Sem bloqueio</span>`;
+    }
+}
+
+// ============================================================
+// ABA ORÇAMENTO
+// ============================================================
+function renderAbaOrcamento(e) {
+    const tem = e.temOrcamento && (e.itensOrcamento || []).length > 0;
+    const badgeCheck = document.getElementById('badge-tem-orcamento');
+
+    if (!tem) {
+        document.getElementById('orcamento-com-dados').style.display = 'none';
+        document.getElementById('orcamento-vazio').style.display = '';
+        if (badgeCheck) badgeCheck.style.display = 'none';
+        return;
+    }
+
+    document.getElementById('orcamento-com-dados').style.display = '';
+    document.getElementById('orcamento-vazio').style.display = 'none';
+    if (badgeCheck) badgeCheck.style.display = '';
+
+    let badges = '';
+    if (e.creditoNovo) badges += `<span class="badge bg-primary me-1">Crédito Novo</span>`;
+    if (e.creditoSuplementado) badges += `<span class="badge bg-info">Crédito Suplementado</span>`;
+    document.getElementById('det-orcamento-credito').innerHTML = badges;
+
+    document.getElementById('det-orcamento-tabela').innerHTML = `
+        <tr><th>Órgão</th><td><strong>02</strong> — Prefeitura Municipal de Demo</td></tr>
+        <tr><th>Unidade Orçamentária</th><td><strong>39</strong> — Diretoria Geral de Esportes e Lazer</td></tr>
+        <tr><th>Função</th><td><strong>27</strong> — Desporto e Lazer</td></tr>
+        <tr><th>Subfunção</th><td><strong>122</strong> — Administração Geral</td></tr>
+        <tr><th>Programa</th><td><strong>0026</strong> — Esportes e Lazer para Todos</td></tr>
+        <tr><th>Ação</th><td><strong>2160</strong> — Manutenção Atividades - Esportes</td></tr>
+    `;
+
+    const itens = e.itensOrcamento;
+    const total = itens.reduce((s,i) => s + i.valor, 0);
+    document.getElementById('tbody-orcamento').innerHTML = itens.map((i, idx) => `
+        <tr>
+            <td>${idx+1}</td>
+            <td><span class="badge bg-success">+</span></td>
+            <td><strong>${i.codigo}</strong> — ${escapeHtml(i.nome)}</td>
+            <td>${escapeHtml(i.descricao)}</td>
+            <td class="text-end">${i.qtd}</td>
+            <td>${i.un}</td>
+            <td class="text-end">${fmtBRL(i.valor)}</td>
+        </tr>
+    `).join('');
+
+    document.getElementById('orcamento-total-aumentado').textContent = fmtBRL(total);
+    document.getElementById('orcamento-total-reduzido').textContent = fmtBRL(total);
+
+    document.getElementById('det-orcamento-reduzido').innerHTML = `
+        <tr><th>Órgão</th><td><strong>02</strong> — Prefeitura Municipal</td></tr>
+        <tr><th>Unidade Orçamentária</th><td><strong>99</strong> — Reserva de Contingência</td></tr>
+        <tr><th>Função</th><td><strong>99</strong> — Reserva de Contingência</td></tr>
+        <tr><th>Subfunção</th><td><strong>999</strong> — Reserva de Contingência</td></tr>
+        <tr><th>Programa</th><td><strong>99</strong> — Reserva de Contingência</td></tr>
+        <tr><th>Ação</th><td><strong>9</strong> — Reserva de Emenda Parlamentar Impositiva</td></tr>
+        <tr><th>Natureza da Despesa</th><td><strong>9.9.99.99</strong> — Reserva de Contingência</td></tr>
+    `;
+
+    const obsWrapper = document.getElementById('det-orcamento-obs-wrapper');
+    if (e.orcamentoObs) {
+        obsWrapper.style.display = '';
+        document.getElementById('det-orcamento-obs').textContent = e.orcamentoObs;
+    } else {
+        obsWrapper.style.display = 'none';
+    }
+}
+
+// ============================================================
+// TROCA DE ABAS — versão robusta
+// ============================================================
+function trocarAba(nome, el) {
+    const abas = ['dados','historico','responsaveis','documentos','rastreamento','tramitacao','orcamento'];
+    abas.forEach(a => {
+        const pane = document.getElementById('aba-' + a);
+        if (!pane) {
+            console.warn('[DEMO] Aba não encontrada:', 'aba-' + a);
+            return;
+        }
+        if (a === nome) {
+            pane.style.display = 'block';
+            pane.classList.add('active');
+            pane.classList.add('show');
+        } else {
+            pane.style.display = 'none';
+            pane.classList.remove('active');
+            pane.classList.remove('show');
+        }
+    });
+    document.querySelectorAll('#tabs-detalhe .nav-link')
+        .forEach(l => l.classList.remove('active'));
+
+    if (el) {
+        el.classList.add('active');
+    } else {
+        const idx = abas.indexOf(nome);
+        const link = document.querySelectorAll('#tabs-detalhe .nav-link')[idx];
+        if (link) link.classList.add('active');
+    }
+}
+
+// ============================================================
+// MÁSCARAS DO FORM
+// ============================================================
+function aplicarMascaraValor() {
+    const input = document.getElementById('id_valor_total');
+    if (!input) return;
+    input.addEventListener('input', function () {
+        let v = this.value.replace(/\D/g, '');
+        if (!v) { this.value = ''; return; }
+        v = v.slice(0, 13);
+        const n = v.padStart(3, '0');
+        const inteiro = n.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        const decimal = n.slice(-2);
+        this.value = inteiro + ',' + decimal;
+    });
+}
+function aplicarMascaraCnpj() {
+    const input = document.querySelector('input[name="beneficiario_cnpj"]');
+    if (!input) return;
+    input.addEventListener('blur', function () {
+        let v = this.value.replace(/\D/g, '');
+        if (v.length !== 14) return;
+        v = v.replace(/^(\d{2})(\d)/, '$1.$2');
+        v = v.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+        v = v.replace(/\.(\d{3})(\d)/, '.$1/$2');
+        v = v.replace(/(\d{4})(\d)/, '$1-$2');
+        this.value = v;
+    });
+}
+function aplicarPreviewUnidade() {
+    const input = document.getElementById('id_unidade_meta');
+    const preview = document.getElementById('unidadePreviewTexto');
+    if (!input || !preview) return;
+    input.addEventListener('input', function () {
+        preview.textContent = (this.value || 'unidades').trim() || 'unidades';
+    });
+}
+
+// ============================================================
+// CADASTRO — SIMULAÇÃO
+// ============================================================
+function simularSalvar(event) {
+    event.preventDefault();
+    const form = document.getElementById('emendaForm');
+    if (!form.checkValidity()) { form.reportValidity(); return false; }
+
+    const dados = {
+        numero: form.numero.value, ano: form.ano.value,
+        autor: form.autor_nome.value,
+        tipo: form.tipo.options[form.tipo.selectedIndex].text,
+        modalidade: form.modalidade.options[form.modalidade.selectedIndex].text,
+        saude: form.e_saude.checked ? 'Sim' : 'Não',
+        unidade: form.unidade_meta.value || 'unidades',
+        objeto: form.objeto.value,
+        valor: form.valor_total.value,
+        benef: form.beneficiario_nome.value || '—',
+        cnpj: form.beneficiario_cnpj.value || '—',
+        conta: form.conta_bancaria.value || '—',
+        dataPrev: form.data_prevista_conclusao.value || '—',
+    };
+
+    document.getElementById('resultadoLinhas').innerHTML = `
+        <div class="linha"><span>Número/Ano</span><strong>${dados.numero}/${dados.ano}</strong></div>
+        <div class="linha"><span>Autor</span><strong>${escapeHtml(dados.autor)}</strong></div>
+        <div class="linha"><span>Tipo</span><strong>${dados.tipo}</strong></div>
+        <div class="linha"><span>Modalidade</span><strong>${dados.modalidade}</strong></div>
+        <div class="linha"><span>Área de Saúde</span><strong>${dados.saude}</strong></div>
+        <div class="linha"><span>Unidade da Meta</span><strong>${escapeHtml(dados.unidade)}</strong></div>
+        <div class="linha"><span>Objeto</span><strong>${escapeHtml(dados.objeto)}</strong></div>
+        <div class="linha"><span>Valor Total</span><strong>R$ ${dados.valor}</strong></div>
+        <div class="linha"><span>Beneficiário</span><strong>${escapeHtml(dados.benef)}</strong></div>
+        <div class="linha"><span>CNPJ</span><strong>${escapeHtml(dados.cnpj)}</strong></div>
+        <div class="linha"><span>Conta Bancária</span><strong>${escapeHtml(dados.conta)}</strong></div>
+        <div class="linha"><span>Data Prevista de Conclusão</span><strong>${escapeHtml(dados.dataPrev)}</strong></div>
+    `;
+
+    document.getElementById('resultadoCard').style.display = 'block';
+    document.getElementById('card-cadastro').style.display = 'none';
+    document.getElementById('resultadoCard').scrollIntoView({behavior:'smooth', block:'start'});
+    demoMsg('✅ Emenda simulada com sucesso!');
+    return false;
+}
+
+function resetarForm() {
+    document.getElementById('resultadoCard').style.display = 'none';
+    document.getElementById('card-cadastro').style.display = '';
+    const form = document.getElementById('emendaForm');
+    if (form) {
+        form.reset();
+        document.getElementById('unidadePreviewTexto').textContent = 'unidades';
+    }
+    window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ============================================================
+// BOOT
+// ============================================================
+document.addEventListener('DOMContentLoaded', function () {
+    aplicarMascaraValor();
+    aplicarMascaraCnpj();
+    aplicarPreviewUnidade();
+
+    renderDashboard();
+    renderLista();
+    document.getElementById('nav-dashboard').classList.add('active');
+});
+</script>
+
+</body>
+</html>
