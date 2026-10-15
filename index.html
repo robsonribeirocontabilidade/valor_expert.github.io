@@ -264,9 +264,7 @@
             transition: opacity 0.3s ease;
         }
 
-        .brand-logo:hover {
-            opacity: 0.85;
-        }
+        .brand-logo:hover { opacity: 0.85; }
 
         .brand-icon {
             width: 42px;
@@ -364,6 +362,32 @@
             color: white;
         }
 
+        /* ==================== BOTÃO DEMO (NAVBAR) ==================== */
+        .btn-demo-nav {
+            background: linear-gradient(135deg, #00c853, #00897b);
+            border: none;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 200, 83, 0.35);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 0.5rem;
+        }
+
+        .btn-demo-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 200, 83, 0.5);
+            color: white;
+        }
+
+        .btn-demo-nav i { font-size: 0.85rem; }
+
         /* ==================== BOTÃO ACESSO SISTEMA ==================== */
         .btn-acesso-sistema {
             background: linear-gradient(135deg, #0d47a1, #1a73e8);
@@ -388,9 +412,7 @@
             color: white;
         }
 
-        .btn-acesso-sistema i {
-            font-size: 0.85rem;
-        }
+        .btn-acesso-sistema i { font-size: 0.85rem; }
 
         /* ==================== HERO ==================== */
         .hero {
@@ -558,117 +580,209 @@
             margin-top: 0.4rem;
         }
 
-        /* ==================== SIMULADOR ==================== */
+        /* ==================== SIMULADOR REDESENHADO ==================== */
         .simulador {
             background: white;
             border-radius: 22px;
-            padding: 2rem;
+            padding: 0;
             box-shadow: 0 40px 90px rgba(0,0,0,0.35);
             color: var(--gray-900);
             border: 1px solid rgba(255,255,255,0.2);
+            overflow: hidden;
         }
 
-        .simulador-header {
+        /* -------- Cabeçalho do simulador -------- */
+        .simulador-topo {
+            background: linear-gradient(135deg, #0f2740 0%, #0d47a1 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
-        .simulador-title {
-            font-size: 0.72rem;
+        .simulador-topo .titulo-grupo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .simulador-topo .icone {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.14);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .simulador-topo .titulo-texto .linha1 {
+            font-size: 0.68rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--gray-500);
-            margin-bottom: 0.25rem;
+            letter-spacing: 0.12em;
+            color: rgba(255,255,255,0.65);
         }
 
-        .simulador-subtitle {
-            font-size: 1.05rem;
+        .simulador-topo .titulo-texto .linha2 {
+            font-size: 1rem;
             font-weight: 700;
-            color: var(--gray-900);
+            color: white;
+            margin-top: 2px;
         }
 
+        .simulador-topo .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 200, 83, 0.15);
+            border: 1px solid rgba(0, 200, 83, 0.35);
+            color: #7dffb0;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .simulador-topo .live-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #00e676;
+            animation: pulse 1.6s infinite;
+        }
+
+        /* -------- Corpo do simulador -------- */
+        .simulador-corpo { padding: 1.5rem; }
+
+        /* -------- Abas horizontais de emenda -------- */
         .emenda-tabs {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
+            gap: 0.65rem;
+            margin-bottom: 1.25rem;
         }
 
         .emenda-tab {
-            padding: 0.9rem;
+            position: relative;
+            padding: 0.85rem 0.9rem 0.85rem 1.1rem;
             background: var(--gray-100);
             border: 2px solid transparent;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.25s ease;
             text-align: left;
+            overflow: hidden;
+        }
+
+        /* Barra lateral colorida por status */
+        .emenda-tab::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--status-color, var(--gray-300));
+            transition: all 0.25s ease;
         }
 
         .emenda-tab:hover {
             background: var(--primary-light);
             transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(26,115,232,0.12);
         }
 
         .emenda-tab.active {
-            background: linear-gradient(135deg, var(--primary-light), #d4e4fc);
-            border-color: var(--primary);
-            box-shadow: 0 6px 16px rgba(26,115,232,0.18);
+            background: linear-gradient(135deg, #ffffff, #f0f7ff);
+            border-color: var(--status-color, var(--primary));
+            box-shadow: 0 8px 20px rgba(26,115,232,0.15);
         }
 
+        .emenda-tab.active::before { width: 5px; }
+
         .emenda-tab .numero {
-            font-size: 0.68rem;
+            font-size: 0.65rem;
             font-weight: 700;
             color: var(--gray-500);
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .emenda-tab .numero .dot-status {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--status-color, var(--gray-300));
+            flex-shrink: 0;
         }
 
         .emenda-tab .titulo {
-            font-size: 0.85rem;
+            font-size: 0.83rem;
             font-weight: 700;
             color: var(--gray-900);
             line-height: 1.3;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.45rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .emenda-tab .valor {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             color: var(--primary);
             font-weight: 700;
         }
 
+        /* -------- Painel unificado de status + progresso -------- */
         .status-panel {
-            background: var(--gray-100);
-            border-radius: 12px;
-            padding: 1rem 1.25rem;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 1.1rem 1.25rem;
             margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.75rem;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .status-panel.atualizada { animation: flash 0.6s ease; }
 
         @keyframes flash {
-            0% { background: var(--gray-100); }
-            50% { background: #fff8e1; }
-            100% { background: var(--gray-100); }
+            0% { background: linear-gradient(135deg, #f8fafc, #f1f5f9); }
+            50% { background: linear-gradient(135deg, #fff8e1, #fffde7); }
+            100% { background: linear-gradient(135deg, #f8fafc, #f1f5f9); }
+        }
+
+        /* Linha superior: status + prazo */
+        .status-linha-topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #cbd5e0;
         }
 
         .status-atual { display: flex; align-items: center; gap: 0.85rem; }
 
         .status-icon {
-            width: 44px;
-            height: 44px;
+            width: 46px;
+            height: 46px;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -676,42 +790,104 @@
             font-size: 1.05rem;
             color: white;
             flex-shrink: 0;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
         }
 
         .status-info .label {
-            font-size: 0.68rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
             color: var(--gray-500);
             font-weight: 700;
+            margin-bottom: 2px;
         }
 
         .status-info .value {
             font-size: 0.98rem;
             font-weight: 700;
             color: var(--gray-900);
+            line-height: 1.2;
         }
 
-        .status-prazo { text-align: right; }
+        .status-prazo {
+            text-align: right;
+            background: white;
+            padding: 0.5rem 0.9rem;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
 
         .status-prazo .label {
-            font-size: 0.68rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
             color: var(--gray-500);
             font-weight: 700;
         }
 
         .status-prazo .value {
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: var(--gray-900);
+            margin-top: 2px;
         }
 
+        /* Linha inferior: progresso embutido */
+        .status-progresso { display: flex; align-items: center; gap: 0.9rem; }
+
+        .status-progresso .progresso-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            white-space: nowrap;
+        }
+
+        .status-progresso .progress-track {
+            flex: 1;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .status-progresso .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--primary));
+            border-radius: 4px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-progresso .progress-fill::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .status-progresso .progresso-valor {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: var(--primary);
+            min-width: 48px;
+            text-align: right;
+        }
+
+        /* -------- Timeline -------- */
         .timeline-sim {
             position: relative;
-            padding-left: 2.5rem;
-            max-height: 300px;
+            padding-left: 2.4rem;
+            max-height: 290px;
             overflow-y: auto;
             padding-right: 0.5rem;
         }
@@ -725,8 +901,8 @@
             content: '';
             position: absolute;
             left: 15px;
-            top: 8px;
-            bottom: 8px;
+            top: 14px;
+            bottom: 14px;
             width: 2px;
             background: linear-gradient(to bottom, var(--success) 0%, var(--primary) 40%, var(--gray-300) 100%);
             border-radius: 1px;
@@ -734,7 +910,7 @@
 
         .tl-item {
             position: relative;
-            padding-bottom: 1.2rem;
+            padding-bottom: 1.1rem;
             opacity: 0;
             animation: tlIn 0.4s ease forwards;
         }
@@ -748,7 +924,7 @@
 
         .tl-marker {
             position: absolute;
-            left: -2.5rem;
+            left: -2.4rem;
             top: 0;
             width: 30px;
             height: 30px;
@@ -757,7 +933,7 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 0.68rem;
+            font-size: 0.7rem;
             box-shadow: 0 0 0 3px white, 0 0 0 5px var(--gray-100);
             z-index: 1;
         }
@@ -773,7 +949,7 @@
 
         .tl-content {
             background: var(--gray-100);
-            padding: 0.75rem 1rem;
+            padding: 0.7rem 0.95rem;
             border-radius: 10px;
             border-left: 3px solid transparent;
             transition: all 0.3s ease;
@@ -788,13 +964,13 @@
 
         .tl-title {
             font-weight: 700;
-            font-size: 0.86rem;
+            font-size: 0.85rem;
             color: var(--gray-900);
             margin-bottom: 0.25rem;
         }
 
         .tl-meta {
-            font-size: 0.73rem;
+            font-size: 0.72rem;
             color: var(--gray-500);
             display: flex;
             gap: 0.85rem;
@@ -803,68 +979,49 @@
 
         .tl-meta span { display: inline-flex; align-items: center; gap: 0.3rem; }
 
-        .progress-bar-container {
-            margin-top: 1.5rem;
-            padding-top: 1.25rem;
-            border-top: 1px solid var(--gray-100);
-        }
-
-        .progress-labels {
+        /* -------- Rodapé do simulador -------- */
+        .simulador-rodape {
+            margin-top: 1.25rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
             display: flex;
             justify-content: space-between;
-            font-size: 0.7rem;
-            color: var(--gray-500);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
         }
 
-        .progress-track {
-            height: 8px;
-            background: var(--gray-100);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--success), var(--primary));
-            border-radius: 4px;
-            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .sim-hint {
+        .simulador-rodape .hint {
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 0.5rem;
-            margin-top: 1rem;
-            padding: 0.6rem;
-            background: linear-gradient(135deg, #fff8e1, #ffffff);
-            border: 1px dashed #ffd54f;
-            border-radius: 10px;
-            color: #b26a00;
-            font-size: 0.73rem;
-            font-weight: 600;
+            font-size: 0.72rem;
+            color: var(--gray-500);
+            font-weight: 500;
         }
 
-        .sim-hint i { color: #ffab00; }
+        .simulador-rodape .hint i { color: var(--primary); }
+
+        .simulador-rodape .link-demo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 0.55rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(26,115,232,0.25);
+        }
+
+        .simulador-rodape .link-demo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(26,115,232,0.4);
+            color: white;
+        }
 
         /* ==================== SEÇÕES ==================== */
         .section { padding: 5rem 0; }
@@ -1109,7 +1266,7 @@
             margin: 0;
         }
 
-        /* ==================== EDU SECTION ==================== */
+        /* EDU */
         .edu-section { background: linear-gradient(180deg, #ffffff 0%, #f7fafc 100%); }
 
         .edu-card {
@@ -1424,28 +1581,6 @@
             color: var(--primary-dark);
         }
 
-        .btn-cta-secondary {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 1rem 2.25rem;
-            border-radius: 12px;
-            font-weight: 600;
-            border: 2px solid rgba(255,255,255,0.3);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-size: 0.98rem;
-        }
-
-        .btn-cta-secondary:hover {
-            background: rgba(255,255,255,0.25);
-            color: white;
-            transform: translateY(-3px);
-        }
-
         .btn-cta-acesso {
             background: linear-gradient(135deg, #00c853, #00897b);
             color: white;
@@ -1521,6 +1656,7 @@
             text-decoration: none;
             transition: all 0.3s ease;
             margin-top: 0.5rem;
+            margin-right: 0.5rem;
         }
 
         .footer-acesso:hover {
@@ -1562,7 +1698,7 @@
             50% { transform: translateY(-8px); }
         }
 
-        /* Responsivo */
+        /* ==================== RESPONSIVO ==================== */
         @media (max-width: 992px) {
             .hero h1 { font-size: 2.3rem; }
             .hero { padding: 8rem 0 4rem; }
@@ -1578,7 +1714,8 @@
             .hero-stat-item .number { font-size: 1.5rem; }
             .cta-final h2 { font-size: 1.55rem; }
             .emenda-tabs { grid-template-columns: 1fr; }
-            .simulador { padding: 1.4rem; }
+            .simulador-corpo { padding: 1.1rem; }
+            .simulador-topo { padding: 1rem 1.1rem; }
             .whatsapp-float { width: 52px; height: 52px; font-size: 1.45rem; }
             .video-wrapper { border-radius: 14px; }
             .brand-text { font-size: 1rem; }
@@ -1586,6 +1723,12 @@
             .brand-icon { width: 36px; height: 36px; }
             .btn-acesso-sistema { padding: 0.5rem 1rem; font-size: 0.8rem; }
             .btn-acesso-sistema span { display: none; }
+            .btn-demo-nav { padding: 0.5rem 1rem; font-size: 0.8rem; }
+            .btn-demo-nav span { display: none; }
+            .status-linha-topo { flex-direction: column; align-items: flex-start; }
+            .status-prazo { width: 100%; text-align: left; }
+            .simulador-rodape { flex-direction: column; align-items: stretch; }
+            .simulador-rodape .link-demo { justify-content: center; }
         }
 
         @media (max-width: 400px) {
@@ -1623,14 +1766,14 @@
                 <a href="#video" class="nav-link-custom">Vídeo</a>
                 <a href="#conformidade" class="nav-link-custom">Conformidade</a>
                 <a href="#faq" class="nav-link-custom">Dúvidas</a>
+                <a href="demo.html" class="btn-demo-nav" title="Ver demonstração interativa">
+                    <i class="fas fa-play-circle" aria-hidden="true"></i>
+                    <span>Ver Demonstração</span>
+                </a>
                 <a href="https://emendas-system.squareweb.app/login/?next=/tenant/" 
                    target="_blank" rel="noopener" class="btn-acesso-sistema">
                     <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
                     <span>Acessar Sistema</span>
-                </a>
-                <a href="https://wa.me/5513996520177?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20Emendas%20Rastre%C3%A1veis" 
-                   target="_blank" rel="noopener" class="btn-primary-custom">
-                    Falar com Especialista
                 </a>
             </div>
         </div>
@@ -1662,10 +1805,6 @@
                         <i class="fas fa-calendar-check" aria-hidden="true"></i>
                         Agendar Demonstração
                     </a>
-                    <a href="#o-que-e" class="btn-hero-secondary">
-                        <i class="fas fa-play-circle" aria-hidden="true"></i>
-                        Como funciona
-                    </a>
                 </div>
                 <div class="hero-stats">
                     <div class="hero-stat-item">
@@ -1683,47 +1822,71 @@
                 </div>
             </div>
 
-            <!-- SIMULADOR -->
+            <!-- ==================== SIMULADOR INTERATIVO ==================== -->
             <div class="col-lg-6">
                 <div class="simulador">
-                    <div class="simulador-header">
-                        <div>
-                            <div class="simulador-title">Simulador Interativo</div>
-                            <div class="simulador-subtitle">Clique em uma emenda para ver o rastreamento</div>
-                        </div>
-                    </div>
 
-                    <div class="emenda-tabs" id="emendaTabs"></div>
-
-                    <div class="status-panel" id="statusPanel">
-                        <div class="status-atual">
-                            <div class="status-icon" id="statusIcon"></div>
-                            <div class="status-info">
-                                <div class="label">Status Atual</div>
-                                <div class="value" id="statusValue">—</div>
+                    <!-- Cabeçalho -->
+                    <div class="simulador-topo">
+                        <div class="titulo-grupo">
+                            <div class="icone">
+                                <i class="fas fa-route" aria-hidden="true"></i>
+                            </div>
+                            <div class="titulo-texto">
+                                <div class="linha1">Simulador Interativo</div>
+                                <div class="linha2">Rastreamento de Emendas</div>
                             </div>
                         </div>
-                        <div class="status-prazo">
-                            <div class="label">Prazo</div>
-                            <div class="value" id="statusPrazo">—</div>
+                        <div class="live-badge">
+                            <span class="dot"></span>
+                            <span>Demonstração</span>
                         </div>
                     </div>
 
-                    <div class="timeline-sim" id="timelineSim"></div>
+                    <!-- Corpo -->
+                    <div class="simulador-corpo">
 
-                    <div class="progress-bar-container">
-                        <div class="progress-labels">
-                            <span>Progresso da Emenda</span>
-                            <span id="progressPercent">0%</span>
-                        </div>
-                        <div class="progress-track">
-                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-                        </div>
-                    </div>
+                        <!-- Abas -->
+                        <div class="emenda-tabs" id="emendaTabs"></div>
 
-                    <div class="sim-hint">
-                        <i class="fas fa-hand-pointer" aria-hidden="true"></i>
-                        <span>Clique nas emendas acima para alternar o rastreamento</span>
+                        <!-- Painel unificado -->
+                        <div class="status-panel" id="statusPanel">
+
+                            <div class="status-linha-topo">
+                                <div class="status-atual">
+                                    <div class="status-icon" id="statusIcon"></div>
+                                    <div class="status-info">
+                                        <div class="label">Status Atual</div>
+                                        <div class="value" id="statusValue">—</div>
+                                    </div>
+                                </div>
+                                <div class="status-prazo">
+                                    <div class="label">Prazo</div>
+                                    <div class="value" id="statusPrazo">—</div>
+                                </div>
+                            </div>
+
+                            <div class="status-progresso">
+                                <span class="progresso-label">Progresso</span>
+                                <div class="progress-track">
+                                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                                </div>
+                                <span class="progresso-valor" id="progressPercent">0%</span>
+                            </div>
+
+                        </div>
+
+                        <!-- Timeline -->
+                        <div class="timeline-sim" id="timelineSim"></div>
+
+                        <!-- Rodapé -->
+                        <div class="simulador-rodape">
+                            <div class="hint">
+                                <i class="fas fa-hand-pointer" aria-hidden="true"></i>
+                                <span>Clique nas emendas acima para alternar</span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -1838,14 +2001,19 @@
             </div>
         </div>
 
-        <!-- CTA Acesso Sistema na seção Solução -->
         <div class="text-center mt-5 fade-in-up">
-            <a href="https://emendas-system.squareweb.app/login/?next=/tenant/" 
-               target="_blank" rel="noopener" class="btn-hero-acesso" style="background: linear-gradient(135deg, #0d47a1, #1a73e8); box-shadow: 0 8px 24px rgba(13, 71, 161, 0.35);">
-                <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
-                Acessar o Sistema de Emendas
-            </a>
-            <p class="small text-muted mt-3 mb-0">Já é cliente? Faça login para gerenciar suas emendas impositivas.</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+
+                <a href="https://emendas-system.squareweb.app/login/?next=/tenant/" 
+                   target="_blank" rel="noopener" class="btn-hero-acesso" 
+                   style="background: linear-gradient(135deg, #0d47a1, #1a73e8); box-shadow: 0 8px 24px rgba(13, 71, 161, 0.35);">
+                    <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+                    Acessar o Sistema
+                </a>
+            </div>
+            <p class="small text-muted mt-3 mb-0">
+                Experimente sem cadastro — ou faça login se já for cliente.
+            </p>
         </div>
     </div>
 </section>
@@ -2113,7 +2281,7 @@
     </div>
 </section>
 
-<!-- ==================== CONFORMIDADE COM TRIBUNAIS DE CONTAS ==================== -->
+<!-- ==================== CONFORMIDADE ==================== -->
 <section class="section conformidade-section" id="conformidade">
     <div class="container conformidade-content">
         <div class="text-center mb-5 fade-in-up">
@@ -2428,13 +2596,15 @@
             de emendas impositivas em transparência real.
         </p>
         <div class="d-flex justify-content-center gap-3 flex-wrap">
-
+            <a href="demo.html" class="btn-cta-acesso">
+                <i class="fas fa-play-circle" aria-hidden="true"></i>
+                Ver Demonstração Interativa
+            </a>
             <a href="mailto:robsonribeirocontabilidade@gmail.com?subject=Quero%20conhecer%20o%20Emendas%20Rastre%C3%A1veis&body=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20sistema." 
                class="btn-cta-primary">
                 <i class="fas fa-envelope" aria-hidden="true"></i>
                 Falar com Especialista
             </a>
-
         </div>
         <p class="mt-4 small" style="opacity: 0.7;">
             <i class="fas fa-shield-alt me-1" aria-hidden="true"></i>
@@ -2458,11 +2628,17 @@
                     </div>
                 </div>
                 <p>Rastreabilidade completa de emendas impositivas municipais. Da Câmara à Prefeitura, do papel à obra concluída.</p>
-                <a href="https://emendas-system.squareweb.app/login/?next=/tenant/" 
-                   target="_blank" rel="noopener" class="footer-acesso">
-                    <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
-                    Acessar o Sistema
-                </a>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="demo.html" class="footer-acesso" style="background: rgba(0,200,83,0.15); border-color: rgba(0,200,83,0.4);">
+                        <i class="fas fa-play-circle" aria-hidden="true"></i>
+                        Ver Demonstração
+                    </a>
+                    <a href="https://emendas-system.squareweb.app/login/?next=/tenant/" 
+                       target="_blank" rel="noopener" class="footer-acesso">
+                        <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+                        Acessar o Sistema
+                    </a>
+                </div>
             </div>
             <div class="col-md-3 mb-4">
                 <h6 class="text-white fw-bold mb-3">Contato</h6>
@@ -2510,6 +2686,7 @@
             status: 'Em análise na Controladoria',
             statusIcon: 'fa-search',
             statusBg: 'linear-gradient(135deg, #1a73e8, #0d47a1)',
+            statusColor: '#1a73e8',
             prazo: '07/02/2026',
             progresso: 60,
             etapas: [
@@ -2528,6 +2705,7 @@
             status: 'Concluída',
             statusIcon: 'fa-flag-checkered',
             statusBg: 'linear-gradient(135deg, #00c853, #00897b)',
+            statusColor: '#00c853',
             prazo: 'Concluído em 12/03/2026',
             progresso: 100,
             etapas: [
@@ -2547,6 +2725,7 @@
             status: 'Devolvida para ajustes',
             statusIcon: 'fa-undo',
             statusBg: 'linear-gradient(135deg, #ffab00, #e65100)',
+            statusColor: '#ffab00',
             prazo: 'Vence em 20/04/2026',
             progresso: 35,
             etapas: [
@@ -2559,7 +2738,7 @@
         }
     ];
 
-    // ==================== RENDER ====================
+    // ==================== ELEMENTOS ====================
     const tabsContainer = document.getElementById('emendaTabs');
     const timelineContainer = document.getElementById('timelineSim');
     const statusPanel = document.getElementById('statusPanel');
@@ -2571,15 +2750,21 @@
 
     let currentEmenda = 0;
 
+    // ==================== RENDER ABAS ====================
     function renderTabs() {
         tabsContainer.innerHTML = '';
         emendas.forEach((e, i) => {
             const tab = document.createElement('div');
             tab.className = 'emenda-tab' + (i === currentEmenda ? ' active' : '');
+            tab.style.setProperty('--status-color', e.statusColor);
             tab.setAttribute('role', 'button');
             tab.setAttribute('tabindex', '0');
+            tab.setAttribute('aria-pressed', i === currentEmenda ? 'true' : 'false');
             tab.innerHTML = `
-                <div class="numero">${e.numero}</div>
+                <div class="numero">
+                    <span class="dot-status"></span>
+                    ${e.numero}
+                </div>
                 <div class="titulo">${e.titulo}</div>
                 <div class="valor">${e.valor}</div>
             `;
@@ -2594,6 +2779,7 @@
         });
     }
 
+    // ==================== RENDER TIMELINE ====================
     function renderTimeline(emenda) {
         timelineContainer.innerHTML = '';
         emenda.etapas.forEach((etapa, i) => {
@@ -2616,16 +2802,19 @@
         });
     }
 
+    // ==================== STATUS ====================
     function updateStatus(emenda) {
         statusIcon.style.background = emenda.statusBg;
         statusIcon.innerHTML = `<i class="fas ${emenda.statusIcon}" aria-hidden="true"></i>`;
         statusValue.textContent = emenda.status;
         statusPrazo.textContent = emenda.prazo;
+
         statusPanel.classList.remove('atualizada');
         void statusPanel.offsetWidth;
         statusPanel.classList.add('atualizada');
     }
 
+    // ==================== PROGRESSO ====================
     function updateProgress(emenda) {
         progressFill.style.width = '0%';
         progressPercent.textContent = '0%';
@@ -2635,6 +2824,7 @@
         }, 100);
     }
 
+    // ==================== SELEÇÃO ====================
     function selectEmenda(index) {
         currentEmenda = index;
         const emenda = emendas[index];
@@ -2644,13 +2834,14 @@
         updateProgress(emenda);
     }
 
-    // ==================== INTERAÇÕES ====================
+    // ==================== NAVBAR SCROLL ====================
     window.addEventListener('scroll', function() {
         const navbar = document.getElementById('navbar');
         if (window.scrollY > 50) navbar.classList.add('scrolled');
         else navbar.classList.remove('scrolled');
     });
 
+    // ==================== SMOOTH SCROLL ====================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
@@ -2663,6 +2854,7 @@
         });
     });
 
+    // ==================== FADE IN ====================
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -2671,6 +2863,7 @@
 
     document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
 
+    // ==================== AUTO ROTATE ====================
     let autoRotate = setInterval(() => {
         if (!document.hidden) {
             selectEmenda((currentEmenda + 1) % emendas.length);
