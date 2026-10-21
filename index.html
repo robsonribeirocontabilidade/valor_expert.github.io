@@ -580,8 +580,8 @@
             margin-top: 0.4rem;
         }
 
-        /* ==================== SIMULADOR REDESENHADO ==================== */
-        .simulador {
+        /* ==================== PAINEL DE AVISO DE SEGURANÇA ==================== */
+        .aviso-seguranca {
             background: white;
             border-radius: 22px;
             padding: 0;
@@ -589,236 +589,90 @@
             color: var(--gray-900);
             border: 1px solid rgba(255,255,255,0.2);
             overflow: hidden;
+            position: relative;
         }
 
-        /* -------- Cabeçalho do simulador -------- */
-        .simulador-topo {
-            background: linear-gradient(135deg, #0f2740 0%, #0d47a1 100%);
-            padding: 1.25rem 1.5rem;
+        .aviso-topo {
+            background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
+            padding: 1.35rem 1.6rem;
             color: white;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+            gap: 0.9rem;
         }
 
-        .simulador-topo .titulo-grupo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .simulador-topo .icone {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.14);
+        .aviso-topo .icone-alerta {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.18);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.3);
+            animation: pulseAlerta 2s infinite;
         }
 
-        .simulador-topo .titulo-texto .linha1 {
+        @keyframes pulseAlerta {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.3); }
+            50% { box-shadow: 0 0 0 8px rgba(255,255,255,0); }
+        }
+
+        .aviso-topo .titulo-grupo .linha1 {
             font-size: 0.68rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.12em;
-            color: rgba(255,255,255,0.65);
+            color: rgba(255,255,255,0.75);
         }
 
-        .simulador-topo .titulo-texto .linha2 {
-            font-size: 1rem;
-            font-weight: 700;
+        .aviso-topo .titulo-grupo .linha2 {
+            font-size: 1.15rem;
+            font-weight: 800;
             color: white;
             margin-top: 2px;
+            letter-spacing: -0.01em;
         }
 
-        .simulador-topo .live-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(0, 200, 83, 0.15);
-            border: 1px solid rgba(0, 200, 83, 0.35);
-            color: #7dffb0;
-            padding: 0.35rem 0.85rem;
-            border-radius: 50px;
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
+        .aviso-corpo { padding: 1.6rem; }
+
+        .aviso-corpo p {
+            font-size: 0.92rem;
+            color: var(--gray-700);
+            line-height: 1.65;
+            margin-bottom: 1.1rem;
         }
 
-        .simulador-topo .live-badge .dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #00e676;
-            animation: pulse 1.6s infinite;
-        }
+        .aviso-corpo p strong { color: var(--gray-900); }
 
-        /* -------- Corpo do simulador -------- */
-        .simulador-corpo { padding: 1.5rem; }
-
-        /* -------- Abas horizontais de emenda -------- */
-        .emenda-tabs {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.65rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .emenda-tab {
-            position: relative;
-            padding: 0.85rem 0.9rem 0.85rem 1.1rem;
-            background: var(--gray-100);
-            border: 2px solid transparent;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            text-align: left;
-            overflow: hidden;
-        }
-
-        /* Barra lateral colorida por status */
-        .emenda-tab::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--status-color, var(--gray-300));
-            transition: all 0.25s ease;
-        }
-
-        .emenda-tab:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(26,115,232,0.12);
-        }
-
-        .emenda-tab.active {
-            background: linear-gradient(135deg, #ffffff, #f0f7ff);
-            border-color: var(--status-color, var(--primary));
-            box-shadow: 0 8px 20px rgba(26,115,232,0.15);
-        }
-
-        .emenda-tab.active::before { width: 5px; }
-
-        .emenda-tab .numero {
-            font-size: 0.65rem;
-            font-weight: 700;
-            color: var(--gray-500);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.3rem;
+        .aviso-numero {
             display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .emenda-tab .numero .dot-status {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--status-color, var(--gray-300));
-            flex-shrink: 0;
-        }
-
-        .emenda-tab .titulo {
-            font-size: 0.83rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            line-height: 1.3;
-            margin-bottom: 0.45rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .emenda-tab .valor {
-            font-size: 0.72rem;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        /* -------- Painel unificado de status + progresso -------- */
-        .status-panel {
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 1.1rem 1.25rem;
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .status-panel.atualizada { animation: flash 0.6s ease; }
-
-        @keyframes flash {
-            0% { background: linear-gradient(135deg, #f8fafc, #f1f5f9); }
-            50% { background: linear-gradient(135deg, #fff8e1, #fffde7); }
-            100% { background: linear-gradient(135deg, #f8fafc, #f1f5f9); }
-        }
-
-        /* Linha superior: status + prazo */
-        .status-linha-topo {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
             gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px dashed #cbd5e0;
+            background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+            border: 2px solid #00c853;
+            border-radius: 14px;
+            padding: 1.1rem 1.25rem;
+            margin-bottom: 1.1rem;
         }
 
-        .status-atual { display: flex; align-items: center; gap: 0.85rem; }
-
-        .status-icon {
-            width: 46px;
-            height: 46px;
+        .aviso-numero .icone-whats {
+            width: 48px;
+            height: 48px;
             border-radius: 12px;
+            background: linear-gradient(135deg, #25d366, #00897b);
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.05rem;
-            color: white;
+            font-size: 1.4rem;
             flex-shrink: 0;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
+            box-shadow: 0 6px 16px rgba(37,211,102,0.35);
         }
 
-        .status-info .label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--gray-500);
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-
-        .status-info .value {
-            font-size: 0.98rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            line-height: 1.2;
-        }
-
-        .status-prazo {
-            text-align: right;
-            background: white;
-            padding: 0.5rem 0.9rem;
-            border-radius: 10px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .status-prazo .label {
+        .aviso-numero .texto .label {
             font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
@@ -826,202 +680,61 @@
             font-weight: 700;
         }
 
-        .status-prazo .value {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            margin-top: 2px;
-        }
-
-        /* Linha inferior: progresso embutido */
-        .status-progresso { display: flex; align-items: center; gap: 0.9rem; }
-
-        .status-progresso .progresso-label {
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--gray-500);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            white-space: nowrap;
-        }
-
-        .status-progresso .progress-track {
-            flex: 1;
-            height: 8px;
-            background: #e2e8f0;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .status-progresso .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--success), var(--primary));
-            border-radius: 4px;
-            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .status-progresso .progress-fill::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .status-progresso .progresso-valor {
-            font-size: 0.88rem;
+        .aviso-numero .texto .numero-oficial {
+            font-size: 1.35rem;
             font-weight: 800;
-            color: var(--primary);
-            min-width: 48px;
-            text-align: right;
+            color: #1b5e20;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
         }
 
-        /* -------- Timeline -------- */
-        .timeline-sim {
-            position: relative;
-            padding-left: 2.4rem;
-            max-height: 290px;
-            overflow-y: auto;
-            padding-right: 0.5rem;
-        }
-
-        .timeline-sim::-webkit-scrollbar { width: 6px; }
-        .timeline-sim::-webkit-scrollbar-track { background: var(--gray-100); border-radius: 3px; }
-        .timeline-sim::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
-        .timeline-sim::-webkit-scrollbar-thumb:hover { background: var(--gray-500); }
-
-        .timeline-sim::before {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 14px;
-            bottom: 14px;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--success) 0%, var(--primary) 40%, var(--gray-300) 100%);
-            border-radius: 1px;
-        }
-
-        .tl-item {
-            position: relative;
-            padding-bottom: 1.1rem;
-            opacity: 0;
-            animation: tlIn 0.4s ease forwards;
-        }
-
-        .tl-item:last-child { padding-bottom: 0; }
-
-        @keyframes tlIn {
-            from { opacity: 0; transform: translateX(-15px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .tl-marker {
-            position: absolute;
-            left: -2.4rem;
-            top: 0;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.7rem;
-            box-shadow: 0 0 0 3px white, 0 0 0 5px var(--gray-100);
-            z-index: 1;
-        }
-
-        .tl-marker.completed { background: var(--success); }
-        .tl-marker.current { background: var(--primary); animation: ring 2s infinite; }
-        .tl-marker.pending { background: var(--gray-300); color: var(--gray-500); }
-
-        @keyframes ring {
-            0% { box-shadow: 0 0 0 3px white, 0 0 0 5px var(--gray-100), 0 0 0 0 rgba(26,115,232,0.4); }
-            100% { box-shadow: 0 0 0 3px white, 0 0 0 5px var(--gray-100), 0 0 0 12px rgba(26,115,232,0); }
-        }
-
-        .tl-content {
-            background: var(--gray-100);
-            padding: 0.7rem 0.95rem;
-            border-radius: 10px;
-            border-left: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .tl-item.current .tl-content {
-            background: var(--primary-light);
-            border-left-color: var(--primary);
-        }
-
-        .tl-item.completed .tl-content { border-left-color: var(--success); }
-
-        .tl-title {
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: var(--gray-900);
-            margin-bottom: 0.25rem;
-        }
-
-        .tl-meta {
-            font-size: 0.72rem;
-            color: var(--gray-500);
-            display: flex;
-            gap: 0.85rem;
-            flex-wrap: wrap;
-        }
-
-        .tl-meta span { display: inline-flex; align-items: center; gap: 0.3rem; }
-
-        /* -------- Rodapé do simulador -------- */
-        .simulador-rodape {
-            margin-top: 1.25rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .simulador-rodape .hint {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.72rem;
-            color: var(--gray-500);
-            font-weight: 500;
-        }
-
-        .simulador-rodape .hint i { color: var(--primary); }
-
-        .simulador-rodape .link-demo {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 0.55rem 1.1rem;
-            border-radius: 10px;
-            font-size: 0.78rem;
-            font-weight: 700;
+        .aviso-numero .texto .numero-oficial a {
+            color: #1b5e20;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(26,115,232,0.25);
         }
 
-        .simulador-rodape .link-demo:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(26,115,232,0.4);
-            color: white;
+        .aviso-numero .texto .numero-oficial a:hover { text-decoration: underline; }
+
+        .aviso-lista {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.1rem 0;
         }
+
+        .aviso-lista li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            font-size: 0.86rem;
+            color: var(--gray-700);
+            padding: 0.45rem 0;
+            line-height: 1.5;
+        }
+
+        .aviso-lista li i {
+            color: #d32f2f;
+            font-size: 0.8rem;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .aviso-lista li strong { color: var(--gray-900); }
+
+        .aviso-rodape {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            border-radius: 10px;
+            padding: 0.75rem 0.95rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #8d6e00;
+            line-height: 1.4;
+        }
+
+        .aviso-rodape i { font-size: 0.95rem; color: #f9a825; flex-shrink: 0; }
 
         /* ==================== SEÇÕES ==================== */
         .section { padding: 5rem 0; }
@@ -1713,9 +1426,10 @@
             .hero-stats { gap: 1.5rem; }
             .hero-stat-item .number { font-size: 1.5rem; }
             .cta-final h2 { font-size: 1.55rem; }
-            .emenda-tabs { grid-template-columns: 1fr; }
-            .simulador-corpo { padding: 1.1rem; }
-            .simulador-topo { padding: 1rem 1.1rem; }
+            .aviso-corpo { padding: 1.1rem; }
+            .aviso-topo { padding: 1.1rem 1.2rem; }
+            .aviso-topo .titulo-grupo .linha2 { font-size: 1rem; }
+            .aviso-numero { flex-direction: column; align-items: flex-start; gap: 0.65rem; }
             .whatsapp-float { width: 52px; height: 52px; font-size: 1.45rem; }
             .video-wrapper { border-radius: 14px; }
             .brand-text { font-size: 1rem; }
@@ -1725,10 +1439,6 @@
             .btn-acesso-sistema span { display: none; }
             .btn-demo-nav { padding: 0.5rem 1rem; font-size: 0.8rem; }
             .btn-demo-nav span { display: none; }
-            .status-linha-topo { flex-direction: column; align-items: flex-start; }
-            .status-prazo { width: 100%; text-align: left; }
-            .simulador-rodape { flex-direction: column; align-items: stretch; }
-            .simulador-rodape .link-demo { justify-content: center; }
         }
 
         @media (max-width: 400px) {
@@ -1775,9 +1485,9 @@
                 <a href="#video" class="nav-link-custom">Vídeo</a>
                 <a href="#conformidade" class="nav-link-custom">Conformidade</a>
                 <a href="#faq" class="nav-link-custom">Dúvidas</a>
-                <a href="demo.html" class="btn-demo-nav" title="Ver demonstração interativa">
+                <a href="demo.html" class="btn-demo-nav" title="Acessar demonstração">
                     <i class="fas fa-play-circle" aria-hidden="true"></i>
-                    <span>Ver Demonstração</span>
+                    <span>Acessar Demonstração</span>
                 </a>
                 <a href="https://emendas-system.squareweb.app/login/?next=/tenant/" 
                    target="_blank" rel="noopener" class="btn-acesso-sistema">
@@ -1831,71 +1541,56 @@
                 </div>
             </div>
 
-            <!-- ==================== SIMULADOR INTERATIVO ==================== -->
+            <!-- ==================== PAINEL DE AVISO DE SEGURANÇA ==================== -->
             <div class="col-lg-6">
-                <div class="simulador">
-
-                    <!-- Cabeçalho -->
-                    <div class="simulador-topo">
-                        <div class="titulo-grupo">
-                            <div class="icone">
-                                <i class="fas fa-route" aria-hidden="true"></i>
-                            </div>
-                            <div class="titulo-texto">
-                                <div class="linha1">Simulador Interativo</div>
-                                <div class="linha2">Rastreamento de Emendas</div>
-                            </div>
+                <div class="aviso-seguranca fade-in-up">
+                    <div class="aviso-topo">
+                        <div class="icone-alerta">
+                            <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
                         </div>
-                        <div class="live-badge">
-                            <span class="dot"></span>
-                            <span>Demonstração</span>
+                        <div class="titulo-grupo">
+                            <div class="linha1">Aviso Importante</div>
+                            <div class="linha2">Canal Oficial de Atendimento</div>
                         </div>
                     </div>
+                    <div class="aviso-corpo">
+                        <p>
+                            <strong>Atenção:</strong> o único número de telefone oficial da <strong>Valor Expert — Emendas Rastreáveis</strong> é:
+                        </p>
 
-                    <!-- Corpo -->
-                    <div class="simulador-corpo">
-
-                        <!-- Abas -->
-                        <div class="emenda-tabs" id="emendaTabs"></div>
-
-                        <!-- Painel unificado -->
-                        <div class="status-panel" id="statusPanel">
-
-                            <div class="status-linha-topo">
-                                <div class="status-atual">
-                                    <div class="status-icon" id="statusIcon"></div>
-                                    <div class="status-info">
-                                        <div class="label">Status Atual</div>
-                                        <div class="value" id="statusValue">—</div>
-                                    </div>
-                                </div>
-                                <div class="status-prazo">
-                                    <div class="label">Prazo</div>
-                                    <div class="value" id="statusPrazo">—</div>
-                                </div>
+                        <div class="aviso-numero">
+                            <div class="icone-whats">
+                                <i class="fab fa-whatsapp" aria-hidden="true"></i>
                             </div>
-
-                            <div class="status-progresso">
-                                <span class="progresso-label">Progresso</span>
-                                <div class="progress-track">
-                                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                            <div class="texto">
+                                <div class="label">Telefone e WhatsApp oficiais</div>
+                                <div class="numero-oficial">
+                                    <a href="https://wa.me/5513996520177" target="_blank" rel="noopener">
+                                        (13) 99652-0177
+                                    </a>
                                 </div>
-                                <span class="progresso-valor" id="progressPercent">0%</span>
-                            </div>
-
-                        </div>
-
-                        <!-- Timeline -->
-                        <div class="timeline-sim" id="timelineSim"></div>
-
-                        <!-- Rodapé -->
-                        <div class="simulador-rodape">
-                            <div class="hint">
-                                <i class="fas fa-hand-pointer" aria-hidden="true"></i>
-                                <span>Clique nas emendas acima para alternar</span>
                             </div>
                         </div>
 
+                        <ul class="aviso-lista">
+                            <li>
+                                <i class="fas fa-times-circle" aria-hidden="true"></i>
+                                <span><strong>Não confie</strong> em nenhum outro número de telefone, celular ou WhatsApp que entre em contato em nosso nome.</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-ban" aria-hidden="true"></i>
+                                <span><strong>Não realizamos qualquer tipo de solicitação ou cobrança por telefone.</strong> Não pedimos dados bancários, senhas, PIX, depósitos ou pagamentos por ligação.</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                                <span>Se receber uma ligação suspeita se passando pela Valor Expert, <strong>desligue imediatamente</strong> e entre em contato apenas pelo número oficial acima.</span>
+                            </li>
+                        </ul>
+
+                        <div class="aviso-rodape">
+                            <i class="fas fa-info-circle" aria-hidden="true"></i>
+                            <span>Este é um aviso de segurança. Sua proteção é prioridade para nós.</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2607,7 +2302,7 @@
         <div class="d-flex justify-content-center gap-3 flex-wrap">
             <a href="demo.html" class="btn-cta-acesso">
                 <i class="fas fa-play-circle" aria-hidden="true"></i>
-                Ver Demonstração Interativa
+                Acessar Demonstração
             </a>
             <a href="mailto:robsonribeirocontabilidade@gmail.com?subject=Quero%20conhecer%20o%20Emendas%20Rastre%C3%A1veis&body=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20sistema." 
                class="btn-cta-primary">
@@ -2640,7 +2335,7 @@
                 <div class="d-flex flex-wrap gap-2">
                     <a href="demo.html" class="footer-acesso" style="background: rgba(0,200,83,0.15); border-color: rgba(0,200,83,0.4);">
                         <i class="fas fa-play-circle" aria-hidden="true"></i>
-                        Ver Demonstração
+                        Acessar Demonstração
                     </a>
                     <a href="https://emendas-system.squareweb.app/login/?next=/tenant/" 
                        target="_blank" rel="noopener" class="footer-acesso">
@@ -2685,164 +2380,6 @@
 <!-- ==================== SCRIPTS ==================== -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // ==================== DADOS DE EXEMPLO ====================
-    const emendas = [
-        {
-            id: 1,
-            numero: 'Nº 042/2026',
-            titulo: 'Reforma da UBS Central',
-            valor: 'R$ 250.000,00',
-            status: 'Em análise na Controladoria',
-            statusIcon: 'fa-search',
-            statusBg: 'linear-gradient(135deg, #1a73e8, #0d47a1)',
-            statusColor: '#1a73e8',
-            prazo: '07/02/2026',
-            progresso: 60,
-            etapas: [
-                { tipo: 'completed', icon: 'fa-check', titulo: 'Emenda protocolada na Câmara', data: '15/01/2026 09:32', responsavel: 'Vereador João Silva' },
-                { tipo: 'completed', icon: 'fa-check', titulo: 'Aprovada em Plenária', data: '22/01/2026 14:15', responsavel: 'Câmara Municipal' },
-                { tipo: 'completed', icon: 'fa-check', titulo: 'Enviada à Prefeitura', data: '25/01/2026 10:00', responsavel: 'Transferência oficial' },
-                { tipo: 'current', icon: 'fa-spinner', titulo: 'Em análise na Controladoria', data: 'Desde 28/01/2026', responsavel: 'Prazo: 07/02/2026' },
-                { tipo: 'pending', icon: 'fa-circle', titulo: 'Execução e prestação de contas', data: 'Aguardando', responsavel: '' }
-            ]
-        },
-        {
-            id: 2,
-            numero: 'Nº 087/2026',
-            titulo: 'Pavimentação da Rua das Flores',
-            valor: 'R$ 180.000,00',
-            status: 'Concluída',
-            statusIcon: 'fa-flag-checkered',
-            statusBg: 'linear-gradient(135deg, #00c853, #00897b)',
-            statusColor: '#00c853',
-            prazo: 'Concluído em 12/03/2026',
-            progresso: 100,
-            etapas: [
-                { tipo: 'completed', icon: 'fa-check', titulo: 'Emenda protocolada na Câmara', data: '10/01/2026 11:20', responsavel: 'Vereadora Maria Santos' },
-                { tipo: 'completed', icon: 'fa-check', titulo: 'Aprovada em Plenária', data: '18/01/2026 15:45', responsavel: 'Câmara Municipal' },
-                { tipo: 'completed', icon: 'fa-check', titulo: 'Enviada à Prefeitura', data: '20/01/2026 09:00', responsavel: 'Transferência oficial' },
-                { tipo: 'completed', icon: 'fa-check', titulo: 'Aprovada pela Prefeitura', data: '25/01/2026 16:30', responsavel: 'Secretaria de Obras' },
-                { tipo: 'completed', icon: 'fa-check', titulo: 'Execução concluída', data: '12/03/2026 17:00', responsavel: 'Obra entregue' },
-                { tipo: 'completed', icon: 'fa-check', titulo: 'Prestação de contas aprovada', data: '15/03/2026 10:00', responsavel: 'Controladoria' }
-            ]
-        },
-        {
-            id: 3,
-            numero: 'Nº 115/2026',
-            titulo: 'Compra de equipamentos para escola',
-            valor: 'R$ 95.000,00',
-            status: 'Devolvida para ajustes',
-            statusIcon: 'fa-undo',
-            statusBg: 'linear-gradient(135deg, #ffab00, #e65100)',
-            statusColor: '#ffab00',
-            prazo: 'Vence em 20/04/2026',
-            progresso: 35,
-            etapas: [
-                { tipo: 'completed', icon: 'fa-check', titulo: 'Emenda protocolada na Câmara', data: '05/02/2026 08:45', responsavel: 'Vereador Carlos Lima' },
-                { tipo: 'completed', icon: 'fa-check', titulo: 'Aprovada em Plenária', data: '12/02/2026 14:00', responsavel: 'Câmara Municipal' },
-                { tipo: 'completed', icon: 'fa-check', titulo: 'Enviada à Prefeitura', data: '15/02/2026 10:30', responsavel: 'Transferência oficial' },
-                { tipo: 'current', icon: 'fa-undo', titulo: 'Devolvida pela Prefeitura', data: '18/02/2026 16:00', responsavel: 'Motivo: documento faltante' },
-                { tipo: 'pending', icon: 'fa-circle', titulo: 'Reenvio após ajustes', data: 'Aguardando', responsavel: '' }
-            ]
-        }
-    ];
-
-    // ==================== ELEMENTOS ====================
-    const tabsContainer = document.getElementById('emendaTabs');
-    const timelineContainer = document.getElementById('timelineSim');
-    const statusPanel = document.getElementById('statusPanel');
-    const statusIcon = document.getElementById('statusIcon');
-    const statusValue = document.getElementById('statusValue');
-    const statusPrazo = document.getElementById('statusPrazo');
-    const progressFill = document.getElementById('progressFill');
-    const progressPercent = document.getElementById('progressPercent');
-
-    let currentEmenda = 0;
-
-    // ==================== RENDER ABAS ====================
-    function renderTabs() {
-        tabsContainer.innerHTML = '';
-        emendas.forEach((e, i) => {
-            const tab = document.createElement('div');
-            tab.className = 'emenda-tab' + (i === currentEmenda ? ' active' : '');
-            tab.style.setProperty('--status-color', e.statusColor);
-            tab.setAttribute('role', 'button');
-            tab.setAttribute('tabindex', '0');
-            tab.setAttribute('aria-pressed', i === currentEmenda ? 'true' : 'false');
-            tab.innerHTML = `
-                <div class="numero">
-                    <span class="dot-status"></span>
-                    ${e.numero}
-                </div>
-                <div class="titulo">${e.titulo}</div>
-                <div class="valor">${e.valor}</div>
-            `;
-            tab.addEventListener('click', () => selectEmenda(i));
-            tab.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    selectEmenda(i);
-                }
-            });
-            tabsContainer.appendChild(tab);
-        });
-    }
-
-    // ==================== RENDER TIMELINE ====================
-    function renderTimeline(emenda) {
-        timelineContainer.innerHTML = '';
-        emenda.etapas.forEach((etapa, i) => {
-            const item = document.createElement('div');
-            item.className = 'tl-item ' + etapa.tipo;
-            item.style.animationDelay = (i * 0.08) + 's';
-            item.innerHTML = `
-                <div class="tl-marker ${etapa.tipo}">
-                    <i class="fas ${etapa.icon}" aria-hidden="true"></i>
-                </div>
-                <div class="tl-content">
-                    <div class="tl-title">${etapa.titulo}</div>
-                    <div class="tl-meta">
-                        <span><i class="far fa-clock" aria-hidden="true"></i>${etapa.data}</span>
-                        ${etapa.responsavel ? `<span><i class="far fa-user" aria-hidden="true"></i>${etapa.responsavel}</span>` : ''}
-                    </div>
-                </div>
-            `;
-            timelineContainer.appendChild(item);
-        });
-    }
-
-    // ==================== STATUS ====================
-    function updateStatus(emenda) {
-        statusIcon.style.background = emenda.statusBg;
-        statusIcon.innerHTML = `<i class="fas ${emenda.statusIcon}" aria-hidden="true"></i>`;
-        statusValue.textContent = emenda.status;
-        statusPrazo.textContent = emenda.prazo;
-
-        statusPanel.classList.remove('atualizada');
-        void statusPanel.offsetWidth;
-        statusPanel.classList.add('atualizada');
-    }
-
-    // ==================== PROGRESSO ====================
-    function updateProgress(emenda) {
-        progressFill.style.width = '0%';
-        progressPercent.textContent = '0%';
-        setTimeout(() => {
-            progressFill.style.width = emenda.progresso + '%';
-            progressPercent.textContent = emenda.progresso + '%';
-        }, 100);
-    }
-
-    // ==================== SELEÇÃO ====================
-    function selectEmenda(index) {
-        currentEmenda = index;
-        const emenda = emendas[index];
-        renderTabs();
-        renderTimeline(emenda);
-        updateStatus(emenda);
-        updateProgress(emenda);
-    }
-
     // ==================== NAVBAR SCROLL ====================
     window.addEventListener('scroll', function() {
         const navbar = document.getElementById('navbar');
@@ -2872,17 +2409,6 @@
 
     document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
 
-    // ==================== AUTO ROTATE ====================
-    let autoRotate = setInterval(() => {
-        if (!document.hidden) {
-            selectEmenda((currentEmenda + 1) % emendas.length);
-        }
-    }, 6000);
-
-    tabsContainer.addEventListener('click', () => {
-        clearInterval(autoRotate);
-    });
-
     // ==================== FAQ ACCORDION ====================
     document.querySelectorAll('.faq-question').forEach(question => {
         const toggle = () => {
@@ -2899,9 +2425,6 @@
             }
         });
     });
-
-    // ==================== INICIALIZAÇÃO ====================
-    selectEmenda(0);
 </script>
 
 </body>
